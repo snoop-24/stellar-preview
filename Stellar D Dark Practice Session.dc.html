@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0a1322}a{color:#7dd3fc;text-decoration:none}a:hover{color:#bae6fd}button{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #38bdf8!important;outline-offset:2px}input::placeholder,textarea::placeholder{color:#8a8f99}@keyframes st-pop{0%{opacity:0;transform:translateY(4px) scale(.7)}50%{opacity:1;transform:translateY(-1px) scale(1.12)}100%{opacity:1;transform:none}}@keyframes st-twinkle{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}@keyframes st-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="--bg:#0a1322;--chip:#0c2a40;--chipIc:#7dd3fc;--cardLn:#173a58;--hdr:#7dd3fc;--navOn:#0c3a57;--you:#7dd3fc;--onAc:#082f49;--ice:#a5dcf3;--iceD:#c4e9f8;--iceT:#12232c;--sl:#94a3b8;--slL:#475569;--lsky:#bae6fd;--tb0:#0f2533;--tb1:#0c2a40;--tb2:#0c3a57;--tb3:#0b4a6e;--tb4:#075985;--tb5:#0369a1;--tb6:#0ea5e9;--tb7:#38bdf8;--tb8:#7dd3fc;--tb9:#bae6fd;--tb10:#e0f2fe;--ti0:#bae6fd;--ti1:#bae6fd;--ti2:#e0f2fe;--ti3:#e0f2fe;--ti4:#e0f2fe;--ti5:#e0f2fe;--ti6:#082f49;--ti7:#082f49;--ti8:#082f49;--ti9:#082f49;--ti10:#082f49;--track:#243651;--flame:#fb923c;--err:#f87171;--card:#101c30;--ink:#eceef2;--mu:#9eabbd;--ln:#1f3049;--soft:#172539;--ac:#38bdf8;--acD:#7dd3fc;--acT:#082f49;--sun:#38bdf8;--sunD:#7dd3fc;--sunT:#082f49;--sky:#38bdf8;--skyD:#7dd3fc;--skyT:#0c2a40;--lilac:#22d3ee;--lilacD:#67e8f9;--lilacT:#083344;--mint:#2dd4bf;--mintD:#5eead4;--mintT:#042f2e;--rail:#0c1a2d;--hov:#18283f;--glass:rgba(255,255,255,0.06);--ln2:#2c405e;--mu2:#5f6f86;--acInk:#bae6fd;--acInk2:#7dd3fc;--acH:#7dd3fc;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;min-height:100vh;display:flex;">
+  <div style="flex:1;min-width:0;height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+    <header style="flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;padding:8px clamp(14px,2vw,24px);background:var(--card);border-bottom:1px solid var(--cardLn);">
+      <div style="min-width:0;display:flex;align-items:center;gap:12px;">
+        <a href="{{ exitHref }}" aria-label="Save and exit" title="Save and exit" style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:10px;color:var(--ink);" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-arrow-left" style="font-size:18px;"></i></a>
+        <span style="min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Limits and Continuity</span><span style="font-size:13px;color:var(--mu);white-space:nowrap;">Smart Practice · AP® Calculus AB</span></span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;">Question {{ qn }}</span>
+        <span role="img" style="display:flex;align-items:center;gap:5px;" aria-label="{{ dotsLabel }}"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="3"><span style="width:10px;height:10px;border-radius:50%;box-sizing:border-box;border:{{ d.border }};background:{{ d.bg }};"></span></sc-for></span>
+      </div>
+      <div style="position:relative;display:flex;justify-content:flex-end;gap:2px;">
+        <button onClick="{{ toggleHl }}" aria-pressed="{{ hl }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:64px;height:52px;justify-content:center;padding:0 8px;border:0;border-radius:10px;background:{{ hlBg }};color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--hov);"><i class="ph ph-highlighter" style="font-size:20px;color:var(--chipIc);"></i>Highlights &amp; Notes</button>
+        <button onClick="{{ toggleCalc }}" aria-pressed="{{ calc }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:64px;height:52px;justify-content:center;padding:0 8px;border:0;border-radius:10px;background:{{ calcBg }};color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--hov);"><i class="ph ph-calculator" style="font-size:20px;color:var(--chipIc);"></i>Calculator</button>
+        <a href="{{ exitHref }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:64px;height:52px;justify-content:center;padding:0 8px;border-radius:10px;color:var(--ink);font-size:12px;font-weight:600;white-space:nowrap;box-sizing:border-box;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-sign-out" style="font-size:20px;color:var(--chipIc);"></i>Save and exit</a>
+      </div>
+    </header>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 6px minmax(0,1.15fr);background:var(--bg);">
+      <section style="min-height:0;overflow:auto;padding:28px clamp(18px,3vw,40px);display:flex;flex-direction:column;gap:18px;">
+        <span style="align-self:flex-start;display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:var(--chip);color:var(--acD);font-size:12px;font-weight:700;"><i class="ph ph-book-open" style="font-size:14px;color:var(--chipIc);"></i>1.14 Connecting Infinite Limits and Vertical Asymptotes</span>
+        <p style="margin:0;font-family:'Cambria Math','STIX Two Math',Georgia,serif;font-size:19px;line-height:1.6;">Let <i>f</i>(<i>x</i>) = <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-size:0.92em;white-space:nowrap;"><span style="padding:0 4px 2px;border-bottom:1.4px solid currentColor;">(<i>x</i> − 1)(<i>x</i> + 5)<sup>2</sup></span><span style="padding:2px 4px 0;">(<i>x</i> − 3)<sup>2</sup>(<i>x</i> + 2)</span></span>.</p>
+        <sc-if value="{{ showWork }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:14px;background:var(--card);border:1px solid var(--cardLn);">
+          <span style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--mu);"><i class="ph ph-note-pencil" style="font-size:15px;color:var(--chipIc);"></i>What you know so far</span>
+          <sc-for list="{{ work }}" as="w" hint-placeholder-count="1"><div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;"><i class="ph-fill ph-check-circle" style="font-size:17px;color:var(--mint);margin-top:2px;flex:none;"></i><span>{{ w }}</span></div></sc-for>
+        </div></sc-if>
+      </section>
+      <div style="display:grid;place-items:center;background:var(--cardLn);"><span style="display:grid;place-items:center;width:18px;height:34px;border-radius:6px;background:var(--card);border:1px solid var(--ln2);color:var(--mu);"><i class="ph-bold ph-dots-six-vertical" style="font-size:12px;"></i></span></div>
+      <section style="min-height:0;overflow:auto;padding:22px clamp(18px,3vw,40px) 28px;display:flex;flex-direction:column;gap:14px;">
+        <p style="margin:0;font-family:'Cambria Math','STIX Two Math',Georgia,serif;font-size:18px;line-height:1.7;">Which list gives <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin-right:3px;"><span>lim</span><span style="font-size:0.62em;margin-top:2px;"><i>x</i>→−2<sup>−</sup></span></span><i>f</i>(<i>x</i>), <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin-right:3px;"><span>lim</span><span style="font-size:0.62em;margin-top:2px;"><i>x</i>→−2<sup>+</sup></span></span><i>f</i>(<i>x</i>), <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin-right:3px;"><span>lim</span><span style="font-size:0.62em;margin-top:2px;"><i>x</i>→3<sup>−</sup></span></span><i>f</i>(<i>x</i>), and <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin-right:3px;"><span>lim</span><span style="font-size:0.62em;margin-top:2px;"><i>x</i>→3<sup>+</sup></span></span><i>f</i>(<i>x</i>), in that order?</p>
+        <div role="radiogroup" aria-label="Answer choices" style="display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4"><button role="radio" onClick="{{ o.go }}" aria-checked="{{ o.on }}" disabled="{{ o.locked }}" style="display:flex;align-items:center;gap:14px;min-height:52px;padding:8px 14px;box-sizing:border-box;border-radius:12px;border:{{ o.border }};background:{{ o.bg }};color:var(--ink);text-align:left;cursor:{{ o.cursor }};opacity:{{ o.op }};" style-hover="border-color:{{ o.hov }};"><span style="display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:50%;border:1.5px solid {{ o.ring }};background:{{ o.dot }};color:{{ o.dotInk }};font-size:13px;font-weight:700;"><i class="{{ o.icon }}" style="font-size:15px;"></i>{{ o.letter }}</span><span style="flex:1;font-family:'Cambria Math','STIX Two Math',Georgia,serif;font-size:18px;">{{ o.t }}</span><sc-if value="{{ o.tag }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;color:{{ o.tagInk }};white-space:nowrap;">{{ o.tag }}</span></sc-if></button></sc-for>
+        </div>
+
+        <sc-if value="{{ isWrong }}" hint-placeholder-val="{{ true }}"><div role="status" style="flex:none;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--cardLn);">
+          <i class="ph-duotone ph-x-circle" style="font-size:22px;color:var(--err);flex:none;"></i>
+          <span style="display:flex;flex-direction:column;gap:3px;font-size:14px;line-height:1.5;"><strong style="font-size:15px;">Not quite. Two of your four limits are off.</strong><span style="color:var(--mu);">Try again whenever you're ready. Hints don't cost you anything.</span></span>
+        </div></sc-if>
+        <sc-if value="{{ isRight }}" hint-placeholder-val="{{ false }}"><div role="status" style="flex:none;display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;background:var(--mintT);border:1px solid color-mix(in srgb,var(--mint) 35%,var(--card));">
+          <i class="ph-duotone ph-check-circle" style="font-size:24px;color:var(--mint);flex:none;"></i>
+          <span style="flex:1;display:flex;flex-direction:column;gap:3px;font-size:14px;line-height:1.5;"><strong style="font-size:15px;color:var(--mintD);">{{ rightTitle }}</strong><span style="color:var(--mu);">{{ rightSub }}</span></span>
+          <span style="display:flex;align-items:center;gap:4px;font-size:14px;font-weight:700;color:var(--mintD);white-space:nowrap;"><i class="ph-fill ph-lightning" style="font-size:15px;"></i>+10 XP</span>
+        </div></sc-if>
+
+        <sc-if value="{{ showCoach }}" hint-placeholder-val="{{ true }}"><div style="flex:none;display:flex;flex-direction:column;border-radius:16px;background:var(--card);border:1px solid var(--cardLn);overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--cardLn);">
+            <span style="display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:10px;background:var(--chip);"><i class="ph-duotone ph-star-four" style="font-size:20px;color:var(--chipIc);"></i></span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:600;">Work through it with Nova</span><span style="font-size:13px;color:var(--mu);">One step at a time. You decide how much help you get.</span></span>
+          </div>
+          <div role="img" style="display:flex;gap:6px;padding:12px 16px 0;" aria-label="{{ ladderLabel }}"><sc-for list="{{ ladder }}" as="l" hint-placeholder-count="4"><span style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;"><span style="height:4px;border-radius:999px;background:{{ l.bar }};"></span><span style="font-size:12px;font-weight:700;color:{{ l.ink }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ l.name }}</span></span></sc-for></div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding:12px 16px 4px;">
+            <sc-if value="{{ noHints }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;line-height:1.55;color:var(--mu);">Want a nudge? Start with a hint. You can always go one step further.</span></sc-if>
+            <sc-for list="{{ shown }}" as="h" hint-placeholder-count="1"><div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--skyT);border:1px solid var(--cardLn);"><span style="display:grid;place-items:center;min-width:22px;height:22px;padding:0 4px;box-sizing:border-box;flex:none;border-radius:6px;background:var(--acT);color:var(--acD);font-size:12px;font-weight:700;margin-top:1px;">{{ h.n }}</span><span style="display:flex;flex-direction:column;gap:4px;min-width:0;"><span style="font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--acD);">{{ h.name }}</span><span style="font-size:15px;line-height:1.6;text-wrap:pretty;">{{ h.t }}</span></span></div></sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 16px 14px;">
+            <sc-if value="{{ canNext }}" hint-placeholder-val="{{ true }}"><button onClick="{{ nextHint }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 14px;box-sizing:border-box;border:1px solid var(--ac);border-radius:12px;background:var(--card);color:var(--acD);font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acT);"><i class="ph ph-lightbulb" style="font-size:16px;"></i>{{ nextLabel }}</button></sc-if>
+            <sc-if value="{{ canSol }}" hint-placeholder-val="{{ true }}"><button onClick="{{ showSol }}" style="height:40px;padding:0 10px;border:0;border-radius:10px;background:transparent;color:var(--mu);font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px;" style-hover="color:var(--ink);">Show full solution</button></sc-if>
+          </div>
+          <sc-if value="{{ solNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:10px;align-items:center;margin:0 16px 14px;padding:10px 12px;border-radius:12px;background:var(--soft);font-size:13px;line-height:1.5;color:var(--mu);"><i class="ph ph-arrows-clockwise" style="font-size:17px;color:var(--chipIc);flex:none;"></i>No problem. We'll bring back a similar question in a later session so it sticks.</div></sc-if>
+          <label style="display:flex;align-items:center;gap:10px;margin:0 16px 16px;height:46px;padding:0 6px 0 14px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--mu);">
+            <i class="ph ph-chat-circle" style="font-size:18px;flex:none;color:var(--chipIc);"></i>
+            <input aria-label="Ask Nova about this question" value="{{ ask }}" onChange="{{ setAsk }}" placeholder="Ask Nova about this question…" style="flex:1;min-width:0;background:transparent;border:0;color:var(--ink);font:inherit;font-size:14px;">
+            <button aria-label="Send" style="display:grid;place-items:center;width:34px;height:34px;flex:none;border:0;border-radius:9px;background:{{ sendBg }};color:{{ sendInk }};cursor:pointer;"><i class="ph-bold ph-arrow-up" style="font-size:15px;"></i></button>
+          </label>
+        </div></sc-if>
+
+
+        <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--mu);line-height:1.5;"><span>Question ID: <strong style="color:var(--ink);">1990714890475669811</strong></span></div>
+      </section>
+    </div>
+    <footer style="flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding:10px clamp(14px,2vw,24px);background:var(--card);border-top:1px solid var(--cardLn);">
+      <div style="min-width:0;display:flex;align-items:center;gap:12px;">
+        <span role="img" style="display:flex;gap:3px;" aria-label="{{ masteryLabel }}"><sc-for list="{{ stars }}" as="st" hint-placeholder-count="5"><i class="{{ st.icon }}" style="font-size:18px;color:{{ st.ink }};"></i></sc-for></span>
+        <span style="min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Understanding · 1.14 Infinite Limits</span><span style="font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ masterySub }}</span></span>
+      </div>
+      <span></span>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 16px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ln2);"><i class="ph ph-flag"></i>Report error</button>
+        <sc-if value="{{ canSkip }}" hint-placeholder-val="{{ true }}"><button onClick="{{ skip }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 16px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ln2);">Skip</button></sc-if>
+        <button onClick="{{ primary }}" disabled="{{ primaryOff }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;box-sizing:border-box;border:1px solid {{ primaryBg }};border-radius:12px;background:{{ primaryBg }};color:{{ primaryInk }};font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);">{{ primaryLabel }}</button>
+      </div>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  P = 'Stellar D Dark ';
+  h(f, q) { return encodeURI(this.P + f + '.dc.html') + (q || ''); }
+  ANSWER = 'B';
+  HINTS = [
+    ['Hint', 'Start at x = 3. The factor (x − 3)² is squared, so it stays positive on both sides of 3. Can f(x) head to +∞ on one side of 3 and −∞ on the other?'],
+    ['Next hint', 'Now look at x = −2. Plug −2 into every factor except (x + 2): the numerator is (−3)(3)² = −27 and (x − 3)² = 25. So near −2, f(x) behaves like −27 ÷ (25 · (x + 2)). What sign does x + 2 have just to the left of −2?'],
+    ['Walk-through', 'Just left of −2, x + 2 is a tiny negative number, so −27 divided by it is huge and positive: +∞. Just right of −2, x + 2 is tiny and positive, so f(x) → −∞. At x = 3 everything is positive, so both sides go to +∞. Now find the choice that matches.'],
+    ['Solution', 'The answer is B: +∞, −∞, +∞, +∞. Near a vertical asymptote, check the sign of each factor on each side. Squared factors never change sign, so the limits on both sides of x = 3 match.'],
+  ];
+  WORK = ['Both limits at x = 3 have the same sign, because (x − 3)² is never negative.', 'Near x = −2, f(x) behaves like −27 ÷ (25 · (x + 2)).', 'Left of −2 gives +∞, right of −2 gives −∞.'];
+  state = { sel: 'C', checked: 'C', tried: ['C'], hint: 1, sol: false, right: false, hl: false, calc: false, ask: '' };
+  renderVals() {
+    const s = this.state, A = this.ANSWER;
+    const O = [['A', '+∞, +∞, +∞, −∞'], ['B', '+∞, −∞, +∞, +∞'], ['C', '−∞, +∞, +∞, −∞'], ['D', '−∞, −∞, +∞, +∞']];
+    const wrong = !!s.checked && s.checked !== A && !s.right, done = s.right || s.sol;
+    const stepsUsed = s.sol ? 4 : s.hint, lit = s.right ? (s.hint === 0 ? 3 : 2) : 1;
+    return {
+      exitHref: this.h('Practice'), qn: '3',
+      dots: [0, 1, 2].map(i => { const cur = i === 2, ok = i < 2 || s.right; return { border: cur && !s.right ? '2px solid var(--ac)' : '0', bg: cur && !s.right ? 'transparent' : ok ? 'var(--mint)' : 'var(--track)' }; }),
+      dotsLabel: s.right ? '3 of 3 correct this session' : '2 of 2 correct so far this session',
+      hl: s.hl, hlBg: s.hl ? 'var(--acT)' : 'transparent', toggleHl: () => this.setState({ hl: !s.hl }),
+      calc: s.calc, calcBg: s.calc ? 'var(--acT)' : 'transparent', toggleCalc: () => this.setState({ calc: !s.calc }),
+      showWork: (s.hint >= 1 || s.sol) && !s.right, work: this.WORK.slice(0, s.sol ? 3 : s.hint),
+      opts: O.map(([l, t]) => {
+        const on = s.sel === l, tried = s.tried.includes(l) && l !== A, isA = l === A && done, locked = done || tried;
+        const border = isA ? '2px solid var(--mint)' : tried ? '1px solid color-mix(in srgb,var(--err) 45%,var(--card))' : on ? '2px solid var(--ac)' : '1px solid var(--ln)';
+        const bg = isA ? 'var(--mintT)' : tried ? 'color-mix(in srgb,var(--err) 5%,var(--card))' : on ? 'var(--acT)' : 'var(--card)';
+        return { letter: isA || tried ? '' : l, icon: isA ? 'ph-bold ph-check' : tried ? 'ph-bold ph-x' : '', t, on, locked, border, bg,
+          ring: isA ? 'var(--mint)' : tried ? 'var(--err)' : on ? 'var(--ac)' : 'var(--ln2)', dot: isA ? 'var(--mint)' : tried ? 'transparent' : on ? 'var(--ac)' : 'transparent',
+          dotInk: isA ? 'var(--onAc)' : tried ? 'var(--err)' : on ? 'var(--onAc)' : 'var(--ink)', cursor: locked ? 'default' : 'pointer', op: tried ? 0.85 : 1, hov: locked ? 'transparent' : 'var(--ac)',
+          tag: isA ? 'Correct' : tried ? 'Your answer' : '', tagInk: isA ? 'var(--mintD)' : 'var(--err)',
+          go: () => !locked && this.setState({ sel: l }) };
+      }),
+      isWrong: wrong && !s.sol, isRight: s.right,
+      rightTitle: s.hint === 0 ? 'Correct, on your own.' : 'Correct. You worked it out.',
+      rightSub: s.hint === 0 ? 'Your understanding of infinite limits just lit up.' : 'Hints count. You still earn full credit when you solve it.',
+      showCoach: (wrong || s.hint > 0) && !s.right,
+      ladder: this.HINTS.map(([name], i) => ({ name, bar: i < stepsUsed ? 'var(--ac)' : 'var(--track)', ink: i < stepsUsed ? 'var(--acD)' : 'var(--mu)' })),
+      ladderLabel: stepsUsed + ' of 4 help steps used',
+      noHints: s.hint === 0 && !s.sol,
+      shown: this.HINTS.slice(0, s.sol ? 4 : s.hint).map(([name, t], i) => ({ n: String(i + 1), name, t })),
+      canNext: !s.sol && s.hint < 3, nextLabel: s.hint === 0 ? 'Give me a hint' : s.hint === 1 ? 'Next hint' : 'Walk me through it', nextHint: () => this.setState({ hint: Math.min(3, s.hint + 1) }),
+      canSol: !s.sol, showSol: () => this.setState({ sol: true, sel: A }), solNote: s.sol,
+      ask: s.ask, setAsk: e => this.setState({ ask: e.target.value }), sendBg: s.ask.trim() ? 'var(--ac)' : 'var(--soft)', sendInk: s.ask.trim() ? 'var(--onAc)' : 'var(--mu)',
+      stars: [0, 1, 2, 3, 4].map(i => ({ icon: i < lit ? 'ph-fill ph-star-four' : 'ph ph-star-four', ink: i < lit ? 'var(--mint)' : 'var(--slL)' })),
+      masteryLabel: lit + ' of 5 stars lit for 1.14 Infinite Limits',
+      masterySub: s.right ? 'Another star lit up. Keep going to light the rest.' : s.sol ? 'This one comes back later. Solve it then to light a star.' : 'Solve this one to light the next star. Hints still count.',
+      canSkip: !done,
+      primaryLabel: done ? 'Next question' : wrong && s.sel === s.checked ? 'Pick a new answer' : 'Check answer',
+      primaryOff: !done && wrong && s.sel === s.checked,
+      primaryBg: !done && wrong && s.sel === s.checked ? 'var(--ln)' : 'var(--ac)', primaryInk: !done && wrong && s.sel === s.checked ? 'var(--mu)' : 'var(--onAc)',
+      primary: () => { if (done) return this.setState({ sel: null, checked: null, tried: [], hint: 0, sol: false, right: false }); if (!s.sel) return; this.setState({ checked: s.sel, tried: s.tried.concat(s.sel), right: s.sel === A }); },
+      skip: () => this.setState({ sel: null, checked: null, tried: [], hint: 0, sol: false, right: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

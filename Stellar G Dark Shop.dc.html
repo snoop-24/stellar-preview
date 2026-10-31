@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stellar Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stellar-g.css">
+<script src="stellar-g.js"></script>
+<style>html,body{margin:0}</style>
+</helmet>
+<div class="g {{ theme }}">
+  <nav class="g-nav" aria-label="Main navigation">
+    <a class="g-brand" href="{{ homeHref }}"><img src="assets/stellar-mark-frost.png" alt="">Stellar</a>
+    <button class="g-find" onClick="{{ openSearch }}"><i class="ph ph-magnifying-glass"></i><span>Search</span><span style="flex:none;font-size:13px;">⌘K</span></button>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5"><a class="g-link" href="{{ it.href }}" aria-current="{{ it.cur }}"><i class="{{ it.icon }}"></i>{{ it.label }}</a></sc-for>
+    <div class="g-me"><span class="ava">A</span>Alex</div>
+  </nav>
+  <div class="g-col">
+    <header class="g-head"><div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="{{ topPrefix }}" balance="{{ balanceChip }}" level="{{ s.level }}" days="{{ s.streak }}" hint-size="620px,40px"></dc-import></div></header>
+
+    <main class="g-main">
+      <section class="g-sec" style="gap:18px;">
+        <div class="g-title"><div><span class="gt-label">Stellar Shop</span><h1>{{ headline }}</h1><span class="gt-sub">Spend Stellarites on streak protection tools. Freeze a busy day or revive momentum when a streak slips.</span></div><div style="display:flex;flex-direction:column;align-items:flex-end;"><span class="gt-label">Current balance</span><span class="gt-big t-coin"><i class="stl"></i>{{ balance }}</span></div></div>
+        <div class="line-days" role="img" aria-label="{{ lineSay }}"><sc-for list="{{ line }}" as="d" hint-placeholder-count="28"><span class="{{ d.cls }}">{{ d.n }}</span></sc-for></div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;"><span class="gt-small">{{ preview }}</span></div>
+      </section>
+      <sc-if value="{{ showKindle }}" hint-placeholder-val="{{ false }}"><section class="buy" style="padding:0;"><div><span class="gt-label t-pos">Free</span><h2>Earn your streak back by studying</h2><span class="gt-sub">Answer 5 review questions from your Unit 1 and 2 modules today. Your 23-day streak comes back, and it costs no Stellarites.</span></div><a class="btn" href="{{ practiceHref }}">Start 5 questions</a></section></sc-if>
+      <div><sc-for list="{{ items }}" as="it" hint-placeholder-count="2"><section class="buy" onMouseEnter="{{ it.show }}" onMouseLeave="{{ clear }}"><div><span class="gt-label t-ice">{{ it.role }}</span><h2>{{ it.name }}</h2><span class="gt-sub">{{ it.desc }}</span></div><div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;"><span class="gt-big t-coin" style="font-size:36px;"><i class="stl"></i>{{ it.price }}</span><button class="btn" disabled="{{ it.disabled }}" onClick="{{ it.buy }}" onFocus="{{ it.show }}" onBlur="{{ clear }}">{{ it.btnLabel }}</button></div></section></sc-for></div>
+      <div class="g-duo"><section class="g-sec" style="gap:6px;"><div style="display:flex;align-items:baseline;"><h2 style="flex:1;">Inventory</h2><span class="gt-label">{{ total }} owned</span></div><span class="gt-small">Consumables currently available on your account.</span><div class="lines"><sc-for list="{{ items }}" as="it" hint-placeholder-count="2"><div><span>{{ it.short }}</span><b class="t-ice">{{ it.owned }}</b></div></sc-for></div></section><section class="g-sec" style="gap:6px;"><h2>How to earn Stellarites</h2><span class="gt-sub">Claim level rewards, finish quests, unlock achievements and invite friends.</span></section></div>
+    </main>
+    <nav class="g-review" aria-label="Sample student">
+      <span>Sample data. Preview as:</span>
+      <sc-for list="{{ asLinks }}" as="a" hint-placeholder-count="3"><a href="{{ a.href }}" aria-current="{{ a.on }}">{{ a.label }}</a></sc-for>
+    </nav>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+const P = 'Stellar G Dark ', THEME = 'dark';
+const AS = ['new', 'lapsed'].includes(new URLSearchParams(location.search).get('as')) ? new URLSearchParams(location.search).get('as') : 'active';
+const STUDENT = {
+  new: { level: 1, rank: 'Novice', xp: 0, next: 10, today: 0, streak: 0, best: 0, coins: 0, freeze: 0, revive: 0, week: 0, last: 0, q: 0, month: 0, time: '0m' },
+  active: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 180, streak: 23, best: 23, coins: 340, freeze: 1, revive: 0, week: 9, last: 6, q: 42, month: 16, time: '11h 20m' },
+  lapsed: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 0, streak: 0, best: 23, coins: 340, freeze: 0, revive: 1, week: 0, last: 9, q: 0, month: 9, time: '11h 20m' }
+}[AS];
+const asLinks = [['new', 'New student'], ['active', 'Active student'], ['lapsed', 'Missed a week']].map(([k, label]) => ({ label, on: String(k === AS), href: encodeURI(location.pathname.split('/').pop()) + '?as=' + k }));
+const UNIT_DATA = [[1, "Limits and Continuity", "10–15%", 16], [2, "Differentiation: Definition and Basic Derivative Rules", "10–15%", 10], [3, "Differentiation: Composite, Implicit, and Inverse Functions", "9–13%", 6], [4, "Contextual Applications of Differentiation", "10–15%", 7], [5, "Analytical Applications of Differentiation", "15–18%", 12], [6, "Integration and Accumulation of Change", "17–20%", 14], [7, "Differential Equations", "6–12%", 9], [8, "Applications of Integration", "10–15%", 7]];
+const UNITS = UNIT_DATA.map(([n, name, w, total], i) => { const done = AS === 'new' ? 0 : [16, 10, 6, 0, 0, 0, 0, 0][i]; return { label: 'Unit ' + n + ': ' + name, w: w + ' of the exam', count: done + ' of ' + total, pct: Math.round(done / total * 100) + '%' }; });
+const REVIEW = [['1.5 Determining Limits Using Algebraic Properties of Limits', 'Last practiced 5 weeks ago'], ['1.9 Connecting Multiple Representations of Limits', 'You missed 2 of 3 on Tuesday'], ['2.5 Applying the Power Rule', 'Last practiced 3 weeks ago']].map(([title, why]) => ({ title, why }));
+const MINE = [['AP® Calculus AB', 'assets/tn-calc-ab.png', '32 of 81 modules', '40%', '203 days until the exam'], ['AP® Biology', 'assets/tn-bio.png', '12 of 63 modules', '19%', 'Added 2 weeks ago'], ['AP® Microeconomics', 'assets/tn-micro.png', '1 of 36 modules', '3%', 'Added this week']].map(([title, img, meta, pct, note]) => ({ title, img, meta, pct, note }));
+const NEXT = AS === 'lapsed' ? { head: 'Pick up with a review', title: REVIEW[0].title, btn: 'Review this module' } : { head: 'Continue where you left off', title: '4.1 Interpreting the Meaning of the Derivative in Context', btn: 'Continue' };
+class Component extends DCLogic {
+  state = { spent: 0, got: {}, hover: null };
+  shell(active) {
+    const Q = location.search, NAV = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']];
+    return { nav: NAV.map(([label, ic]) => { const on = label === active; return { label, href: encodeURI(P + label + '.dc.html') + Q, cur: on ? 'page' : 'false', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic }; }),
+      homeHref: encodeURI(P + 'Home.dc.html') + Q, openSearch: () => window.dispatchEvent(new Event('stellar-search')), balanceChip: String(STUDENT.coins), theme: THEME, s: STUDENT, as: AS, asLinks, topPrefix: THEME ? 'Stellar D Dark ' : 'Stellar D ' };
+  }
+
+  renderVals() {
+    const s = this.state, bal = STUDENT.coins - s.spent, start = new Date(2026, 9, 3);
+    const line = [...Array(28)].map((_, i) => { const d = new Date(start); d.setDate(3 + i); const today = i === 13, past = i < 13; let cls = '';
+      if (AS === 'active' && past) cls = 'on'; if (AS === 'lapsed' && i < 6) cls = 'on'; if (AS === 'active' && today) cls = 'on';
+      if (s.hover === 'freeze' && i === 16 && AS !== 'lapsed') cls = 'ice'; if (s.hover === 'revive' && AS === 'lapsed' && i >= 6 && i <= 13) cls = 'fix';
+      return { n: String(d.getDate()), cls: (cls + (today ? ' today' : '')).trim() }; });
+    const DEF = [['freeze', 'Cosmic Freeze Ray', 'Freeze rays', 'Streak protection', 'Protect tomorrow when life gets busy. Keeps your streak safe for one missed day.', 100], ['revive', 'Supercharged Freeze Reviver', 'Revivers', 'Streak recovery', 'Bring a recently broken streak back online and keep your momentum alive.', 200]];
+    const items = DEF.map(([id, name, short, role, desc, price]) => { const ok = bal >= price, base = id === 'freeze' ? STUDENT.freeze : STUDENT.revive; return { name, short, role, desc, price, disabled: !ok, owned: base + (s.got[id] || 0), btnLabel: ok ? 'Buy' : 'Need ' + (price - bal) + ' more', show: () => this.setState({ hover: id }), buy: () => this.setState({ spent: s.spent + price, got: { ...s.got, [id]: (s.got[id] || 0) + 1 } }) }; });
+    return { ...this.shell('Shop'), items, balance: bal, total: items.reduce((n, i) => n + i.owned, 0), line, clear: () => this.setState({ hover: null }), showKindle: AS === 'lapsed', practiceHref: encodeURI((THEME ? 'Stellar D Dark ' : 'Stellar D ') + 'Practice Session.dc.html'),
+      headline: { new: 'Your streak starts with one lesson.', active: '23 days and counting. Protect the next one.', lapsed: 'Your streak can come back.' }[AS],
+      lineSay: 'October 3 to October 30, with study days filled in', preview: s.hover === 'freeze' ? (AS === 'lapsed' ? 'A Freeze Ray protects one future day.' : 'A Freeze Ray would cover Monday, October 19.') : s.hover === 'revive' ? (AS === 'lapsed' ? 'A Reviver would restore October 9 to 16.' : 'A Reviver restores a recently broken streak.') : 'October 3 to 30. Hover an item to see what it would change.' };
+  }
+}
+</script>
+</body>
+</html>

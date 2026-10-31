@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0a1322}a{color:#7dd3fc;text-decoration:none}a:hover{color:#bae6fd}button{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #38bdf8!important;outline-offset:2px}input::placeholder,textarea::placeholder{color:#8a8f99}@keyframes st-pop{0%{opacity:0;transform:translateY(4px) scale(.7)}50%{opacity:1;transform:translateY(-1px) scale(1.12)}100%{opacity:1;transform:none}}@keyframes st-twinkle{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}@keyframes st-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="--bg:#0a1322;--chip:#0c2a40;--chipIc:#7dd3fc;--cardLn:#173a58;--hdr:#7dd3fc;--navOn:#0c3a57;--you:#7dd3fc;--onAc:#082f49;--ice:#a5dcf3;--iceD:#c4e9f8;--iceT:#12232c;--sl:#94a3b8;--slL:#475569;--lsky:#bae6fd;--tb0:#0f2533;--tb1:#0c2a40;--tb2:#0c3a57;--tb3:#0b4a6e;--tb4:#075985;--tb5:#0369a1;--tb6:#0ea5e9;--tb7:#38bdf8;--tb8:#7dd3fc;--tb9:#bae6fd;--tb10:#e0f2fe;--ti0:#bae6fd;--ti1:#bae6fd;--ti2:#e0f2fe;--ti3:#e0f2fe;--ti4:#e0f2fe;--ti5:#e0f2fe;--ti6:#082f49;--ti7:#082f49;--ti8:#082f49;--ti9:#082f49;--ti10:#082f49;--track:#243651;--flame:#fb923c;--err:#f87171;--card:#101c30;--ink:#eceef2;--mu:#9eabbd;--ln:#1f3049;--soft:#172539;--ac:#38bdf8;--acD:#7dd3fc;--acT:#082f49;--sun:#38bdf8;--sunD:#7dd3fc;--sunT:#082f49;--sky:#38bdf8;--skyD:#7dd3fc;--skyT:#0c2a40;--lilac:#22d3ee;--lilacD:#67e8f9;--lilacT:#083344;--mint:#2dd4bf;--mintD:#5eead4;--mintT:#042f2e;--rail:#0c1a2d;--hov:#18283f;--glass:rgba(255,255,255,0.06);--ln2:#2c405e;--mu2:#5f6f86;--acInk:#bae6fd;--acInk2:#7dd3fc;--acH:#7dd3fc;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;min-height:100vh;display:flex;">
+  <div style="flex:none;width:{{ railSlot }};transition:width 240ms cubic-bezier(.2,.8,.2,1);position:sticky;top:0;height:100vh;z-index:20;">
+  <aside onMouseEnter="{{ railEnter }}" onMouseLeave="{{ railLeave }}" style="position:absolute;top:0;left:0;height:100%;background:var(--rail);width:{{ railW }};box-shadow:{{ railShadow }};display:flex;flex-direction:column;gap:4px;padding:16px 12px;box-sizing:border-box;border-right:1px solid var(--ln);transition:width 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;margin-bottom:12px;white-space:nowrap;">
+      <img src="assets/stellar-mark-frost.png" alt="" style="width:36px;height:36px;object-fit:contain;flex:none;">
+      <span style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.05;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;">Stellar</span><span style="font-size:13px;font-weight:600;color:var(--acD);">Learning</span></span>
+      <button onClick="{{ toggleRail }}" title="Pin sidebar" aria-label="Pin sidebar" style="flex:none;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--mu);cursor:pointer;opacity:{{ labelOp }};transition:opacity 180ms;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-sidebar-simple" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:{{ searchGap }};margin-bottom:14px;">
+      <button onClick="{{ openSearch }}" title="Search (⌘K)" style="flex:{{ searchFlex }};width:{{ searchW }};min-width:0;box-sizing:border-box;display:flex;align-items:center;justify-content:{{ searchJust }};gap:{{ searchInGap }};height:{{ searchH }};padding:{{ searchPad }};border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--mu);cursor:pointer;font-size:14px;line-height:1;white-space:nowrap;overflow:hidden;" style-hover="border-color:var(--ln2);"><i class="ph ph-magnifying-glass" style="font-size:19px;line-height:1;flex:none;display:block;"></i><span style="flex:1;text-align:left;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">Search</span><span style="font-size:12px;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">⌘K</span></button>
+      <button onClick="{{ openCreate }}" title="Create" aria-label="Create" style="flex:none;width:{{ plusW }};height:40px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);cursor:pointer;overflow:hidden;transition:width 240ms cubic-bezier(.2,.8,.2,1), opacity 180ms;opacity:{{ labelOp }};" style-hover="background:var(--acH);"><i class="ph-bold ph-plus" style="font-size:17px;"></i></button>
+    </div>
+    <span style="height:20px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mu);white-space:nowrap;opacity:{{ labelOp }};transition:opacity 180ms;">LEARN</span>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5">
+      <button onClick="{{ it.go }}" title="{{ it.label }}" style="display:flex;align-items:center;gap:12px;height:42px;padding:0 11px;border:0;border-radius:12px;cursor:pointer;white-space:nowrap;background:{{ it.bg }};color:{{ it.color }};" style-hover="background:var(--hov);color:var(--ink);">
+        <i class="{{ it.icon }}" style="font-size:21px;flex:none;"></i>
+        <span style="flex:1;text-align:left;font-size:15px;font-weight:600;opacity:{{ labelOp }};transform:translateX({{ labelX }});transition:opacity 180ms, transform 240ms cubic-bezier(.2,.8,.2,1);">{{ it.label }}</span>
+        <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:var(--acD);background:var(--acT);padding:2px 8px;border-radius:999px;opacity:{{ labelOp }};transition:opacity 180ms;">Assistant</span></sc-if>
+      </button>
+    </sc-for>
+    <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--ln);">
+      <button title="Alex" style="display:flex;align-items:center;gap:10px;width:100%;height:50px;padding:0 4px;border:0;border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;text-align:left;" style-hover="background:var(--hov);">
+        <span style="width:36px;height:36px;flex:none;border-radius:50%;background:var(--soft);color:var(--mu);display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;">A</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-size:14px;font-weight:600;">Alex</span><span style="font-size:12px;color:var(--mu);">alex</span></span>
+        <i class="ph ph-caret-up-down" style="color:var(--mu);font-size:15px;opacity:{{ labelOp }};transition:opacity 180ms;"></i>
+      </button>
+    </div>
+  </aside>
+  </div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+    <header style="display:flex;align-items:center;gap:6px;padding:14px clamp(20px,3vw,40px);flex-wrap:wrap;">
+      <span style="font-size:14px;font-weight:600;color:var(--mu);">{{ crumb }}</span>
+      <div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="Stellar D Dark " balance="{{ balanceChip }}" hint-size="620px,40px"></dc-import></div>
+    </header>
+    <sc-if value="{{ anyPop }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closePops }}" style="position:fixed;inset:0;z-index:9;"></div></sc-if>
+    <main style="width:100%;max-width:1320px;box-sizing:border-box;padding:6px clamp(20px,3vw,40px) 64px;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:6px;"><h1 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,3.6vw,40px);font-weight:600;letter-spacing:-0.02em;">{{ pageTitle }}</h1><span style="font-size:15px;color:var(--mu);max-width:640px;text-wrap:pretty;">Discover expert-designed courses with interactive lessons and unlimited practice opportunities.</span></div>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);"><i class="ph ph-gear-six" style="font-size:18px;"></i>Customize Courses</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+        <aside style="flex:1 1 240px;max-width:300px;min-width:220px;display:flex;flex-direction:column;gap:14px;">
+          <nav style="display:flex;flex-direction:column;gap:4px;padding:8px;border-radius:18px;background:var(--card);border:1px solid var(--cardLn);">
+            <sc-for list="{{ vtabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="display:flex;align-items:center;gap:12px;height:46px;padding:0 14px;border:0;border-radius:12px;background:{{ t.bg }};color:{{ t.color }};cursor:pointer;font-size:15px;font-weight:600;text-align:left;white-space:nowrap;" style-hover="background:var(--hov);"><i class="{{ t.icon }}" style="font-size:19px;flex:none;"></i>{{ t.label }}</button></sc-for>
+          </nav>
+          <div style="position:relative;z-index:10;">
+            <button onClick="{{ toggleLegend }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 16px;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;width:100%;background:{{ legendBg }};"><i class="ph ph-question" style="font-size:17px;"></i>Legend</button>
+            <sc-if value="{{ legendOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:calc(100% + 8px);left:0;z-index:20;width:min(420px,calc(100vw - 112px));background:var(--card);border:1px solid var(--ln);border-radius:20px;box-shadow:0 16px 40px rgba(0,0,0,0.5);overflow:hidden;display:flex;flex-direction:column;">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:16px 18px;border-bottom:1px solid var(--ln);"><span style="display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-stack" style="font-size:20px;color:var(--chipIc);"></i></span><span style="flex:1;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;">Course status</span><span style="font-size:13px;color:var(--mu);">A quick read on how complete each course is right now.</span></span></div>
+                <div style="padding:14px;display:flex;flex-direction:column;gap:8px;">
+                  <span style="padding:12px 14px;border-radius:14px;background:var(--soft);font-size:13px;color:var(--mu);text-wrap:pretty;">Published features are usable across all statuses. Earlier statuses usually mean more missing lessons, rougher practice coverage, or tools still being filled in.</span>
+                  <sc-for list="{{ statuses }}" as="st" hint-placeholder-count="5">
+                    <div style="display:flex;gap:12px;padding:10px 12px;border-radius:14px;border:1px solid var(--ln);">
+                      <span style="display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:10px;background:{{ st.tint }};"><i class="{{ st.icon }}" style="font-size:17px;color:{{ st.color }};"></i></span>
+                      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:14px;font-weight:700;">{{ st.name }}</span><span style="margin-left:auto;display:flex;gap:4px;padding:4px 7px;border-radius:999px;background:var(--soft);"><sc-for list="{{ st.dots }}" as="dt" hint-placeholder-count="5"><span style="width:7px;height:7px;border-radius:50%;background:{{ dt }};"></span></sc-for></span></div><span style="font-size:12px;color:var(--mu);text-wrap:pretty;">{{ st.desc }}</span></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+<div style="display:flex;flex-direction:column;gap:8px;padding-top:4px;">
+            <span style="display:flex;flex-direction:column;gap:1px;"><span style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);">Pinned</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:600;">Your Stellar areas</span></span>
+            <a href="#" style="display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:18px;background:var(--card);border:1px solid var(--ln);color:var(--ink);transition:transform 200ms;" style-hover="transform:translateY(-2px);color:var(--ink);">
+              <span style="display:flex;align-items:center;gap:10px;"><span style="display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:var(--chip);"><i class="ph-duotone ph-squares-four" style="font-size:20px;color:var(--chipIc);"></i></span><span style="flex:1;display:flex;flex-direction:column;"><span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;font-size:10px;color:var(--mu);">Organize your learning</span><span style="font-size:15px;font-weight:700;">Workspace</span></span><i class="ph ph-arrow-right" style="color:var(--mu);"></i></span>
+              <span style="font-size:12px;line-height:1.45;color:var(--mu);text-wrap:pretty;">Track tasks and files, connect class materials, take notes, and turn your work into Stellar practice.</span>
+            </a>
+          </div>
+        </aside>
+        <div style="flex:999 1 420px;min-width:0;display:flex;flex-direction:column;gap:18px;">
+          <sc-if value="{{ isMine }}" hint-placeholder-val="{{ true }}">
+            <section style="background:var(--chip);border:1px solid var(--cardLn);border-radius:20px;padding:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+              <span style="display:grid;place-items:center;width:56px;height:56px;flex:none;border-radius:16px;background:var(--card);"><i class="ph-duotone ph-books" style="font-size:28px;color:var(--chipIc);"></i></span>
+              <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:600;">You haven't added a course yet</span><span style="font-size:14px;color:var(--mu);text-wrap:pretty;">Browse Courses to find your subject. Added courses show up here with your progress.</span></div>
+              <button onClick="{{ goBrowse }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;box-sizing:border-box;border:1px solid var(--ac);border-radius:12px;background:var(--card);color:var(--acD);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acT);">Browse Courses<i class="ph-bold ph-arrow-right"></i></button>
+            </section>
+            <section style="background:var(--card);border:1px solid var(--ln);border-radius:20px;overflow:hidden;">
+              <div style="display:flex;align-items:baseline;gap:10px;padding:16px 18px;border-bottom:1px solid var(--ln);"><span style="flex:1;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;">Suggested for you</span><span style="font-size:13px;color:var(--mu);white-space:nowrap;">Popular first courses</span></div>
+              <sc-for list="{{ suggested }}" as="c" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:18px;align-items:center;padding:14px 18px;border-top:{{ c.rule }};">
+                  <span role="img" aria-label="{{ c.title }}" style="display:block;width:120px;height:80px;flex:none;border-radius:8px;overflow:hidden;background-color:#0d1016;background-image:url('{{ c.img }}');background-size:cover;background-position:center;"></span>
+                  <span style="min-width:0;display:flex;flex-direction:column;gap:6px;">
+                    <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;line-height:1.3;">{{ c.title }}</span><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;color:{{ c.stInk }};background:{{ c.stTint }};white-space:nowrap;"><i class="{{ c.stIcon }}"></i>{{ c.stLabel }}</span></span>
+                    <span style="font-size:12px;font-weight:600;color:var(--mu);white-space:nowrap;">{{ c.unitsLabel }} · {{ c.modulesLabel }}</span>
+                  </span>
+                  <button style="display:flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;box-sizing:border-box;border:1px solid var(--ac);border-radius:10px;background:transparent;color:var(--acD);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acT);"><i class="ph-bold ph-plus"></i>Add course</button>
+                </div>
+              </sc-for>
+            </section>
+          </sc-if>
+<sc-if value="{{ isRooms }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:28px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;">
+              <span style="display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--chip);"><i class="ph-duotone ph-chalkboard-teacher" style="font-size:26px;color:var(--chipIc);"></i></span>
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:600;">You're not in any rooms yet</span>
+              <span style="font-size:14px;color:var(--mu);">Join your class with the code from your teacher.</span>
+              <button style="display:flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;box-sizing:border-box;border:1px solid var(--ac);border-radius:12px;background:var(--card);color:var(--acD);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background 150ms, transform 80ms;" style-hover="background:var(--acT);" style-active="transform:translateY(1px);"><i class="ph-bold ph-key"></i>Join with code</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isBrowse }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:8px;">
+              <label style="flex:1 1 0;min-width:0;display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;box-sizing:border-box;background:var(--card);border:1px solid var(--ln);border-radius:12px;color:var(--mu);"><i class="ph ph-magnifying-glass" style="font-size:18px;flex:none;"></i><input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search courses, exams, subjects..." style="flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--ink);font:inherit;font-size:15px;"></label>
+              <button style="display:flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 16px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ln2);"><i class="ph ph-sort-ascending" style="font-size:17px;"></i>Recommended<i class="ph ph-caret-up-down" style="color:var(--mu);"></i></button>
+              <button style="display:flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 16px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ln2);"><i class="ph ph-sliders-horizontal" style="font-size:17px;"></i>Filters</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="5"><button onClick="{{ ch.toggle }}" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 16px;box-sizing:border-box;border-radius:999px;border:1px solid {{ ch.border }};background:{{ ch.bg }};color:{{ ch.color }};font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ac);"><i class="{{ ch.icon }}" style="font-size:16px;"></i>{{ ch.label }}</button></sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding-top:6px;">
+              <span style="display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:10px;background:var(--chip);"><i class="ph-duotone ph-flag" style="font-size:19px;color:var(--chipIc);"></i></span>
+              <span style="flex:1;min-width:0;display:flex;align-items:baseline;column-gap:8px;flex-wrap:wrap;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.01em;white-space:nowrap;">Flagship Courses</span><span style="font-size:14px;font-style:italic;color:var(--mu);">· Our Most Comprehensive and Popular Courses</span></span>
+              <span style="display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:var(--soft);font-size:13px;font-weight:600;color:var(--mu);white-space:nowrap;">{{ flagCount }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <sc-for list="{{ flagship }}" as="c" hint-placeholder-count="10">
+                <div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--cardLn);">
+                  <span role="img" aria-label="{{ c.title }}" style="display:block;width:120px;height:80px;flex:none;border-radius:8px;overflow:hidden;background-color:#0d1016;background-image:url('{{ c.img }}');background-size:cover;background-position:center;"></span>
+                  <div style="min-width:0;display:flex;flex-direction:column;gap:6px;">
+                    <div style="display:flex;align-items:flex-start;gap:10px;"><a href="{{ c.href }}" style="flex:1;min-width:0;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;line-height:1.3;text-wrap:pretty;color:var(--ink);text-decoration:none;" style-hover="color:var(--acD);">{{ c.title }}</a><span style="display:inline-flex;align-items:center;gap:5px;flex:none;height:24px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:{{ c.stInk }};background:{{ c.stTint }};white-space:nowrap;"><i class="{{ c.stIcon }}"></i>{{ c.stLabel }}</span></div>
+                    <span style="font-size:14px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ c.desc }}</span>
+                    <div style="display:flex;align-items:center;gap:12px;"><span style="flex:none;font-size:13px;font-weight:600;white-space:nowrap;">{{ c.meta }}</span><span style="flex:1;min-width:40px;height:6px;border-radius:999px;background:var(--track);overflow:hidden;"><span style="display:block;height:100%;width:{{ c.pct }};background:var(--mint);"></span></span><span style="flex:none;width:34px;text-align:right;font-size:13px;font-weight:600;color:var(--mu);font-variant-numeric:tabular-nums;">{{ c.pct }}</span><button onClick="{{ c.add }}" style="display:flex;align-items:center;justify-content:center;gap:6px;flex:none;width:118px;height:36px;box-sizing:border-box;border:1px solid var(--ac);border-radius:10px;background:{{ c.addBg }};color:var(--acD);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acT);"><i class="{{ c.addIcon }}"></i>{{ c.addLabel }}</button></div>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:18px;background:var(--chip);border:1px solid var(--cardLn);"><i class="ph-duotone ph-magnifying-glass" style="font-size:22px;color:var(--chipIc);"></i><span style="font-size:14px;color:var(--mu);">No flagship courses match. Try another category or clear the search.</span></div></sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;railExpanded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { railOpen: null, railHover: false, pop: null, tab: 'browse', q: '', chip: 'APs', added: {} };
+
+  shell(active, crumb) {
+    const s = this.state, p = this.props;
+    const pinned = s.railOpen ?? (p.railExpanded ?? false);
+    const railOpen = pinned || s.railHover;
+    const LINKS = {"Home":"Stellar D Dark Home.dc.html","Courses":"Stellar D Dark Courses.dc.html","Shop":"Stellar D Dark Shop.dc.html","Leaderboard":"Stellar D Dark Leaderboard.dc.html","Nova":"Stellar D Dark Nova.dc.html"};
+    const nav = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']].map(([label, ic]) => { const on = active === label;
+      return { label, badge: label === 'Nova', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic, bg: on ? 'var(--navOn)' : 'transparent', color: on ? 'var(--acD)' : 'var(--mu)', go: () => { if (!on) location.href = encodeURI(LINKS[label]); } }; });
+    return { railOpen, railW: railOpen ? '240px' : '68px', railSlot: pinned ? '240px' : '68px', nav, crumb: crumb || active,
+      labelOp: railOpen ? 1 : 0, labelX: railOpen ? '0px' : '-6px', plusW: railOpen ? '40px' : '0px', searchGap: railOpen ? '8px' : '0px', searchFlex: railOpen ? '1' : 'none', searchW: railOpen ? 'auto' : '100%', searchJust: railOpen ? 'flex-start' : 'center', searchInGap: railOpen ? '10px' : '0px', searchH: railOpen ? '40px' : '42px', searchPad: railOpen ? '0 12px' : '0', labelDisp: railOpen ? 'inline' : 'none',
+      railShadow: railOpen && !pinned ? '12px 0 32px rgba(0,0,0,0.45)' : 'none',
+      railEnter: () => this.setState({ railHover: true }), railLeave: () => this.setState({ railHover: false }),
+      toggleRail: () => this.setState({ railOpen: !pinned }),
+      openSearch: () => window.dispatchEvent(new Event('stellar-search')), openCreate: e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('stellar-create', { detail: { rect: e.currentTarget.getBoundingClientRect() } })); }, anyPop: !!s.pop, closePops: () => this.setState({ pop: null }), balanceChip: '0' };
+  }
+  renderVals() {
+    const s = this.state;
+    const COURSES = [
+      ['calc', 'AP® Calculus AB', 8, 81, 'Beta', 0, "AP Calculus AB is the first part of AP Calculus, which focuses on students' understanding of calculus concepts.", 'APs', 'math'],
+      ['micro', 'AP® Microeconomics', 6, 36, 'Stable', 0, 'AP Microeconomics is a college-level course that introduces students to the principles of economics.', 'APs', 'flag'],
+      ['macro', 'AP® Macroeconomics', 6, 47, 'Stable', 0, 'AP Macroeconomics is a college-level course that introduces students to the principles that apply to an economic system as a whole.', 'APs', 'flag'],
+      ['phys1', 'AP® Physics 1: Algebra-Based', 8, 45, 'Stable', 0, 'AP Physics 1 is an algebra-based, introductory college-level physics course. Students cultivate their understanding of physics.', 'APs', 'flag'],
+      ['phys2', 'AP® Physics 2: Algebra-Based', 7, 49, 'Stable', 0, 'AP Physics 2 is an algebra-based, introductory college-level physics course. Students cultivate their understanding of physics.', 'APs', 'flag'],
+      ['physc', 'AP® Physics C: Mechanics', 7, 43, 'Stable', 0, 'AP Physics C: Mechanics is a calculus-based, introductory college-level physics course.', 'APs', 'flag'],
+      ['bio', 'AP® Biology', 8, 63, 'Stable', 0, 'AP Biology is an introductory college-level biology course. Students cultivate their understanding of biology.', 'APs', 'flag'],
+      ['csa', 'AP® Computer Science A', 10, 64, 'Stable', 0, 'AP Computer Science A introduces students to computer science through programming.', 'APs', 'flag'],
+      ['csp', 'AP® Computer Science Principles', 6, 36, 'Stable', 0, 'AP Computer Science Principles introduces students to the breadth of the field of computer science.', 'APs', 'flag'],
+      ['ush', 'AP® US History', 9, 86, 'Preview', 0, 'In AP U.S. History, students investigate significant events, individuals, developments, and processes.', 'APs', 'flag'],
+      ['wh', 'AP® World History: Modern', 9, 63, 'Stable', 0, 'In AP World History: Modern, students explore significant events, individuals, developments, and processes.', 'APs', 'flag'],
+    ].map(([key, title, units, modules, status, pct, desc, cat, group]) => { const S = { Stable: ['#7dd3fc', 'ph-bold ph-check-circle'], Beta: ['#5eead4', 'ph-bold ph-flask'], Preview: ['#7dd3fc', 'ph-bold ph-clock'] }[status]; const T = { Stable: ['var(--mintT)', 'var(--mintD)'], Beta: ['var(--soft)', 'var(--mu)'], Preview: ['var(--soft)', 'var(--mu)'] }[status];
+      return { key, title, units, modules, desc, cat, group, img: 'assets/tn-' + (key === 'calc' ? 'calc-ab' : key) + '.png', pct: pct + '%', stLabel: status, stOn: S[0], stIcon: S[1], stTint: T[0], stInk: T[1] }; });
+    const ST = [['Building', 'ph-duotone ph-hammer', 'var(--mu)', 'var(--soft)', 'Core features have been developed and available for early testing.'], ['Preview', 'ph-duotone ph-clock', 'var(--mu)', 'var(--soft)', 'Key tools such as practice and mock exams are available, but lack lesson curriculum.'], ['Beta', 'ph-duotone ph-flask', 'var(--mu)', 'var(--soft)', 'Curriculum and lesson content are partially available, with ongoing refinements.'], ['Stable', 'ph-duotone ph-check-circle', 'var(--mintD)', 'var(--mintT)', 'The full curriculum is complete, and most tools are fully implemented.'], ['Finished', 'ph-duotone ph-flag', 'var(--mintD)', 'var(--mintT)', 'The course is fully polished, with all features, content, and tools complete.']];
+    const DOT = ['var(--mu2)', 'var(--mu2)', 'var(--mu2)', 'var(--mint)', 'var(--mint)'];
+    const statuses = ST.map(([name, icon, color, tint, desc], i) => ({ name, icon, color, tint, desc, dots: [0, 1, 2, 3, 4].map(j => j <= i ? DOT[i] : 'var(--ln2)') }));
+    const q = s.q.trim().toLowerCase();
+    const match = c => (!s.chip || c.cat === s.chip) && (!q || c.title.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q));
+    const flagship = COURSES.filter(c => c.group === 'flag' && match(c)).map(c => { const on = !!s.added[c.key]; return { ...c, href: c.key === 'calc' ? './Stellar D Dark Course Home.dc.html' : null, meta: c.units + ' units · ' + c.modules + ' modules', addLabel: on ? 'Added' : 'Add course', addIcon: on ? 'ph-bold ph-check' : 'ph-bold ph-plus', addBg: on ? 'var(--acT)' : 'transparent', add: () => this.setState(st => ({ added: { ...st.added, [c.key]: !st.added[c.key] } })) }; }), mathCat = COURSES.filter(c => c.group === 'math' && match(c));
+    const CH = [['APs', 'ph ph-medal'], ['IB', 'ph ph-globe-hemisphere-west'], ['SAT', 'ph ph-check-square'], ['Competitions', 'ph ph-trophy'], ['Honors', 'ph ph-star']];
+    return { ...this.shell('Courses'),
+      vtabs: [['mine', 'My Courses', 'ph-sparkle'], ['rooms', 'Rooms', 'ph-chalkboard-teacher'], ['browse', 'Browse Courses', 'ph-book-open']].map(([k, label, ic]) => { const on = s.tab === k; return { label, icon: (on ? 'ph-fill ' : 'ph ') + ic, bg: on ? 'var(--navOn)' : 'transparent', color: on ? 'var(--acD)' : 'var(--mu)', go: () => this.setState({ tab: k }) }; }),
+      pageTitle: { mine: 'My Courses', rooms: 'Rooms', browse: 'Browse Courses' }[s.tab],
+      hasEnrolled: false, suggested: ['calc', 'bio', 'ush', 'csp'].map((k, i) => { const co = COURSES.find(x => x.key === k); return { ...co, rule: i ? '1px solid var(--ln)' : '0', unitsLabel: co.units + ' units', modulesLabel: co.modules + ' modules' }; }),
+      summary: [['Active courses', '4', 'var(--soft)', 'var(--mu)'], ['Units completed', '1 / 29', 'var(--soft)', 'var(--mu)'], ['Subjects', '3', 'var(--soft)', 'var(--mu)']].map(([label, v, tint, ink]) => ({ label, v, tint, ink })),
+      subjects: [['Mathematics', 'Formal Science', 'ph-duotone ph-triangle', 'sun', ['calc']], ['Physics', 'Natural Science', 'ph-duotone ph-atom', 'sky', ['phys1', 'phys2']], ['Economics', 'Social Science', 'ph-duotone ph-chart-bar', 'mint', ['micro']]].map(([name, kind, icon, c, keys]) => ({ name, kind, icon, tint: 'var(--chip)', color: 'var(--chipIc)', count: keys.length + (keys.length > 1 ? ' courses' : ' course'),
+        courses: keys.map((k, i) => { const co = COURSES.find(x => x.key === k), done = k === 'micro' ? 1 : 0; return { ...co, unitsLabel: co.units + ' units', modulesLabel: co.modules + ' modules', rule: i ? '1px solid var(--ln)' : '0', done: done + '/' + co.units, cta: done ? 'Continue' : 'Start course', ctaBg: done ? 'var(--ac)' : 'transparent', ctaInk: done ? 'var(--onAc)' : 'var(--acD)' }; }) })),
+      isMine: s.tab === 'mine', isRooms: s.tab === 'rooms', isBrowse: s.tab === 'browse', goBrowse: () => this.setState({ tab: 'browse' }),
+      legendOpen: s.pop === 'legend', legendBg: s.pop === 'legend' ? 'var(--soft)' : 'var(--card)', toggleLegend: () => this.setState({ pop: s.pop === 'legend' ? null : 'legend' }),
+      statuses, mine: COURSES.filter(c => c.key === 'calc'), flagship, mathCat, flagCount: flagship.length + ' Courses', noResults: flagship.length === 0,
+      q: s.q, setQ: e => this.setState({ q: e.target.value }),
+      chips: CH.map(([label, icon]) => { const on = s.chip === label; return { label, icon, bg: on ? 'var(--acT)' : 'var(--card)', border: on ? 'var(--ac)' : 'var(--ln)', color: on ? 'var(--acD)' : 'var(--ink)', toggle: () => this.setState({ chip: on ? null : label }) }; }) };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0a1322}a{color:#7dd3fc;text-decoration:none}a:hover{color:#bae6fd}button{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #38bdf8!important;outline-offset:2px}input::placeholder,textarea::placeholder{color:#8a8f99}@keyframes st-pop{0%{opacity:0;transform:translateY(4px) scale(.7)}50%{opacity:1;transform:translateY(-1px) scale(1.12)}100%{opacity:1;transform:none}}@keyframes st-twinkle{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}@keyframes st-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="--bg:#0a1322;--chip:#0c2a40;--chipIc:#7dd3fc;--cardLn:#173a58;--hdr:#7dd3fc;--navOn:#0c3a57;--you:#7dd3fc;--onAc:#082f49;--ice:#a5dcf3;--iceD:#c4e9f8;--iceT:#12232c;--sl:#94a3b8;--slL:#475569;--lsky:#bae6fd;--tb0:#0f2533;--tb1:#0c2a40;--tb2:#0c3a57;--tb3:#0b4a6e;--tb4:#075985;--tb5:#0369a1;--tb6:#0ea5e9;--tb7:#38bdf8;--tb8:#7dd3fc;--tb9:#bae6fd;--tb10:#e0f2fe;--ti0:#bae6fd;--ti1:#bae6fd;--ti2:#e0f2fe;--ti3:#e0f2fe;--ti4:#e0f2fe;--ti5:#e0f2fe;--ti6:#082f49;--ti7:#082f49;--ti8:#082f49;--ti9:#082f49;--ti10:#082f49;--track:#243651;--flame:#fb923c;--err:#f87171;--card:#101c30;--ink:#eceef2;--mu:#9eabbd;--ln:#1f3049;--soft:#172539;--ac:#38bdf8;--acD:#7dd3fc;--acT:#082f49;--sun:#38bdf8;--sunD:#7dd3fc;--sunT:#082f49;--sky:#38bdf8;--skyD:#7dd3fc;--skyT:#0c2a40;--lilac:#22d3ee;--lilacD:#67e8f9;--lilacT:#083344;--mint:#2dd4bf;--mintD:#5eead4;--mintT:#042f2e;--rail:#0c1a2d;--hov:#18283f;--glass:rgba(255,255,255,0.06);--ln2:#2c405e;--mu2:#5f6f86;--acInk:#bae6fd;--acInk2:#7dd3fc;--acH:#7dd3fc;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;height:100vh;overflow:hidden;display:flex;">
+  <div style="flex:none;width:{{ railSlot }};transition:width 240ms cubic-bezier(.2,.8,.2,1);position:sticky;top:0;height:100vh;z-index:20;">
+  <aside onMouseEnter="{{ railEnter }}" onMouseLeave="{{ railLeave }}" style="position:absolute;top:0;left:0;height:100%;background:var(--rail);width:{{ railW }};box-shadow:{{ railShadow }};display:flex;flex-direction:column;gap:4px;padding:16px 12px;box-sizing:border-box;border-right:1px solid var(--ln);transition:width 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;margin-bottom:12px;white-space:nowrap;">
+      <img src="assets/stellar-mark-frost.png" alt="" style="width:36px;height:36px;object-fit:contain;flex:none;">
+      <span style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.05;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;">Stellar</span><span style="font-size:13px;font-weight:600;color:var(--acD);">Learning</span></span>
+      <button onClick="{{ toggleRail }}" title="Pin sidebar" aria-label="Pin sidebar" style="flex:none;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--mu);cursor:pointer;opacity:{{ labelOp }};transition:opacity 180ms;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-sidebar-simple" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:{{ searchGap }};margin-bottom:14px;">
+      <button onClick="{{ openSearch }}" title="Search (⌘K)" style="flex:{{ searchFlex }};width:{{ searchW }};min-width:0;box-sizing:border-box;display:flex;align-items:center;justify-content:{{ searchJust }};gap:{{ searchInGap }};height:{{ searchH }};padding:{{ searchPad }};border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--mu);cursor:pointer;font-size:14px;line-height:1;white-space:nowrap;overflow:hidden;" style-hover="border-color:var(--ln2);"><i class="ph ph-magnifying-glass" style="font-size:19px;line-height:1;flex:none;display:block;"></i><span style="flex:1;text-align:left;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">Search</span><span style="font-size:12px;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">⌘K</span></button>
+      <button onClick="{{ openCreate }}" title="Create" aria-label="Create" style="flex:none;width:{{ plusW }};height:40px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);cursor:pointer;overflow:hidden;transition:width 240ms cubic-bezier(.2,.8,.2,1), opacity 180ms;opacity:{{ labelOp }};" style-hover="background:var(--acH);"><i class="ph-bold ph-plus" style="font-size:17px;"></i></button>
+    </div>
+    <span style="height:20px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mu);white-space:nowrap;opacity:{{ labelOp }};transition:opacity 180ms;">LEARN</span>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5">
+      <button onClick="{{ it.go }}" title="{{ it.label }}" style="display:flex;align-items:center;gap:12px;height:42px;padding:0 11px;border:0;border-radius:12px;cursor:pointer;white-space:nowrap;background:{{ it.bg }};color:{{ it.color }};" style-hover="background:var(--hov);color:var(--ink);">
+        <i class="{{ it.icon }}" style="font-size:21px;flex:none;"></i>
+        <span style="flex:1;text-align:left;font-size:15px;font-weight:600;opacity:{{ labelOp }};transform:translateX({{ labelX }});transition:opacity 180ms, transform 240ms cubic-bezier(.2,.8,.2,1);">{{ it.label }}</span>
+        <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:var(--acD);background:var(--acT);padding:2px 8px;border-radius:999px;opacity:{{ labelOp }};transition:opacity 180ms;">Assistant</span></sc-if>
+      </button>
+    </sc-for>
+    <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--ln);">
+      <button title="Alex" style="display:flex;align-items:center;gap:10px;width:100%;height:50px;padding:0 4px;border:0;border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;text-align:left;" style-hover="background:var(--hov);">
+        <span style="width:36px;height:36px;flex:none;border-radius:50%;background:var(--soft);color:var(--mu);display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;">A</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-size:14px;font-weight:600;">Alex</span><span style="font-size:12px;color:var(--mu);">alex</span></span>
+        <i class="ph ph-caret-up-down" style="color:var(--mu);font-size:15px;opacity:{{ labelOp }};transition:opacity 180ms;"></i>
+      </button>
+    </div>
+  </aside>
+  </div>
+  <div style="flex:1;min-width:0;min-height:0;height:100vh;display:flex;flex-direction:column;">
+    <header style="display:flex;align-items:center;gap:6px;padding:14px clamp(20px,3vw,40px);flex-wrap:wrap;">
+      <span style="font-size:14px;font-weight:600;color:var(--mu);">{{ crumb }}</span>
+      <div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="Stellar D Dark " balance="{{ balanceChip }}" hint-size="620px,40px"></dc-import></div>
+    </header>
+    <sc-if value="{{ anyPop }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closePops }}" style="position:fixed;inset:0;z-index:9;"></div></sc-if>
+    <main style="flex:1;min-height:0;overflow-y:auto;width:100%;box-sizing:border-box;padding:4px clamp(20px,3vw,40px) 20px;display:flex;flex-direction:column;align-items:center;">
+      <div style="width:100%;max-width:720px;display:flex;justify-content:flex-end;position:relative;z-index:10;">
+        <button onClick="{{ toggleHistory }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 14px;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;background:{{ historyBg }};" style-hover="border-color:var(--ln2);"><i class="ph ph-clock-counter-clockwise" style="font-size:17px;color:var(--mu);"></i>History<i class="ph ph-caret-down" style="font-size:13px;color:var(--mu);"></i></button>
+        <sc-if value="{{ historyOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:calc(100% + 8px);right:0;width:300px;padding:8px;box-sizing:border-box;background:var(--card);border:1px solid var(--ln);border-radius:20px;border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;gap:2px;">
+            <span style="padding:8px 10px 4px;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:600;">Chat history</span>
+            <label style="display:flex;align-items:center;gap:8px;height:38px;margin:4px 2px 6px;padding:0 10px;border:1px solid var(--ln);border-radius:10px;color:var(--mu);"><i class="ph ph-magnifying-glass" style="font-size:15px;flex:none;"></i><input value="{{ hq }}" onChange="{{ setHq }}" placeholder="Search conversations" style="flex:1;min-width:0;border:0;outline:none;background:transparent;color:var(--ink);font:inherit;font-size:13px;"></label>
+            <button style="display:flex;align-items:center;gap:10px;padding:9px 10px;border:0;border-radius:10px;background:transparent;color:var(--acD);font-size:14px;font-weight:600;text-align:left;cursor:pointer;" style-hover="background:var(--hov);"><i class="ph-bold ph-plus"></i>New chat</button>
+            <sc-for list="{{ history }}" as="hc" hint-placeholder-count="0">
+              <button onClick="{{ hc.open }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border:0;border-radius:10px;background:transparent;color:var(--ink);text-align:left;cursor:pointer;" style-hover="background:var(--hov);"><i class="ph-fill ph-chat-circle" style="color:var(--mu);flex:none;font-size:17px;"></i><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:14px;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;">{{ hc.title }}</span><span style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--mu);"><i class="ph ph-lock-simple"></i>Private chat</span></span></button>
+            </sc-for>
+            <sc-if value="{{ noHistory }}" hint-placeholder-val="{{ true }}"><span style="padding:4px 10px 8px;font-size:13px;color:var(--mu);">{{ historyEmpty }}</span></sc-if>
+          </div>
+        </sc-if>
+      </div>
+      <div style="flex:1;width:100%;max-width:720px;display:flex;flex-direction:column;min-height:0;">
+        <div style="flex:1;width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;justify-content:{{ justify }};gap:18px;padding-top:8px;">
+        <sc-if value="{{ empty }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:8px;">
+            {{ mascot }}
+            <h1 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-0.02em;text-align:center;">Let's lock in, Alex.</h1>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasMsgs }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="0">
+              <div style="display:flex;gap:10px;align-items:flex-start;justify-content:{{ m.align }};">
+                <sc-if value="{{ m.nova }}" hint-placeholder-val="{{ false }}"><img src="assets/stellar-mark-frost.png" alt="" style="width:28px;height:28px;object-fit:contain;flex:none;margin-top:6px;"></sc-if>
+                <div style="max-width:80%;padding:12px 16px;border-radius:18px;background:{{ m.bg }};border:{{ m.border }};color:var(--ink);font-size:15px;line-height:1.55;white-space:pre-wrap;text-wrap:pretty;"><sc-if value="{{ m.thinking }}" hint-placeholder-val="{{ false }}">{{ thinkEl }}</sc-if>{{ m.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:16px 16px 12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <textarea value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ onKey }}" placeholder="Ask Nova" rows="2" style="resize:none;border:0;outline:none;background:transparent;color:var(--ink);font:inherit;font-size:16px;line-height:1.5;"></textarea>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button disabled="{{ true }}" title="Attachments are coming soon" style="display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--ln);background:transparent;color:var(--mu);font-size:13px;cursor:default;"><i class="ph ph-paperclip"></i>Coming soon</button>
+            <button onClick="{{ send }}" aria-label="Send" style="margin-left:auto;display:grid;place-items:center;width:38px;height:38px;border:0;border-radius:12px;background:{{ sendBg }};color:var(--onAc);cursor:pointer;transition:background 150ms;"><i class="ph-bold ph-arrow-up" style="font-size:17px;"></i></button>
+          </div>
+        </div>
+        <span style="font-size:12px;color:var(--mu);text-align:center;">Nova may make mistakes. Double check important info and report it as a bug.</span>
+        <sc-if value="{{ empty }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px;">
+            <sc-for list="{{ suggestions }}" as="sg" hint-placeholder-count="6">
+              <button onClick="{{ sg.pick }}" style="display:flex;align-items:center;gap:10px;height:42px;padding:0 14px 0 6px;border:1px solid var(--ln);border-radius:999px;background:var(--card);color:var(--ink);font-size:14px;font-weight:500;cursor:pointer;" style-hover="border-color:var(--ln2);">
+                <span style="display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:{{ sg.tint }};"><i class="{{ sg.icon }}" style="font-size:16px;color:{{ sg.ink }};"></i></span>{{ sg.label }}
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;railExpanded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { railOpen: null, railHover: false, pop: null, draft: '', msgs: [], busy: false, historyOpen: false, history: [] };
+
+  shell(active, crumb) {
+    const s = this.state, p = this.props;
+    const pinned = s.railOpen ?? (p.railExpanded ?? false);
+    const railOpen = pinned || s.railHover;
+    const LINKS = {"Home":"Stellar D Dark Home.dc.html","Courses":"Stellar D Dark Courses.dc.html","Shop":"Stellar D Dark Shop.dc.html","Leaderboard":"Stellar D Dark Leaderboard.dc.html","Nova":"Stellar D Dark Nova.dc.html"};
+    const nav = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']].map(([label, ic]) => { const on = active === label;
+      return { label, badge: label === 'Nova', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic, bg: on ? 'var(--navOn)' : 'transparent', color: on ? 'var(--acD)' : 'var(--mu)', go: () => { if (!on) location.href = encodeURI(LINKS[label]); } }; });
+    return { railOpen, railW: railOpen ? '240px' : '68px', railSlot: pinned ? '240px' : '68px', nav, crumb: crumb || active,
+      labelOp: railOpen ? 1 : 0, labelX: railOpen ? '0px' : '-6px', plusW: railOpen ? '40px' : '0px', searchGap: railOpen ? '8px' : '0px', searchFlex: railOpen ? '1' : 'none', searchW: railOpen ? 'auto' : '100%', searchJust: railOpen ? 'flex-start' : 'center', searchInGap: railOpen ? '10px' : '0px', searchH: railOpen ? '40px' : '42px', searchPad: railOpen ? '0 12px' : '0', labelDisp: railOpen ? 'inline' : 'none',
+      railShadow: railOpen && !pinned ? '12px 0 32px rgba(0,0,0,0.45)' : 'none',
+      railEnter: () => this.setState({ railHover: true }), railLeave: () => this.setState({ railHover: false }),
+      toggleRail: () => this.setState({ railOpen: !pinned }),
+      openSearch: () => window.dispatchEvent(new Event('stellar-search')), openCreate: e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('stellar-create', { detail: { rect: e.currentTarget.getBoundingClientRect() } })); }, anyPop: !!s.pop, closePops: () => this.setState({ pop: null }), balanceChip: '0' };
+  }
+  async ask(text) {
+    const t = (text || '').trim(); if (!t || this.state.busy) return;
+    const msgs = [...this.state.msgs, { role: 'user', text: t }];
+    const history = this.state.msgs.length ? this.state.history : [{ title: t }, ...this.state.history];
+    this.setState({ msgs: [...msgs, { role: 'nova', text: '', thinking: true }], draft: '', busy: true, history });
+    let reply;
+    try {
+      const convo = msgs.map(m => (m.role === 'user' ? 'Student: ' : 'Nova: ') + m.text).join('\n');
+      reply = await window.claude.complete('You are Nova, the AI study assistant inside Stellar Learning, an AP prep app for high-school students. Reply in plain text (no markdown), clearly and concisely, under 120 words.\n\n' + convo + '\nNova:');
+    } catch (e) { reply = "I couldn't connect just now. Try again in a moment."; }
+    this.setState({ msgs: [...msgs, { role: 'nova', text: (reply || '').trim() }], busy: false });
+  }
+  renderVals() {
+    const s = this.state, E = React.createElement;
+    const empty = s.msgs.length === 0;
+    const dot = d => E('span', { key: d, style: { width: 6, height: 6, borderRadius: '50%', background: 'var(--ac)', display: 'inline-block', animation: 'st-twinkle 1.1s ease-in-out ' + d + 's infinite' } });
+    const SUG = [
+      ['Draw a Graph', 'ph-duotone ph-chart-line-up', 'var(--chip)', 'var(--chipIc)', 'Draw a graph of y = x^2 - 4 and explain its key features.'],
+      ['Write Code', 'ph-duotone ph-code', 'var(--chip)', 'var(--chipIc)', 'Write a short Java method that reverses a string and explain it.'],
+      ['Create a timeline', 'ph-duotone ph-list-bullets', 'var(--chip)', 'var(--chipIc)', 'Create a timeline of the key events of the American Revolution.'],
+      ['Plot a function', 'ph-duotone ph-function', 'var(--chip)', 'var(--chipIc)', 'Help me plot f(x) = sin(x) / x and describe its limit at 0.'],
+      ['Solve a physics problem', 'ph-duotone ph-atom', 'var(--chip)', 'var(--chipIc)', 'A ball is thrown up at 12 m/s. How high does it go?'],
+      ['Explain a concept', 'ph-duotone ph-presentation-chart', 'var(--chip)', 'var(--chipIc)', 'Explain the chain rule like I am seeing it for the first time.'],
+    ];
+    const canSend = !!s.draft.trim() && !s.busy;
+    return { ...this.shell('Nova'), historyOpen: this.state.historyOpen, historyBg: this.state.historyOpen ? 'var(--soft)' : 'var(--card)', toggleHistory: () => this.setState({ historyOpen: !this.state.historyOpen }),
+      empty, hasMsgs: !empty, justify: empty ? 'center' : 'flex-end',
+      mascot: E('img', { src: 'assets/stellar-mark-frost.png', alt: '', style: { width: 60, height: 60, objectFit: 'contain', animation: 'st-float 4s ease-in-out infinite' } }),
+      thinkEl: E('span', { style: { display: 'inline-flex', gap: 5, padding: '6px 0' } }, dot(0), dot(0.18), dot(0.36)),
+      msgs: s.msgs.map(m => ({ ...m, nova: m.role === 'nova', align: m.role === 'nova' ? 'flex-start' : 'flex-end',
+        bg: m.role === 'nova' ? 'var(--card)' : 'var(--acT)', border: m.role === 'nova' ? '1px solid var(--ln)' : '1px solid var(--ln)' })),
+      draft: s.draft, setDraft: e => this.setState({ draft: e.target.value }),
+      onKey: e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this.ask(s.draft); } },
+      send: () => this.ask(s.draft), sendBg: canSend ? 'var(--ac)' : 'var(--ln2)',
+      suggestions: SUG.map(([label, icon, tint, ink, prompt]) => ({ label, icon, tint, ink, prompt, pick: () => this.setState({ draft: prompt }) })),
+      historyOpen: s.historyOpen, historyBg: s.historyOpen ? 'var(--card)' : 'transparent', toggleHistory: () => this.setState({ historyOpen: !s.historyOpen }),
+      hq: s.hq || '', setHq: e => this.setState({ hq: e.target.value }),
+      ...(() => { const q = (s.hq || '').trim().toLowerCase(), list = s.history.filter(h => !q || h.title.toLowerCase().includes(q));
+        return { history: list.map(h => ({ ...h, open: () => this.setState({ historyOpen: false }) })), noHistory: list.length === 0,
+          historyEmpty: s.history.length ? 'No conversations match "' + s.hq.trim() + '".' : 'No chats yet. Your conversations will show up here.' }; })() };
+  }
+}
+</script>
+</body>
+</html>

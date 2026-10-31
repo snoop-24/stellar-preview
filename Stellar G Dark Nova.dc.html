@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stellar Nova</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stellar-g.css">
+<script src="stellar-g.js"></script>
+<style>html,body{margin:0}</style>
+</helmet>
+<div class="g {{ theme }}">
+  <nav class="g-nav" aria-label="Main navigation">
+    <a class="g-brand" href="{{ homeHref }}"><img src="assets/stellar-mark-frost.png" alt="">Stellar</a>
+    <button class="g-find" onClick="{{ openSearch }}"><i class="ph ph-magnifying-glass"></i><span>Search</span><span style="flex:none;font-size:13px;">⌘K</span></button>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5"><a class="g-link" href="{{ it.href }}" aria-current="{{ it.cur }}"><i class="{{ it.icon }}"></i>{{ it.label }}</a></sc-for>
+    <div class="g-me"><span class="ava">A</span>Alex</div>
+  </nav>
+  <div class="g-col">
+    <header class="g-head"><div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="{{ topPrefix }}" balance="{{ balanceChip }}" level="{{ s.level }}" days="{{ s.streak }}" hint-size="620px,40px"></dc-import></div></header>
+
+    <main class="g-main" style="gap:24px;">
+      <div style="display:flex;align-items:center;gap:12px;position:relative;"><span style="flex:1;"></span><button class="btn quiet small" onClick="{{ toggleHistory }}" aria-expanded="{{ historyOpen }}"><i class="ph ph-clock-counter-clockwise"></i>History</button>
+        <sc-if value="{{ historyOpen }}" hint-placeholder-val="{{ false }}"><div class="n-sheet" style="position:absolute;top:44px;right:0;z-index:5;width:260px;padding:16px;gap:8px;"><div style="display:flex;align-items:center;"><b style="flex:1;">Chat history</b><button class="btn quiet small" onClick="{{ newChat }}">New chat</button></div><span class="gt-small">No past chats yet. Private chat.</span></div></sc-if></div>
+      <sc-if value="{{ isNew }}" hint-placeholder-val="{{ false }}"><section style="max-width:900px;display:flex;flex-direction:column;gap:18px;padding-top:7vh;"><h1>Let's lock in, Alex.</h1><span class="gt-sub">Ask anything. Once you add a course, Nova starts from what you are learning.</span>
+        <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="0"><div class="msg {{ m.cls }}"><span>{{ m.text }}</span></div></sc-for>
+        <div class="composer"><textarea aria-label="Ask Nova" placeholder="Ask Nova" value="{{ draft }}" onInput="{{ setDraft }}" onKeyDown="{{ onKey }}"></textarea><div style="display:flex;gap:8px;"><button class="btn quiet small" disabled="{{ true }}">Coming soon</button><span style="flex:1;"></span><button class="btn small" disabled="{{ cantSend }}" onClick="{{ send }}">Send</button></div></div>
+        <span class="gt-small">Nova may make mistakes. Double check important info and report it as a bug.</span><div class="suggest"><sc-for list="{{ suggest }}" as="sg" hint-placeholder-count="6"><button onClick="{{ sg.go }}">{{ sg.label }}</button></sc-for></div></section></sc-if>
+      <sc-if value="{{ hasDesk }}" hint-placeholder-val="{{ true }}"><section class="n-desk">
+        <div class="n-sheet"><span class="gt-label">Needs review: 1.9 Connecting Multiple Representations of Limits</span><st-graph role="img" aria-label="Graph of y equals x plus 1 with an open circle at x equals 2, y equals 3, and a filled point at x equals 2, y equals 1"></st-graph><h2>What is the limit of f(x) as x approaches 2?</h2><span class="gt-small">You answered 1 on Tuesday.</span><a class="btn quiet small" style="align-self:flex-start;" href="{{ practiceHref }}">Try 3 questions without Nova</a></div>
+        <div class="n-talk"><h1 style="font-size:clamp(34px,4vw,56px);">Let's lock in, Alex.</h1>
+          <div class="msg nv"><span>You found the filled dot, and that is f(2). A limit asks something else. As x gets close to 2 from both sides, where is the line heading?</span></div>
+          <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="0"><div class="msg {{ m.cls }}"><span>{{ m.text }}</span></div></sc-for>
+          <div class="composer"><textarea aria-label="Ask Nova" placeholder="Ask Nova" value="{{ draft }}" onInput="{{ setDraft }}" onKeyDown="{{ onKey }}"></textarea><div style="display:flex;gap:8px;"><button class="btn quiet small" disabled="{{ true }}">Coming soon</button><span style="flex:1;"></span><button class="btn small" disabled="{{ cantSend }}" onClick="{{ send }}">Send</button></div></div>
+          <span class="gt-small">Nova may make mistakes. Double check important info and report it as a bug.</span><div class="suggest"><sc-for list="{{ suggest }}" as="sg" hint-placeholder-count="6"><button onClick="{{ sg.go }}">{{ sg.label }}</button></sc-for></div></div>
+      </section></sc-if>
+    </main>
+    <nav class="g-review" aria-label="Sample student">
+      <span>Sample data. Preview as:</span>
+      <sc-for list="{{ asLinks }}" as="a" hint-placeholder-count="3"><a href="{{ a.href }}" aria-current="{{ a.on }}">{{ a.label }}</a></sc-for>
+    </nav>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+const P = 'Stellar G Dark ', THEME = 'dark';
+const AS = ['new', 'lapsed'].includes(new URLSearchParams(location.search).get('as')) ? new URLSearchParams(location.search).get('as') : 'active';
+const STUDENT = {
+  new: { level: 1, rank: 'Novice', xp: 0, next: 10, today: 0, streak: 0, best: 0, coins: 0, freeze: 0, revive: 0, week: 0, last: 0, q: 0, month: 0, time: '0m' },
+  active: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 180, streak: 23, best: 23, coins: 340, freeze: 1, revive: 0, week: 9, last: 6, q: 42, month: 16, time: '11h 20m' },
+  lapsed: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 0, streak: 0, best: 23, coins: 340, freeze: 0, revive: 1, week: 0, last: 9, q: 0, month: 9, time: '11h 20m' }
+}[AS];
+const asLinks = [['new', 'New student'], ['active', 'Active student'], ['lapsed', 'Missed a week']].map(([k, label]) => ({ label, on: String(k === AS), href: encodeURI(location.pathname.split('/').pop()) + '?as=' + k }));
+const UNIT_DATA = [[1, "Limits and Continuity", "10–15%", 16], [2, "Differentiation: Definition and Basic Derivative Rules", "10–15%", 10], [3, "Differentiation: Composite, Implicit, and Inverse Functions", "9–13%", 6], [4, "Contextual Applications of Differentiation", "10–15%", 7], [5, "Analytical Applications of Differentiation", "15–18%", 12], [6, "Integration and Accumulation of Change", "17–20%", 14], [7, "Differential Equations", "6–12%", 9], [8, "Applications of Integration", "10–15%", 7]];
+const UNITS = UNIT_DATA.map(([n, name, w, total], i) => { const done = AS === 'new' ? 0 : [16, 10, 6, 0, 0, 0, 0, 0][i]; return { label: 'Unit ' + n + ': ' + name, w: w + ' of the exam', count: done + ' of ' + total, pct: Math.round(done / total * 100) + '%' }; });
+const REVIEW = [['1.5 Determining Limits Using Algebraic Properties of Limits', 'Last practiced 5 weeks ago'], ['1.9 Connecting Multiple Representations of Limits', 'You missed 2 of 3 on Tuesday'], ['2.5 Applying the Power Rule', 'Last practiced 3 weeks ago']].map(([title, why]) => ({ title, why }));
+const MINE = [['AP® Calculus AB', 'assets/tn-calc-ab.png', '32 of 81 modules', '40%', '203 days until the exam'], ['AP® Biology', 'assets/tn-bio.png', '12 of 63 modules', '19%', 'Added 2 weeks ago'], ['AP® Microeconomics', 'assets/tn-micro.png', '1 of 36 modules', '3%', 'Added this week']].map(([title, img, meta, pct, note]) => ({ title, img, meta, pct, note }));
+const NEXT = AS === 'lapsed' ? { head: 'Pick up with a review', title: REVIEW[0].title, btn: 'Review this module' } : { head: 'Continue where you left off', title: '4.1 Interpreting the Meaning of the Derivative in Context', btn: 'Continue' };
+class Component extends DCLogic {
+  state = { msgs: [], draft: '', historyOpen: false };
+  shell(active) {
+    const Q = location.search, NAV = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']];
+    return { nav: NAV.map(([label, ic]) => { const on = label === active; return { label, href: encodeURI(P + label + '.dc.html') + Q, cur: on ? 'page' : 'false', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic }; }),
+      homeHref: encodeURI(P + 'Home.dc.html') + Q, openSearch: () => window.dispatchEvent(new Event('stellar-search')), balanceChip: String(STUDENT.coins), theme: THEME, s: STUDENT, as: AS, asLinks, topPrefix: THEME ? 'Stellar D Dark ' : 'Stellar D ' };
+  }
+
+  renderVals() {
+    const s = this.state, ask = t => this.setState({ msgs: [...s.msgs, { cls: 'me', text: t }, { cls: 'nv', text: 'Before I explain, tell me your first step, even if you are not sure. We will build from there.' }], draft: '' });
+    const SUG = [['Draw a Graph', 'Draw a graph of y = x^2 - 4 and explain its key features.'], ['Write Code', 'Write a short Java method that reverses a string and explain it.'], ['Create a timeline', 'Create a timeline of the key events of the American Revolution.'], ['Plot a function', 'Help me plot f(x) = sin(x) / x and describe its limit at 0.'], ['Solve a physics problem', 'A ball is thrown up at 12 m/s. How high does it go?'], ['Explain a concept', 'Explain the chain rule like I am seeing it for the first time.']], can = !!s.draft.trim();
+    return { ...this.shell('Nova'), isNew: AS === 'new', hasDesk: AS !== 'new', msgs: s.msgs, draft: s.draft, practiceHref: encodeURI((THEME ? 'Stellar D Dark ' : 'Stellar D ') + 'Practice Session.dc.html'), suggest: SUG.map(([label, text]) => ({ label, go: () => ask(text) })), setDraft: e => this.setState({ draft: e.target.value }), cantSend: !can, send: () => can && ask(s.draft.trim()), onKey: e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (can) ask(s.draft.trim()); } }, historyOpen: s.historyOpen, toggleHistory: () => this.setState({ historyOpen: !s.historyOpen }), newChat: () => this.setState({ msgs: [], historyOpen: false }) };
+  }
+}
+</script>
+</body>
+</html>

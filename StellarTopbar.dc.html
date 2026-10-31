@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div ref="{{ rootRef }}" style="position:relative;display:flex;align-items:center;gap:4px;font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+  <sc-if value="{{ popOpen }}" hint-placeholder-val="{{ false }}"><div onClick="{{ close }}" style="position:fixed;inset:0;z-index:40;"></div></sc-if>
+
+  <a href="{{ donateHref }}" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 10px;border-radius:10px;font-size:14px;font-weight:700;color:var(--acD);white-space:nowrap;" style-hover="background:var(--acT);color:var(--acD);">Donate<i class="ph-duotone ph-hand-heart" style="font-size:18px;"></i></a>
+
+  <div style="position:relative;">
+    <button onClick="{{ t.feedback }}" title="Give feedback" aria-label="Give feedback" style="display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:{{ bg.feedback }};color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-paper-plane-tilt" style="font-size:19px;"></i></button>
+    <sc-if value="{{ is.feedback }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);z-index:50;width:320px;background:var(--card);border:1px solid var(--ln);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.18);box-sizing:border-box;overflow:hidden;">
+        <sc-if value="{{ fbForm }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:16px 16px 14px;display:flex;flex-direction:column;gap:14px;">
+            <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;line-height:1.25;">How is your experience on Stellar?</span></span>
+            <div style="display:flex;justify-content:center;gap:6px;">
+              <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5"><button onClick="{{ st.go }}" aria-label="{{ st.label }}" title="{{ st.label }}" style="display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:12px;background:{{ st.bg }};color:{{ st.color }};cursor:pointer;" style-hover="background:var(--sunT);color:var(--sun);"><i class="{{ st.icon }}" style="font-size:26px;"></i></button></sc-for>
+            </div>
+            <span style="text-align:center;font-size:12px;font-weight:600;color:var(--mu);">{{ ratingLabel }}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:10px 14px;border-top:1px solid var(--ln);background:var(--soft);">
+            <button onClick="{{ close }}" style="display:flex;align-items:center;justify-content:center;height:40px;padding:0 14px;border:0;border-radius:12px;background:transparent;color:var(--mu);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="color:var(--ink);">Not now</button>
+            <button onClick="{{ submitFb }}" disabled="{{ fbDisabled }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;background:{{ fbBtnBg }};color:{{ fbBtnInk }};cursor:{{ fbCursor }};">Submit feedback</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ fbSent }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;">
+            <span style="display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--mintT);"><i class="ph-duotone ph-check-circle" style="font-size:26px;color:var(--mint);"></i></span>
+            <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;line-height:1.25;">Thanks for the feedback</span></span>
+            <button onClick="{{ close }}" style="display:flex;align-items:center;justify-content:center;gap:6px;height:40px;border:1px solid var(--ln);border-radius:12px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;white-space:nowrap;width:100%;margin-top:6px;">Close</button>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+
+  <button onClick="{{ openTicket }}" title="Open a ticket" aria-label="Open a ticket" style="display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:{{ bg.ticket }};color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-ticket" style="font-size:19px;"></i></button>
+
+  <div style="position:relative;">
+    <button onClick="{{ t.invite }}" title="Invite friends" aria-label="Invite friends" style="display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:{{ bg.invite }};color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-gift" style="font-size:19px;"></i></button>
+    <sc-if value="{{ is.invite }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);z-index:50;width:360px;padding:16px;background:var(--card);border:1px solid var(--ln);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.18);box-sizing:border-box;display:flex;flex-direction:column;gap:14px;">
+        <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;line-height:1.25;">Invite friends</span><span style="font-size:13px;color:var(--mu);text-wrap:pretty;">You get 150 Stellarites per friend who joins.</span></span>
+        <div style="display:flex;align-items:center;gap:8px;height:42px;padding:0 5px 0 12px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;font-size:13px;"><i class="ph ph-link" style="color:var(--mu);flex:none;"></i><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">stellarlearning.app/r/alex</span><button onClick="{{ copy }}" style="display:flex;align-items:center;gap:6px;flex:none;height:32px;padding:0 12px;border:0;border-radius:9px;background:var(--ac);color:var(--onAc);font:inherit;font-size:13px;font-weight:600;cursor:pointer;"><i class="{{ copyIcon }}"></i>{{ copyLabel }}</button></div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">
+          <sc-for list="{{ refStats }}" as="rs" hint-placeholder-count="3"><div style="padding:10px 8px;border-radius:12px;background:var(--soft);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;"><span style="display:flex;align-items:center;gap:4px;font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:{{ rs.color }};">{{ rs.v }}<sc-if value="{{ rs.spark }}" hint-placeholder-val="{{ false }}"><i class="ph-fill ph-sparkle" style="font-size:14px;color:var(--lilac);"></i></sc-if></span><span style="font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--mu);white-space:nowrap;">{{ rs.label }}</span></div></sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Referred users</span>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 12px;border:1px dashed var(--ln2);border-radius:12px;text-align:center;"><i class="ph-duotone ph-users-three" style="font-size:24px;color:var(--chipIc);"></i><span style="font-size:13px;font-weight:600;">No referred users yet</span><span style="font-size:12px;color:var(--mu);">Friends who join with your link show up here.</span></div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <button onClick="{{ openAch }}" title="Achievements" aria-label="Achievements" style="display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:{{ bg.trophy }};color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-trophy" style="font-size:19px;"></i></button>
+  <button onClick="{{ openQuests }}" title="Quests" aria-label="Quests" style="display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:{{ bg.quests }};color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-shield-check" style="font-size:19px;"></i></button>
+
+  <span style="width:1px;height:22px;background:var(--ln);margin:0 6px;"></span>
+
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div style="position:relative;">
+      <button onClick="{{ t.lvl }}" title="Scholar level" style="position:relative;display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;background:{{ chipBg.lvl }};border:1px solid var(--ln);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;font-variant-numeric:tabular-nums;" style-hover="border-color:var(--ln2);"><i class="ph-fill ph-lightning" style="font-size:16px;color:var(--mu);"></i>Lvl. {{ chipLvl }}<sc-if value="{{ lvlDot }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--ac);border:2px solid var(--bg);"></span></sc-if></button>
+      <sc-if value="{{ is.lvl }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:calc(100% + 10px);right:0;z-index:50;width:310px;padding:16px;box-sizing:border-box;background:var(--card);border:1px solid var(--ln);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.18);display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Scholar level</span>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;">Level 1</span><span style="font-size:11px;font-weight:700;color:var(--mu);background:var(--soft);padding:3px 8px;border-radius:999px;">Novice</span><span style="margin-left:auto;font-size:12px;font-weight:600;color:var(--mu);font-variant-numeric:tabular-nums;">0 / 10 XP</span></div>
+          <div style="height:8px;border-radius:999px;background:var(--soft);"></div>
+          <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 6px 0 12px;border-radius:12px;background:var(--soft);">
+            <sc-if value="{{ lvlDot }}" hint-placeholder-val="{{ true }}"><span style="width:8px;height:8px;flex:none;border-radius:50%;background:var(--ac);"></span></sc-if>
+            <span style="flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ lvlMsg }}</span>
+            <sc-if value="{{ lvlDot }}" hint-placeholder-val="{{ true }}"><button onClick="{{ claimLvl }}" style="display:flex;align-items:center;gap:4px;height:32px;padding:0 12px;border:0;border-radius:9px;background:var(--ac);color:var(--onAc);font-size:13px;font-weight:600;cursor:pointer;">Claim +20<i class="ph-fill ph-sparkle"></i></button></sc-if>
+          </div>
+          <button onClick="{{ openLevel }}" style="display:flex;align-items:center;justify-content:center;gap:6px;height:40px;border:1px solid var(--ln);border-radius:12px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;" style-hover="border-color:var(--ln2);">All levels<i class="ph ph-arrow-right"></i></button>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="position:relative;">
+      <button onClick="{{ t.days }}" title="Daily activity" style="position:relative;display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;background:{{ chipBg.days }};border:1px solid var(--ln);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;font-variant-numeric:tabular-nums;" style-hover="border-color:var(--ln2);"><i class="ph-fill ph-fire" style="font-size:16px;color:var(--flame);"></i>{{ chipDays }} Days<span style="position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--ac);border:2px solid var(--bg);"></span></button>
+      <sc-if value="{{ is.days }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:calc(100% + 10px);right:0;z-index:50;width:310px;padding:16px;box-sizing:border-box;background:var(--card);border:1px solid var(--ln);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.18);display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Daily activity</span>
+          <div style="display:flex;align-items:center;gap:8px;"><i class="ph-fill ph-fire" style="font-size:22px;color:var(--flame);"></i><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;">0 Days</span><span style="margin-left:auto;font-size:12px;font-weight:600;color:var(--mu);">This week</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));">
+            <sc-for list="{{ week }}" as="d" hint-placeholder-count="7"><span style="display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="width:28px;height:28px;box-sizing:border-box;border-radius:50%;border:2px solid {{ d.ring }};"></span><span style="font-size:10px;font-weight:700;color:{{ d.ink }};">{{ d.l }}</span></span></sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:12px;background:var(--soft);"><i class="ph-fill ph-fire" style="font-size:15px;color:var(--flame);flex:none;"></i><span style="font-size:13px;font-weight:600;color:var(--ink);">Study today to start a streak</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <span style="display:flex;align-items:center;justify-content:center;gap:6px;height:34px;border-radius:10px;background:var(--iceT);color:var(--iceD);font-size:13px;font-weight:600;"><i class="ph-fill ph-snowflake"></i>0 freeze rays</span>
+            <span style="display:flex;align-items:center;justify-content:center;gap:6px;height:34px;border-radius:10px;background:var(--mintT);color:var(--mintD);font-size:13px;font-weight:600;"><i class="ph-bold ph-arrow-counter-clockwise"></i>0 revivers</span>
+          </div>
+          <button onClick="{{ openDaily }}" style="display:flex;align-items:center;justify-content:center;gap:6px;height:40px;border:1px solid var(--ln);border-radius:12px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;" style-hover="border-color:var(--ln2);">Open calendar<i class="ph ph-arrow-right"></i></button>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="position:relative;">
+      <button onClick="{{ t.stars }}" title="Stellarites" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;background:{{ chipBg.stars }};border:1px solid var(--ln);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;font-variant-numeric:tabular-nums;" style-hover="border-color:var(--ln2);"><i class="ph-fill ph-sparkle" style="font-size:16px;color:var(--lilac);"></i>{{ bal }}</button>
+      <sc-if value="{{ is.stars }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:calc(100% + 10px);right:0;z-index:50;width:320px;padding:16px;background:var(--card);border:1px solid var(--ln);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.18);box-sizing:border-box;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Stellarites</span><span style="display:flex;align-items:center;gap:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;"><i class="ph-fill ph-sparkle" style="color:var(--lilac);"></i>{{ bal }}<span style="font-family:Figtree,sans-serif;font-size:13px;font-weight:600;color:var(--mu);">current balance</span></span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Inventory</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <span style="display:flex;align-items:center;gap:8px;height:44px;padding:0 10px;border-radius:12px;background:var(--iceT);"><i class="ph-fill ph-snowflake" style="font-size:18px;color:var(--ice);"></i><span style="flex:1;min-width:0;white-space:nowrap;font-size:13px;font-weight:600;color:var(--iceD);">Freeze rays</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;color:var(--ink);">0</span></span>
+              <span style="display:flex;align-items:center;gap:8px;height:44px;padding:0 10px;border-radius:12px;background:var(--mintT);"><i class="ph-bold ph-arrow-counter-clockwise" style="font-size:18px;color:var(--mint);"></i><span style="flex:1;min-width:0;white-space:nowrap;font-size:13px;font-weight:600;color:var(--mintD);">Revivers</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;color:var(--ink);">0</span></span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Recent activity</span>
+            <sc-for list="{{ activity }}" as="ac" hint-placeholder-count="0"><span style="display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border:1px solid var(--ln);border-radius:12px;font-size:13px;font-weight:600;"><i class="{{ ac.icon }}" style="font-size:17px;color:{{ ac.color }};"></i><span style="flex:1;">{{ ac.label }}</span><span style="color:var(--lilacD);">{{ ac.amt }}</span></span></sc-for>
+            <sc-if value="{{ noActivity }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border:1px dashed var(--ln2);border-radius:12px;font-size:13px;color:var(--mu);"><i class="ph ph-clock-counter-clockwise"></i>No Stellarites activity yet</span></sc-if>
+          </div>
+          <a href="{{ shopHref }}" style="display:flex;align-items:center;justify-content:center;gap:6px;height:40px;border:1px solid var(--ln);border-radius:12px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ln2);color:var(--ink);"><i class="ph ph-storefront"></i>Go to Shop</a>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+
+<sc-if value="{{ is.create }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;top:{{ cTop }};left:{{ cLeft }};z-index:50;width:260px;max-height:{{ cMaxH }};overflow:auto;overscroll-behavior:contain;padding:8px;background:var(--card);border:1px solid var(--ln);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,0.18);box-sizing:border-box;display:flex;flex-direction:column;gap:2px;font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+    <sc-for list="{{ createGroups }}" as="cg" hint-placeholder-count="2">
+      <span style="padding:10px 10px 4px;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);border-top:{{ cg.rule }};">{{ cg.label }}</span>
+      <sc-for list="{{ cg.items }}" as="ci" hint-placeholder-count="4">
+        <a href="{{ ci.href }}" onClick="{{ ci.go }}" style="display:flex;align-items:center;gap:12px;height:40px;padding:0 10px;border-radius:10px;font-size:14px;font-weight:600;color:{{ ci.ink }};" style-hover="background:var(--hov);color:{{ ci.ink }};"><i class="{{ ci.icon }}" style="font-size:18px;width:20px;text-align:center;color:{{ ci.ic }};"></i><span style="flex:1;white-space:nowrap;">{{ ci.label }}</span><sc-if value="{{ ci.soon }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:var(--mu);background:var(--soft);padding:2px 8px;border-radius:999px;">Soon</span></sc-if></a>
+      </sc-for>
+    </sc-for>
+  </div>
+</sc-if>
+
+<sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:60;background:rgba(10,12,18,0.35);"></div>
+  <div style="position:fixed;top:12vh;left:50%;transform:translateX(-50%);z-index:61;width:min(600px,calc(100vw - 32px));background:var(--card);color:var(--ink);border:1px solid var(--ln);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,0.25);overflow:hidden;font-family:Figtree,system-ui,sans-serif;">
+    <div style="display:flex;align-items:center;gap:12px;height:58px;padding:0 18px;border-bottom:1px solid var(--ln);">
+      <i class="ph ph-magnifying-glass" style="font-size:20px;color:var(--ac);"></i>
+      <input ref="{{ inpRef }}" value="{{ q }}" onChange="{{ setQ }}" placeholder="Search courses, units, lessons, pages" style="flex:1;min-width:0;border:0;outline:none;background:transparent;color:var(--ink);font:inherit;font-size:16px;">
+      <button onClick="{{ close }}" style="height:24px;padding:0 8px;border:0;border-radius:6px;background:var(--soft);color:var(--mu);font-size:11px;font-weight:700;cursor:pointer;">Esc</button>
+    </div>
+    <div style="max-height:min(460px,60vh);overflow:auto;padding:8px;display:flex;flex-direction:column;gap:2px;">
+      <sc-if value="{{ showRecent }}" hint-placeholder-val="{{ true }}">
+        <span style="padding:10px 10px 4px;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Recent</span>
+        <sc-for list="{{ recent }}" as="r" hint-placeholder-count="2">
+          <button onClick="{{ r.pick }}" style="display:flex;align-items:center;gap:12px;padding:9px 10px;border:0;border-radius:12px;background:transparent;color:var(--ink);font-size:14px;font-weight:600;text-align:left;cursor:pointer;" style-hover="background:var(--hov);"><span style="width:52px;display:grid;place-items:center;flex:none;"><i class="ph ph-clock-counter-clockwise" style="font-size:18px;color:var(--mu);"></i></span><span style="flex:1;">{{ r.label }}</span><i class="ph ph-arrow-up-left" style="color:var(--mu);"></i></button>
+        </sc-for>
+      </sc-if>
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+        <span style="padding:10px 10px 4px;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">{{ g.label }}</span>
+        <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+          <a href="{{ it.href }}" style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:12px;color:var(--ink);" style-hover="background:var(--hov);color:var(--ink);">
+            <sc-if value="{{ it.img }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="" style="display:block;width:48px;height:32px;flex:none;border-radius:8px;overflow:hidden;background-color:#0d1016;background-image:url('{{ it.img }}');background-size:cover;background-position:center;"></span></sc-if>
+            <sc-if value="{{ it.icon }}" hint-placeholder-val="{{ true }}"><span style="width:48px;height:32px;display:grid;place-items:center;flex:none;border-radius:8px;background:{{ it.tint }};"><i class="{{ it.icon }}" style="font-size:17px;color:{{ it.color }};"></i></span></sc-if>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;"><span style="font-size:14px;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;">{{ it.title }}</span><span style="font-size:12px;color:var(--mu);">{{ it.sub }}</span></span>
+          </a>
+        </sc-for>
+      </sc-for>
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:28px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;">
+          <span style="display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--chip);"><i class="ph-duotone ph-magnifying-glass" style="font-size:26px;color:var(--chipIc);"></i></span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;">No results for "{{ q }}"</span>
+          <span style="font-size:13px;color:var(--mu);max-width:340px;">Check the spelling or try a course name, unit or lesson.</span>
+          <div style="display:flex;gap:8px;">
+            <a href="{{ coursesHref }}" style="display:flex;align-items:center;height:40px;padding:0 16px;border:1px solid var(--ln);border-radius:12px;font-size:14px;font-weight:600;color:var(--ink);" style-hover="color:var(--ink);border-color:var(--ln2);">Browse Courses</a>
+            <a href="{{ novaHref }}" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:12px;background:var(--ac);font-size:14px;font-weight:600;color:var(--onAc);" style-hover="color:var(--onAc);background:var(--acH);"><i class="ph ph-star-four"></i>Ask Nova</a>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <div style="display:flex;gap:16px;padding:10px 18px;border-top:1px solid var(--ln);background:var(--soft);font-size:12px;color:var(--mu);"><span>↵ to open</span><span style="margin-left:auto;">Esc to close</span></div>
+  </div>
+</sc-if>
+<sc-if value="{{ modal.level }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="width:min(640px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:var(--card);border:1px solid var(--ln);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--ln);flex:none;">
+        <span style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-crown-simple" style="font-size:22px;color:var(--chipIc);"></i></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;">Scholar Level Progression</span><span style="font-size:13px;color:var(--mu);">Level 1 · {{ xpTotal }} total XP</span></span>
+        <button onClick="{{ closeModal }}" aria-label="Close" title="Close (Esc)" style="display:grid;place-items:center;width:36px;height:36px;flex:none;border:0;border-radius:10px;background:transparent;color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-x" style="font-size:18px;"></i></button>
+      </div><div style="flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:18px 20px 20px;display:flex;flex-direction:column;gap:16px;">
+        <div style="padding:18px;border-radius:18px;background:var(--sunT);display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--sunD);">Current tier</span><span style="display:flex;align-items:center;gap:10px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:30px;font-weight:700;letter-spacing:-0.02em;line-height:1.1;">Level 1</span><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:var(--mu);background:var(--card);">Novice</span></span></span>
+            <span style="display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:13px;background:var(--card);"><i class="ph-duotone ph-graduation-cap" style="font-size:23px;color:var(--chipIc);"></i></span>
+          </div>
+          <div style="height:10px;border-radius:999px;background:var(--card);overflow:hidden;"><div style="width:2%;height:100%;border-radius:999px;background:var(--mint);"></div></div>
+          <div style="display:flex;font-size:12px;font-weight:600;color:var(--sunD);font-variant-numeric:tabular-nums;"><span>0 XP</span><span style="margin-left:auto;">10 XP to Level 2</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;background:var(--soft);">
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:14px;font-weight:700;">Claimable level rewards</span><span style="font-size:13px;color:var(--mu);text-wrap:pretty;">Each scholar level has a one-time Stellarite reward.</span></span>
+          <span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;flex:none;border-radius:999px;background:var(--card);font-size:12px;font-weight:700;color:var(--lilacD);white-space:nowrap;">{{ readyLabel }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">Tiers</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><sc-for list="{{ tiers }}" as="tr" hint-placeholder-count="11"><span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:{{ tr.ink }};background:{{ tr.bg }};">{{ tr.label }}</span></sc-for></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">All 100 levels</span>
+          <sc-for list="{{ levelGroups }}" as="lg" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="position:sticky;top:-18px;z-index:1;display:flex;align-items:center;gap:8px;padding:8px 0 6px;background:var(--card);"><span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;color:{{ lg.ink }};background:{{ lg.bg }};">{{ lg.name }}</span><span style="font-size:12px;font-weight:600;color:var(--mu);white-space:nowrap;">{{ lg.range }}</span><span style="flex:1;height:1px;background:var(--ln);"></span></div>
+            <sc-for list="{{ lg.items }}" as="lv" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:32px minmax(0,1fr) auto 104px;gap:12px;align-items:center;padding:8px 10px;border-radius:14px;border:1px solid {{ lv.border }};background:{{ lv.bg }};">
+              <span style="display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:50%;background:{{ lv.numBg }};color:{{ lv.numInk }};font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:600;">{{ lv.n }}</span>
+              <span style="min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:15px;font-weight:700;overflow-wrap:anywhere;">{{ lv.name }}</span><span style="font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums;white-space:nowrap;">{{ lv.xp }}</span></span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:{{ lv.tInk }};background:{{ lv.tBg }};">{{ lv.tier }}</span>
+              <sc-if value="{{ lv.canClaim }}" hint-placeholder-val="{{ false }}"><button onClick="{{ claimLvl }}" style="display:flex;align-items:center;justify-content:center;gap:4px;height:32px;padding:0 10px;border:0;border-radius:9px;background:var(--ac);color:var(--onAc);font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);">Claim +20<i class="ph-fill ph-sparkle"></i></button></sc-if><sc-if value="{{ lv.showPill }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;justify-content:center;gap:4px;height:26px;padding:0 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:{{ lv.stInk }};background:{{ lv.stBg }};"><i class="{{ lv.stIcon }}"></i>{{ lv.st }}</span></sc-if>
+            </div>
+            </sc-for>
+          </div></sc-for>
+        </div></div><div style="flex:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--ln);background:var(--soft);"><span style="flex:1;font-size:13px;color:var(--mu);">Earn XP by finishing lessons and practice.</span><button onClick="{{ levelPrimary }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);">{{ levelPrimaryLabel }}</button></div>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ modal.daily }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="width:min(640px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:var(--card);border:1px solid var(--ln);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--ln);flex:none;">
+        <span style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-calendar-dots" style="font-size:22px;color:var(--chipIc);"></i></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;">Daily activity</span><span style="font-size:13px;color:var(--mu);">Streak calendar and recovery tools.</span></span>
+        <button onClick="{{ closeModal }}" aria-label="Close" title="Close (Esc)" style="display:grid;place-items:center;width:36px;height:36px;flex:none;border:0;border-radius:10px;background:transparent;color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-x" style="font-size:18px;"></i></button>
+      </div><div style="flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:18px 20px 20px;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;">
+          <sc-for list="{{ dStats }}" as="st" hint-placeholder-count="3"><div style="padding:12px 14px;border-radius:14px;background:var(--soft);display:flex;flex-direction:column;align-items:flex-start;gap:4px;"><span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);white-space:nowrap;">{{ st.label }}</span><span style="display:flex;align-items:baseline;gap:6px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:600;line-height:1;color:{{ st.color }};">{{ st.v }}</span><span style="font-size:12px;color:var(--mu);">{{ st.unit }}</span></span></div></sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:var(--soft);">
+          <span style="display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:11px;background:var(--card);"><i class="ph-duotone ph-snowflake" style="font-size:19px;color:var(--ice);"></i></span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:14px;font-weight:700;color:var(--ink);">No Freeze Rays left</span><span style="font-size:13px;color:var(--mu);text-wrap:pretty;">If you miss a day, your streak has no automatic protection.</span></span>
+          <button style="flex:none;height:36px;padding:0 14px;border:1px solid var(--ac);border-radius:11px;background:var(--card);color:var(--acD);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acT);">Refill 1 Freeze Ray</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="flex:1;font-size:14px;font-weight:700;">{{ calLabel }}</span>
+            <button onClick="{{ calPrev }}" aria-label="Previous weeks" style="display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--ln);border-radius:10px;background:var(--card);color:var(--ink);cursor:pointer;" style-hover="border-color:var(--ln2);"><i class="ph ph-caret-left"></i></button>
+            <button onClick="{{ calNext }}" disabled="{{ calAtEnd }}" aria-label="Next weeks" style="display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--ln);border-radius:10px;background:var(--card);color:{{ calNextInk }};cursor:pointer;" style-hover="border-color:var(--ln2);"><i class="ph ph-caret-right"></i></button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;">
+            <sc-for list="{{ dow }}" as="w" hint-placeholder-count="7"><span style="text-align:center;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--mu);">{{ w }}</span></sc-for>
+            <sc-for list="{{ cal }}" as="c" hint-placeholder-count="42"><span style="display:grid;place-items:center;height:42px;box-sizing:border-box;border-radius:10px;border:2px solid {{ c.ring }};background:{{ c.bg }};font-size:13px;font-weight:600;color:{{ c.ink }};font-variant-numeric:tabular-nums;">{{ c.d }}</span></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;"><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:var(--ink);background:var(--soft);"><i class="ph-fill ph-fire" style="color:var(--flame);"></i>Active</span><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:var(--iceD);background:var(--iceT);"><i class="ph-fill ph-snowflake"></i>Frozen</span><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:var(--mintD);background:var(--mintT);"><i class="ph-bold ph-arrow-counter-clockwise"></i>Revived</span><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;color:var(--ink);background:transparent;border:2px solid var(--ac);box-sizing:border-box;">Today</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid var(--ln);">
+          <div style="display:flex;align-items:flex-start;gap:10px;"><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:15px;font-weight:700;">Streak rewards</span><span style="font-size:13px;color:var(--mu);text-wrap:pretty;">Only active days count. Frozen and revived days keep the chain alive.</span></span><span style="flex:none;font-size:13px;font-weight:600;color:var(--mu);white-space:nowrap;">0 active days</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">
+            <sc-for list="{{ streakRewards }}" as="sr" hint-placeholder-count="3"><div style="padding:12px;border-radius:14px;border:1px solid var(--ln);display:flex;flex-direction:column;align-items:flex-start;gap:8px;"><span style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:14px;font-weight:700;white-space:nowrap;">{{ sr.label }}</span><span style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--lilacD);">{{ sr.amt }}<i class="ph-fill ph-sparkle" style="color:var(--lilac);"></i></span></span><button disabled="{{ true }}" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:34px;border:0;border-radius:10px;background:var(--soft);color:var(--mu);font:inherit;font-size:13px;font-weight:600;cursor:not-allowed;"><i class="ph ph-lock-simple"></i>{{ sr.left }}</button></div></sc-for>
+          </div>
+        </div></div><div style="flex:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--ln);background:var(--soft);"><span style="flex:1;font-size:13px;color:var(--mu);">Study today to start a streak.</span><a href="{{ coursesHref }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);color:var(--onAc);">Start studying<i class="ph ph-arrow-right"></i></a></div>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ modal.ticket }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="width:min(560px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:var(--card);border:1px solid var(--ln);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--ln);flex:none;">
+        <span style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-ticket" style="font-size:22px;color:var(--chipIc);"></i></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;">Open a ticket</span><span style="font-size:13px;color:var(--mu);">Report a bug, a content error or an account issue.</span></span>
+        <button onClick="{{ closeModal }}" aria-label="Close" title="Close (Esc)" style="display:grid;place-items:center;width:36px;height:36px;flex:none;border:0;border-radius:10px;background:transparent;color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-x" style="font-size:18px;"></i></button>
+      </div>
+      <sc-if value="{{ tkSent }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;">
+          <span style="display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--mintT);"><i class="ph-duotone ph-check-circle" style="font-size:28px;color:var(--mint);"></i></span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;">Ticket submitted</span>
+          <span style="font-size:13px;color:var(--mu);max-width:340px;text-wrap:pretty;">Join our Discord to follow up on your ticket.</span>
+        </div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--ln);background:var(--soft);"><span style="flex:1;"></span><button onClick="{{ closeModal }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);">Done</button></div>
+      </sc-if>
+      <sc-if value="{{ tkForm }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:18px 20px 20px;display:flex;flex-direction:column;gap:16px;">
+        <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:13px;font-weight:700;">Ticket type</span>
+          <span style="position:relative;display:block;"><select value="{{ tkType }}" onChange="{{ setTkType }}" style="width:100%;height:42px;padding:0 12px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;outline:none;appearance:none;-webkit-appearance:none;padding-right:36px;cursor:pointer;color:{{ tkTypeInk }};"><option value="">Select a ticket type</option><option value="Bug report">Bug report</option><option value="Content error">Content error</option><option value="Account or billing">Account or billing</option><option value="Feature request">Feature request</option><option value="Other">Other</option></select><i class="ph ph-caret-down" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--mu);pointer-events:none;"></i></span>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:13px;font-weight:700;">Title</span>
+          <input value="{{ tkTitle }}" onChange="{{ setTkTitle }}" maxLength="{{ 100 }}" placeholder="Short summary of the issue" style="width:100%;height:42px;padding:0 12px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;outline:none;" style-focus="border-color:var(--ac);">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px;">
+          <span style="display:flex;align-items:baseline;"><span style="flex:1;font-size:13px;font-weight:700;">Description</span><span style="font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums;">{{ tkCount }}</span></span>
+          <textarea value="{{ tkDesc }}" onChange="{{ setTkDesc }}" maxLength="{{ 1000 }}" rows="{{ 4 }}" placeholder="What happened, and where in Stellar?" style="resize:vertical;min-height:100px;padding:10px 12px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;line-height:1.45;outline:none;" style-focus="border-color:var(--ac);"></textarea>
+        </label>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:13px;font-weight:700;">Screenshot <span style="font-weight:500;color:var(--mu);">(optional)</span></span>
+          <label style="flex:none;display:flex;align-items:center;gap:12px;height:52px;min-height:52px;padding:0 12px;box-sizing:border-box;border:1px dashed var(--ln2);border-radius:12px;cursor:pointer;" style-hover="background:var(--hov);">
+            <i class="ph ph-image" style="font-size:20px;color:var(--mu);flex:none;"></i>
+            <span style="flex:1;min-width:0;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:{{ tkFileInk }};">{{ tkFileLabel }}</span>
+            <span style="flex:none;font-size:13px;font-weight:700;color:var(--acD);">Upload</span>
+            <input type="file" accept="image/*" onChange="{{ setTkFile }}" style="display:none;">
+          </label>
+        </div>
+        <a href="#" style="flex:none;display:flex;align-items:center;gap:12px;height:52px;min-height:52px;margin-top:6px;padding:0 12px;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;color:var(--ink);" style-hover="background:var(--hov);color:var(--ink);">
+          <i class="ph-fill ph-discord-logo" style="font-size:20px;color:var(--mu);flex:none;"></i>
+          <span style="flex:1;min-width:0;font-size:13px;font-weight:600;text-wrap:pretty;">Join our Discord to follow up on your ticket</span>
+          <i class="ph ph-arrow-up-right" style="flex:none;color:var(--mu);"></i>
+        </a></div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--ln);background:var(--soft);"><span style="flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--err);">{{ tkHint }}</span><button onClick="{{ closeModal }}" style="display:flex;align-items:center;justify-content:center;height:40px;padding:0 14px;border:0;border-radius:12px;background:transparent;color:var(--mu);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="color:var(--ink);">Cancel</button><button onClick="{{ submitTicket }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;background:{{ tkBtnBg }};color:{{ tkBtnInk }};">Submit</button></div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ modal.ach }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="width:min(640px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:var(--card);border:1px solid var(--ln);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--ln);flex:none;">
+        <span style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-trophy" style="font-size:22px;color:var(--chipIc);"></i></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;">Achievements</span><span style="font-size:13px;color:var(--mu);">{{ achSub }}</span></span>
+        <button onClick="{{ closeModal }}" aria-label="Close" title="Close (Esc)" style="display:grid;place-items:center;width:36px;height:36px;flex:none;border:0;border-radius:10px;background:transparent;color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-x" style="font-size:18px;"></i></button>
+      </div><div style="flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:18px 20px 20px;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:10px;">
+          <sc-for list="{{ achievements }}" as="a" hint-placeholder-count="10">
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;border:1px solid var(--ln);border-radius:14px;">
+              <span style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;background:{{ a.tint }};"><i class="{{ a.icon }}" style="font-size:21px;color:{{ a.color }};"></i></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+                <span style="display:flex;align-items:center;gap:8px;"><span style="flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.3;">{{ a.name }}</span><span style="display:inline-flex;align-items:center;gap:3px;flex:none;height:22px;padding:0 8px;border-radius:999px;background:var(--lilacT);font-size:11px;font-weight:700;color:var(--lilacD);white-space:nowrap;">+30<i class="ph-fill ph-sparkle"></i></span></span>
+                <span style="font-size:12px;line-height:1.4;color:var(--mu);text-wrap:pretty;">{{ a.desc }}</span>
+                <span style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--mu);"><i class="ph-bold ph-lock-simple"></i>Not yet unlocked</span>
+              </span>
+            </div>
+          </sc-for>
+        </div></div><div style="flex:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--ln);background:var(--soft);"><span style="flex:1;min-width:0;font-size:13px;color:var(--mu);">Each achievement awards 30 Stellarites.</span><a href="{{ coursesHref }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);color:var(--onAc);">Start practicing<i class="ph ph-arrow-right"></i></a></div>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ modal.quests }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:Figtree,system-ui,sans-serif;color:var(--ink);">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="width:min(640px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:var(--card);border:1px solid var(--ln);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--ln);flex:none;">
+        <span style="display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-shield-check" style="font-size:22px;color:var(--chipIc);"></i></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;">Quests</span><span style="font-size:13px;color:var(--mu);">Earn Stellarites by completing quests</span></span>
+        <button onClick="{{ closeModal }}" aria-label="Close" title="Close (Esc)" style="display:grid;place-items:center;width:36px;height:36px;flex:none;border:0;border-radius:10px;background:transparent;color:var(--mu);cursor:pointer;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-x" style="font-size:18px;"></i></button>
+      </div><div style="flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:18px 20px 20px;display:flex;flex-direction:column;gap:16px;">
+        <sc-for list="{{ questGroups }}" as="qg" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <span style="display:flex;align-items:center;"><span style="flex:1;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mu);">{{ qg.label }}</span><span style="font-size:12px;font-weight:600;color:var(--mu);">{{ qg.count }}</span></span>
+            <sc-for list="{{ qg.items }}" as="qu" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 120px auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--ln);border-radius:14px;">
+                <span style="display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:{{ qg.tint }};"><i class="{{ qu.icon }}" style="font-size:19px;color:{{ qg.color }};"></i></span>
+                <span style="min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:14px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;">{{ qu.name }}</span><span style="font-size:12px;color:var(--mu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;">{{ qu.req }}</span></span>
+                <span style="display:flex;flex-direction:column;gap:4px;"><span style="height:6px;border-radius:999px;background:var(--track);box-shadow:inset 0 0 0 1px var(--ln2);overflow:hidden;"><span style="display:block;width:0%;height:100%;background:var(--mint);"></span></span><span style="font-size:11px;font-weight:600;color:var(--mu);text-align:right;font-variant-numeric:tabular-nums;">{{ qu.prog }}</span></span>
+                <span style="display:inline-flex;align-items:center;justify-content:center;gap:3px;height:24px;padding:0 9px;border-radius:999px;background:var(--lilacT);font-size:12px;font-weight:700;color:var(--lilacD);white-space:nowrap;">+60<i class="ph-fill ph-sparkle"></i></span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for></div><div style="flex:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--ln);background:var(--soft);"><span style="flex:1;min-width:0;font-size:13px;color:var(--mu);">Each quest awards 60 Stellarites.</span><a href="{{ coursesHref }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="background:var(--acH);color:var(--onAc);">Start practicing<i class="ph ph-arrow-right"></i></a></div>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;prefix&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stellar D &quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;balance&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:0,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { open: null, q: '', modal: null, cal: 0, lvlClaimed: false, copied: false, rating: 0, hover: 0, fbSent: false, cPos: { top: 0, left: 0 }, tkType: '', tkTitle: '', tkDesc: '', tkFile: '', tkTried: false, tkSent: false };
+  componentDidMount() {
+    this.onKey = e => {
+      if (e.key === 'Escape') { this.lock(false); this.setState({ open: null, modal: null }); }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); this.openSearch(); }
+    };
+    this.onSearch = () => this.openSearch();
+    this.onCreate = e => { const r = e.detail && e.detail.rect; this.setState(st => ({ open: st.open === 'create' ? null : 'create', cPos: r ? { top: r.bottom + 8, left: Math.max(8, Math.min(r.left, window.innerWidth - 268)) } : { top: 80, left: 80 } })); };
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('stellar-search', this.onSearch);
+    window.addEventListener('stellar-create', this.onCreate);
+  }
+  componentWillUnmount() { this.lock(false); window.removeEventListener('keydown', this.onKey); window.removeEventListener('stellar-search', this.onSearch); window.removeEventListener('stellar-create', this.onCreate); }
+  lock(on) {
+    if (on) {
+      if (this.locked) return;
+      this.locked = [document.documentElement, document.body];
+      for (let el = this.root && this.root.parentElement; el; el = el.parentElement) { const o = getComputedStyle(el).overflowY; if (o === 'auto' || o === 'scroll') this.locked.push(el); }
+      this.locked.forEach(el => { el.dataset.prevOv = el.style.overflow; el.style.overflow = 'hidden'; });
+    } else if (this.locked) { this.locked.forEach(el => { el.style.overflow = el.dataset.prevOv || ''; delete el.dataset.prevOv; }); this.locked = null; }
+  }
+  closeModal() { this.lock(false); this.setState({ modal: null }); }
+  openModal(m) { this.lock(true); this.setState({ open: null, modal: m, cal: 0, tkType: '', tkTitle: '', tkDesc: '', tkFile: '', tkTried: false, tkSent: false }); }
+  openSearch() { this.setState({ open: 'search', q: '' }); setTimeout(() => this.inp && this.inp.focus(), 40); }
+  modalVals(href) {
+    const s = this.state;
+    const T = c => ({ ink: 'var(--' + c + 'D)', bg: 'var(--' + c + 'T)' });
+    const tiers = ['Novice 1-5', 'Reader 6-10', 'Scholar 11-20', 'Adept 21-30', 'Voyager 31-40', 'Stellar 41-50', 'Radiant 51-60', 'Cosmic 61-70', 'Quantum 71-80', 'Astral 81-90', 'Ascendant 91-100'].map((label, i) => ({ label, ink: 'var(--ti' + i + ')', bg: 'var(--tb' + i + ')' }));
+    const LV = [[1,"Novice","0"],[2,"Learner","10"],[3,"Pupil","50"],[4,"Student","100"],[5,"Scholar","250"],[6,"Reader","500"],[7,"Thinker","800"],[8,"Analyst","1,200"],[9,"Researcher","1,700"],[10,"Writer","2,300"],[11,"Theorist","3,000"],[12,"Logician","3,800"],[13,"Strategist","4,700"],[14,"Examiner","5,700"],[15,"Reviewer","6,800"],[16,"Academic","8,000"],[17,"Critic","9,500"],[18,"Mentor","11,200"],[19,"Professor","13,000"],[20,"Master","15,000"],[21,"Adept","17,200"],[22,"Visionary","19,500"],[23,"Explorer","22,000"],[24,"Observer","24,600"],[25,"Technician","27,300"],[26,"Engineer","30,100"],[27,"Inventor","33,000"],[28,"Architect","36,000"],[29,"Designer","39,100"],[30,"Physicist","42,300"],[31,"Chemist","45,600"],[32,"Biologist","49,000"],[33,"Astronomer","52,500"],[34,"Voyager","56,100"],[35,"Seeker","59,800"],[36,"Curator","63,600"],[37,"Alchemist","67,500"],[38,"Calculator","71,500"],[39,"Programmer","75,600"],[40,"Analyst","79,800"],[41,"Lunar","84,100"],[42,"Solar","88,500"],[43,"Stellar","93,000"],[44,"Orbiter","97,600"],[45,"Magnetar","102,300"],[46,"Gravity","107,100"],[47,"Umbra","112,000"],[48,"Nebula","117,000"],[49,"Comet","122,100"],[50,"Eclipse","127,300"],[51,"Meteor","137,300"],[52,"Radiant","148,300"],[53,"Photon","160,600"],[54,"Plasma","174,100"],[55,"Spectrum","188,900"],[56,"Flare","205,000"],[57,"Titan","222,400"],[58,"Andromeda","241,200"],[59,"Centauri","261,400"],[60,"Quasar","283,100"],[61,"Pulsar","306,300"],[62,"Horizon","331,100"],[63,"Nova","357,500"],[64,"Zenith","385,600"],[65,"Singularity","415,500"],[66,"Vortex","447,300"],[67,"Parallax","481,100"],[68,"Warp","517,000"],[69,"Drift","555,100"],[70,"Orbit","595,500"],[71,"Axis","638,300"],[72,"Antimatter","683,700"],[73,"Phase","731,800"],[74,"Quantum","782,800"],[75,"Entropy","836,800"],[76,"Relativity","893,900"],[77,"Chronos","954,300"],[78,"Continuum","1,018,200"],[79,"Tachyon","1,085,600"],[80,"Hyperspace","1,156,600"],[81,"Eclipse","1,231,400"],[82,"Halcyon","1,310,200"],[83,"Astral","1,393,200"],[84,"Aether","1,480,700"],[85,"Umbriel","1,572,900"],[86,"Solstice","1,670,000"],[87,"Altair","1,772,200"],[88,"Nebulon","1,879,700"],[89,"Obsidian","1,992,700"],[90,"Zenith","2,111,400"],[91,"Lumen","2,236,000"],[92,"Nocturne","2,366,700"],[93,"Orion","2,503,700"],[94,"Eon","2,647,200"],[95,"Hyperion","2,797,400"],[96,"Void","3,054,500"],[97,"Singularity","3,318,700"],[98,"Celestia","3,690,200"],[99,"Infinity","4,469,200"],[100,"Ascendant","50,000,000"]];
+    const TN = [["Novice",1,5,null],["Reader",6,10,"sky"],["Scholar",11,20,"mint"],["Adept",21,30,"lilac"],["Voyager",31,40,"ac"],["Stellar",41,50,"mint"],["Radiant",51,60,"lilac"],["Cosmic",61,70,"sky"],["Quantum",71,80,"mint"],["Astral",81,90,"lilac"],["Ascendant",91,100,"ac"]];
+    const tc = i => ({ ink: 'var(--ti' + i + ')', bg: 'var(--tb' + i + ')' });
+    const levelGroups = TN.map(([tn, lo, hi, c], ti) => ({ name: tn, range: 'Levels ' + lo + '-' + hi, ...tc(ti), items: LV.filter(l => l[0] >= lo && l[0] <= hi).map(([n, name, xp]) => {
+      const cur = n === 1, ready = cur && !s.lvlClaimed, t = tc(ti);
+      return { n: String(n), name, xp: xp + ' XP required', tier: tn, tInk: t.ink, tBg: t.bg, canClaim: ready, showPill: !ready,
+        border: cur ? 'var(--ac)' : 'var(--ln)', bg: cur ? 'var(--acT)' : 'var(--card)', numBg: cur ? 'var(--ac)' : 'var(--soft)', numInk: cur ? 'var(--onAc)' : 'var(--mu)',
+        st: cur ? 'Claimed' : 'Locked', stIcon: cur ? 'ph-bold ph-check' : 'ph-bold ph-lock-simple', stInk: cur ? 'var(--mintD)' : 'var(--mu)', stBg: cur ? 'var(--mintT)' : 'var(--soft)' }; }) }));
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const start = new Date(today); start.setDate(today.getDate() - today.getDay() - 35 + s.cal * 42);
+    const M = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const cal = [...Array(42)].map((_, i) => { const d = new Date(start); d.setDate(start.getDate() + i); const isT = +d === +today, fut = d > today;
+      return { d: String(d.getDate()), ring: isT ? 'var(--ac)' : 'transparent', bg: fut ? 'transparent' : 'var(--soft)', ink: isT ? 'var(--acD)' : fut ? 'var(--mu2)' : 'var(--mu)' }; });
+    const end = new Date(start); end.setDate(start.getDate() + 41);
+    const calLabel = start.getMonth() === end.getMonth() ? M[start.getMonth()] + ' ' + start.getFullYear() : M[start.getMonth()] + ' - ' + M[end.getMonth()] + ' ' + end.getFullYear();
+    const ACH = [
+      ['Cosmic Harvest', 'Finish 11 questions on Thanksgiving.', 'ph-duotone ph-plant', 'sun'],
+      ['Stellar Feast', 'Finish 25 questions on Christmas.', 'ph-duotone ph-tree-evergreen', 'mint'],
+      ['Fireworks Over Andromeda', 'Finish 4 questions on July 4th.', 'ph-duotone ph-shooting-star', 'ac'],
+      ['New Orbit', 'Finish 1 question on January 1st.', 'ph-duotone ph-planet', 'sky'],
+      ['Black Hole Spiral', 'Get 10 questions wrong in a row.', 'ph-duotone ph-spiral', 'lilac'],
+      ['Supernova Spiral', 'Get 20 questions wrong in a row.', 'ph-duotone ph-sun', 'ac'],
+      ['Zero Point Discovery', 'Answer a question whose answer is 0.', 'ph-duotone ph-number-zero', 'sky'],
+      ['Singularity One', 'Answer a question whose answer is 1.', 'ph-duotone ph-number-one', 'lilac'],
+      ['Centennial Star', 'Answer a question whose answer is 100.', 'ph-duotone ph-star', 'sun'],
+      ['Answer to the Universe', 'Answer a question whose answer is 42.', 'ph-duotone ph-globe-hemisphere-west', 'mint']
+    ].map(([name, desc, icon, c]) => { const un = false; return { name, desc, icon, tint: un ? 'var(--mintT)' : 'var(--soft)', color: un ? 'var(--mint)' : 'var(--mu)' }; });
+    const Q = (label, c, rows) => ({ label, tint: 'var(--chip)', color: 'var(--chipIc)', count: rows.length + ' quests', items: rows.map(([name, req, n, icon]) => ({ name, req, icon, prog: '0 / ' + n })) });
+    const questGroups = [
+      Q('Questions answered', 'n', [['Meteor Rookie', 'Answer 50 questions', 50, 'ph-duotone ph-meteor'], ['Asteroid Adept', 'Answer 100 questions', 100, 'ph-duotone ph-circles-three'], ['Comet Commander', 'Answer 200 questions', 200, 'ph-duotone ph-shooting-star'], ['Nebula Navigator', 'Answer 500 questions', 500, 'ph-duotone ph-cloud'], ['Galactic Grandmaster', 'Answer 1000 questions', 1000, 'ph-duotone ph-planet']]),
+      Q('Practice exams', 'n', [['Launch Trial', 'Complete 1 practice exam', 1, 'ph-duotone ph-rocket-launch'], ['Orbit Breaker', 'Complete 3 practice exams', 3, 'ph-duotone ph-planet'], ['Lunar Victor', 'Complete 5 practice exams', 5, 'ph-duotone ph-moon'], ['Solar Conqueror', 'Complete 10 practice exams', 10, 'ph-duotone ph-sun']]),
+      Q('Course mastery', 'n', [['Stellar Scholar', 'Reach 90% mastery in 1 course', 1, 'ph-duotone ph-star'], ['Planetary Prodigy', 'Reach 90% mastery in 2 courses', 2, 'ph-duotone ph-globe'], ['Cosmic Captain', 'Reach 90% mastery in 3 courses', 3, 'ph-duotone ph-compass'], ['Quasar Overlord', 'Reach 90% mastery in 5 courses', 5, 'ph-duotone ph-lightning'], ['Universe Sage', 'Reach 90% mastery in 8 courses', 8, 'ph-duotone ph-crown-simple']])
+    ];
+    const TYPES = ['Bug report', 'Content error', 'Account or billing', 'Feature request', 'Other'];
+    const tkValid = !!s.tkType && !!s.tkTitle.trim() && s.tkDesc.trim().length >= 10;
+    const tkMissing = !s.tkType ? 'Select a ticket type.' : !s.tkTitle.trim() ? 'Add a title.' : 'Add at least 10 characters of description.';
+    return {
+      modal: { level: s.modal === 'level', daily: s.modal === 'daily', ticket: s.modal === 'ticket', ach: s.modal === 'ach', quests: s.modal === 'quests' },
+      openLevel: () => this.openModal('level'), openDaily: () => this.openModal('daily'), openTicket: () => this.openModal('ticket'), openAch: () => this.openModal('ach'), openQuests: () => this.openModal('quests'),
+      closeModal: () => this.closeModal(), stop: e => e.stopPropagation(),
+      xpTotal: '0', readyLabel: s.lvlClaimed ? '0 ready' : '1 ready · +20', tiers, levelGroups, claimLvl: () => this.setState({ lvlClaimed: true }),
+      levelPrimaryLabel: s.lvlClaimed ? 'Done' : 'Claim +20 Stellarites',
+      levelPrimary: () => s.lvlClaimed ? this.closeModal() : this.setState({ lvlClaimed: true }),
+      dStats: [['Active streak', '0', 'days', 'var(--ink)'], ['Freeze rays', '0', 'owned', 'var(--ink)'], ['Revivers', '0', 'owned', 'var(--ink)']].map(([label, v, unit, color]) => ({ label, v, unit, color })),
+      dow: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], cal, calLabel, calAtEnd: s.cal >= 0, calNextInk: s.cal >= 0 ? 'var(--mu2)' : 'var(--ink)',
+      calPrev: () => this.setState(st => ({ cal: st.cal - 1 })), calNext: () => this.setState(st => ({ cal: Math.min(0, st.cal + 1) })),
+      streakRewards: [[2, '+4'], [7, '+15'], [15, '+30'], [30, '+60'], [90, '+200'], [365, '+750']].map(([d, amt]) => ({ label: d + '-Day Streak', amt, left: d + ' days to go' })),
+      achievements: ACH, achSub: '0 of ' + ACH.length + ' unlocked · 30 Stellarites each', questGroups,
+      tkSent: s.tkSent, tkForm: !s.tkSent, tkTypes: TYPES, tkType: s.tkType, tkTypeInk: s.tkType ? 'var(--ink)' : 'var(--mu)', setTkType: e => this.setState({ tkType: e.target.value }),
+      tkTitle: s.tkTitle, setTkTitle: e => this.setState({ tkTitle: e.target.value }),
+      tkDesc: s.tkDesc, setTkDesc: e => this.setState({ tkDesc: e.target.value }), tkCount: s.tkDesc.length + ' / 1000',
+      tkFileLabel: s.tkFile || 'Attach a screenshot (PNG or JPG)', tkFileInk: s.tkFile ? 'var(--ink)' : 'var(--mu)',
+      setTkFile: e => this.setState({ tkFile: e.target.files && e.target.files[0] ? e.target.files[0].name : '' }),
+      tkHint: s.tkTried && !tkValid ? tkMissing : '', tkBtnBg: tkValid ? 'var(--ac)' : 'var(--ln)', tkBtnInk: tkValid ? 'var(--onAc)' : 'var(--mu)',
+      submitTicket: () => tkValid ? this.setState({ tkSent: true }) : this.setState({ tkTried: true })
+    };
+  }
+  renderVals() {
+    const s = this.state, pre = this.props.prefix ?? 'Stellar D ', chipLvl = this.props.level ?? 1, chipDays = this.props.days ?? 0;
+    const href = n => encodeURI(pre + n + '.dc.html');
+    const keys = ['feedback', 'ticket', 'invite', 'trophy', 'quests', 'lvl', 'days', 'stars', 'create'];
+    const t = {}, is = {}, bg = {}, chipBg = {};
+    keys.forEach(k => { t[k] = () => this.setState(st => ({ open: st.open === k ? null : k, fbSent: k === 'feedback' ? false : st.fbSent, rating: k === 'feedback' ? 0 : st.rating })); is[k] = s.open === k; bg[k] = s.open === k ? 'var(--hov)' : 'transparent'; chipBg[k] = s.open === k ? 'var(--hov)' : 'var(--card)'; });
+    bg.ticket = s.modal === 'ticket' ? 'var(--hov)' : 'transparent'; bg.trophy = s.modal === 'ach' ? 'var(--hov)' : 'transparent'; bg.quests = s.modal === 'quests' ? 'var(--hov)' : 'transparent';
+    const bal = Number(this.props.balance ?? 0) + (s.lvlClaimed ? 20 : 0);
+    const ENROLLED = ['micro', 'calc-ab', 'phys1', 'phys2'];
+    const COURSES = [['micro', 'AP® Microeconomics', 'Economics · 6 units'], ['calc-ab', 'AP® Calculus AB', 'Mathematics · 8 units'], ['phys1', 'AP® Physics 1: Algebra-Based', 'Physics · 8 units'], ['phys2', 'AP® Physics 2: Algebra-Based', 'Physics · 7 units'], ['macro', 'AP® Macroeconomics', 'Economics · 6 units'], ['physc', 'AP® Physics C: Mechanics', 'Physics · 7 units'], ['bio', 'AP® Biology', 'Natural science · 8 units'], ['csa', 'AP® Computer Science A', 'Computer science · 10 units'], ['csp', 'AP® Computer Science Principles', 'Computer science · 6 units'], ['ush', 'AP® US History', 'History · 9 units'], ['wh', 'AP® World History: Modern', 'History · 9 units']]
+      .map(([k, title, sub]) => ({ key: k, img: 'assets/tn-' + k + '.png', icon: '', title, sub, href: href('Courses') }));
+    const UNITS = ['Limits and Continuity', 'Differentiation: Definition and Fundamental Properties', 'Differentiation: Composite, Implicit, and Inverse Functions', 'Contextual Applications of Differentiation', 'Analytical Applications of Differentiation', 'Integration and Accumulation of Change', 'Differential Equations', 'Applications of Integration']
+      .map((n, i) => ({ img: '', icon: 'ph-duotone ph-stack', tint: 'var(--chip)', color: 'var(--chipIc)', title: 'Unit ' + (i + 1) + ' · ' + n, sub: 'AP® Calculus AB', href: href('Courses') }));
+    const LESSONS = [['Estimating Limit Values from Graphs', '1.3'], ['Defining the Derivative of a Function', '2.2'], ['Derivative Rules: Constant, Sum, Difference', '2.6'], ['Implicit Differentiation', '3.2'], ['Riemann Sums and Summation Notation', '6.3']]
+      .map(([n, l]) => ({ img: '', icon: 'ph-duotone ph-play-circle', tint: 'var(--chip)', color: 'var(--chipIc)', title: n, sub: 'Unit ' + l.split('.')[0] + ' · Lesson ' + l + ' · AP® Calculus AB', href: href('Courses') }));
+    const PAGES = [['Home', 'ph ph-house', 'Page', href('Home')], ['Courses', 'ph ph-graduation-cap', 'Page', href('Courses')], ['Practice', 'ph ph-target', 'Page', '#'], ['Exams', 'ph ph-exam', 'Page', '#'], ['Nova', 'ph ph-star-four', 'AI assistant', href('Nova')], ['AP FRQ Prep', 'ph ph-pencil-line', 'Tool', '#'], ['AP Portfolio Tools', 'ph ph-folder-open', 'Tool', '#'], ['Quasar', 'ph ph-function', 'Competitive math', '#'], ['Shop', 'ph ph-storefront', 'Page', href('Shop')], ['Leaderboard', 'ph ph-ranking', 'Page', href('Leaderboard')]]
+      .map(([n, i, sub, h]) => ({ img: '', icon: i, tint: 'var(--chip)', color: 'var(--chipIc)', title: n, sub, href: h }));
+    const q = s.q.trim().toLowerCase();
+    const f = l => l.filter(x => x.title.toLowerCase().includes(q) || x.sub.toLowerCase().includes(q)).slice(0, 5);
+    let groups;
+    if (!q) groups = [{ label: 'Popular courses', items: COURSES.filter(c => ['calc-ab', 'bio', 'ush', 'csp'].includes(c.key)) }, { label: 'Jump to', items: PAGES.slice(0, 8) }];
+    else groups = [['Pages', f(PAGES)], ['Courses', f(COURSES)], ['Units', f(UNITS)], ['Lessons', f(LESSONS)]].filter(g => g[1].length).map(([label, items]) => ({ label, items }));
+    const shown = s.hover || s.rating;
+    const RL = ['', 'Very poor', 'Poor', 'Okay', 'Good', 'Great'];
+    const closeMenu = e => { this.setState({ open: null }); };
+    const C = (label, icon, ic, extra) => ({ label, icon, ic, ink: 'var(--ink)', href: '#', soon: false, go: e => { e.preventDefault(); closeMenu(); }, ...(extra || {}) });
+    const createGroups = [
+      { label: 'Create new', rule: '0', items: [C('Folder', 'ph-duotone ph-folder-simple-plus', 'var(--mu)'), C('Note', 'ph-duotone ph-note-pencil', 'var(--mu)'), C('Flashcard deck', 'ph-duotone ph-cards', 'var(--mu)'), C('Question builder', 'ph-duotone ph-list-checks', 'var(--mu2)', { soon: true, ink: 'var(--mu)' }), C('More', 'ph ph-dots-three-circle', 'var(--mu)')] },
+      { label: 'Learn', rule: '1px solid var(--ln)', items: [C('Course', 'ph-duotone ph-graduation-cap', 'var(--mu)', { href: href('Courses'), go: () => closeMenu() }), C('Practice session', 'ph-duotone ph-target', 'var(--mu)'), C('Smart practice', 'ph-duotone ph-brain', 'var(--mu)'), C('Exam', 'ph-duotone ph-exam', 'var(--mu)')] }
+    ];
+    return { chipLvl, chipDays,
+      t, is, bg, chipBg, popOpen: !!s.open && s.open !== 'search', close: () => this.setState({ open: null }),
+      donateHref: href('Donate'),
+      stars: [1, 2, 3, 4, 5].map(n => { const on = n <= shown; return { label: n + ' star' + (n > 1 ? 's' : ''), icon: on ? 'ph-fill ph-star' : 'ph ph-star', color: on ? 'var(--sun)' : 'var(--mu2)', bg: on ? 'var(--sunT)' : 'transparent', go: () => this.setState({ rating: n }) }; }),
+      ratingLabel: shown ? RL[shown] : 'Tap a star to rate', fbForm: !s.fbSent, fbSent: s.fbSent, fbDisabled: !s.rating,
+      fbBtnBg: s.rating ? 'var(--ac)' : 'var(--ln)', fbBtnInk: s.rating ? 'var(--onAc)' : 'var(--mu)', fbCursor: s.rating ? 'pointer' : 'not-allowed',
+      submitFb: () => s.rating && this.setState({ fbSent: true }),
+      copy: () => { try { navigator.clipboard.writeText('https://stellarlearning.app/r/alex'); } catch (e) {} this.setState({ copied: true }); },
+      copyLabel: s.copied ? 'Copied' : 'Copy', copyIcon: s.copied ? 'ph-bold ph-check' : 'ph ph-copy',
+      refStats: [['Code visits', '0', 'var(--ink)', false], ['Claimable', '0', 'var(--ink)', true], ['Reward', '150', 'var(--lilacD)', true]].map(([label, v, color, spark]) => ({ label, v, color, spark })),
+      lvlDot: !s.lvlClaimed, lvlMsg: s.lvlClaimed ? 'Level reward claimed' : 'Level reward ready', claimLvl: () => this.setState({ lvlClaimed: true }),
+      week: ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((l, i) => ({ l, ring: i === new Date().getDay() ? 'var(--ac)' : 'var(--ln)', ink: i === new Date().getDay() ? 'var(--acD)' : 'var(--mu)' })),
+      bal: String(bal), activity: s.lvlClaimed ? [{ icon: 'ph-duotone ph-crown-simple', color: 'var(--mu)', label: 'Level 1 reward', amt: '+20' }] : [], noActivity: !s.lvlClaimed,
+      cTop: s.cPos.top + 'px', cMaxH: 'calc(100vh - ' + (s.cPos.top + 12) + 'px)', cLeft: s.cPos.left + 'px', createGroups,
+      homeHref: href('Home'), shopHref: href('Shop'), coursesHref: href('Courses'), novaHref: href('Nova'),
+      searchOpen: s.open === 'search', q: s.q, setQ: e => this.setState({ q: e.target.value }), inpRef: el => { this.inp = el; },
+      showRecent: false, recent: [].map(label => ({ label, pick: () => this.setState({ q: label }) })),
+      groups, noResults: !!q && groups.length === 0, rootRef: el => { this.root = el; },
+      ...this.modalVals(href)
+    };
+  }
+}
+</script>
+</body>
+</html>

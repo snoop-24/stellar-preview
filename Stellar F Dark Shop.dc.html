@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stellar Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stellar-f.css">
+<style>html,body{margin:0}</style>
+</helmet>
+<div class="f {{ theme }}">
+  <div style="flex:none;width:{{ railSlot }};transition:width 240ms cubic-bezier(.2,.8,.2,1);position:sticky;top:0;height:100vh;z-index:20;">
+  <aside aria-label="Main navigation" onMouseEnter="{{ railEnter }}" onMouseLeave="{{ railLeave }}" style="position:absolute;top:0;left:0;height:100%;background:var(--rail);width:{{ railW }};box-shadow:{{ railShadow }};display:flex;flex-direction:column;gap:4px;padding:16px 12px;box-sizing:border-box;border-right:1px solid var(--ln);transition:width 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;margin-bottom:12px;white-space:nowrap;">
+      <img src="assets/stellar-mark-frost.png" alt="" style="width:36px;height:36px;object-fit:contain;flex:none;">
+      <span style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.05;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;">Stellar</span><span style="font-size:13px;font-weight:600;color:var(--mu);">Learning</span></span>
+      <button onClick="{{ toggleRail }}" title="Pin sidebar" aria-label="Pin sidebar" style="flex:none;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--mu);cursor:pointer;opacity:{{ labelOp }};transition:opacity 180ms;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-sidebar-simple" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:{{ searchGap }};margin-bottom:14px;">
+      <button onClick="{{ openSearch }}" title="Search (⌘K)" style="flex:{{ searchFlex }};width:{{ searchW }};min-width:0;box-sizing:border-box;display:flex;align-items:center;justify-content:{{ searchJust }};gap:{{ searchInGap }};height:{{ searchH }};padding:{{ searchPad }};border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--mu);cursor:pointer;font-size:14px;line-height:1;white-space:nowrap;overflow:hidden;" style-hover="border-color:var(--ln2);"><i class="ph ph-magnifying-glass" style="font-size:19px;line-height:1;flex:none;display:block;"></i><span style="flex:1;text-align:left;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">Search</span><span style="font-size:12px;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">⌘K</span></button>
+      <button onClick="{{ openCreate }}" title="Create" aria-label="Create" style="flex:none;width:{{ plusW }};height:40px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);cursor:pointer;overflow:hidden;transition:width 240ms cubic-bezier(.2,.8,.2,1), opacity 180ms;opacity:{{ labelOp }};" style-hover="background:var(--acH);"><i class="ph-bold ph-plus" style="font-size:17px;"></i></button>
+    </div>
+    <span style="height:20px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mu);white-space:nowrap;opacity:{{ labelOp }};transition:opacity 180ms;">LEARN</span>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5">
+      <button onClick="{{ it.go }}" title="{{ it.label }}" style="display:flex;align-items:center;gap:12px;height:42px;padding:0 11px;border:0;border-radius:12px;cursor:pointer;white-space:nowrap;background:{{ it.bg }};color:{{ it.color }};" style-hover="background:var(--hov);color:var(--ink);">
+        <i class="{{ it.icon }}" style="font-size:21px;flex:none;"></i>
+        <span style="flex:1;text-align:left;font-size:15px;font-weight:600;opacity:{{ labelOp }};transform:translateX({{ labelX }});transition:opacity 180ms, transform 240ms cubic-bezier(.2,.8,.2,1);">{{ it.label }}</span>
+        <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:var(--mu);background:var(--acT);padding:2px 8px;border-radius:999px;opacity:{{ labelOp }};transition:opacity 180ms;">Assistant</span></sc-if>
+      </button>
+    </sc-for>
+    <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--ln);">
+      <button title="Alex" style="display:flex;align-items:center;gap:10px;width:100%;height:50px;padding:0 4px;border:0;border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;text-align:left;" style-hover="background:var(--hov);">
+        <span style="width:36px;height:36px;flex:none;border-radius:50%;background:var(--soft);color:var(--mu);display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;">A</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-size:14px;font-weight:600;">Alex</span><span style="font-size:12px;color:var(--mu);">alex</span></span>
+        <i class="ph ph-caret-up-down" style="color:var(--mu);font-size:15px;opacity:{{ labelOp }};transition:opacity 180ms;"></i>
+      </button>
+    </div>
+  </aside>
+  </div>
+  <div class="f-col">
+    <header class="f-head">
+      <span class="t-label" style="font-size:14px;">{{ crumb }}</span>
+      <div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="{{ topPrefix }}" balance="{{ balanceChip }}" level="{{ s.level }}" days="{{ s.streak }}" hint-size="620px,40px"></dc-import></div>
+    </header>
+    <sc-if value="{{ anyPop }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closePops }}" style="position:fixed;inset:0;z-index:9;"></div></sc-if>
+
+    <main class="f-main">
+      <div class="f-title"><div><h1>Stellar Shop</h1><span class="t-sub">Spend Stellarites on streak protection tools. Freeze a busy day or revive momentum when a streak slips.</span></div></div>
+      <div class="f-split">
+        <div class="f-stack" style="gap:14px;">
+          <sc-if value="{{ showKindle }}" hint-placeholder-val="{{ false }}"><section class="sky" style="padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;">
+            <div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:13px;color:var(--nightMu);">Free</span><b style="font-size:22px;font-weight:620;font-stretch:108%;">Earn your streak back by studying</b><span style="color:var(--nightMu);max-width:58ch;">Answer 5 review questions from your Unit 1 and 2 modules today. Your 23-day streak comes back, and it costs no Stellarites.</span></div>
+            <a class="btn" href="{{ practiceHref }}">Start 5 questions</a>
+          </section></sc-if>
+          <sc-for list="{{ items }}" as="it" hint-placeholder-count="2">
+            <section class="panel pad" style="display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:24px;align-items:center;" >
+              <div style="display:flex;flex-direction:column;gap:6px;min-width:0;"><span class="t-label t-ice">{{ it.role }}</span><h2>{{ it.name }}</h2><span class="t-sub">{{ it.desc }}</span>
+                <div style="display:flex;align-items:center;gap:14px;padding-top:8px;flex-wrap:wrap;"><span class="t-num t-coin" style="display:flex;align-items:center;gap:7px;"><i class="stl"></i>{{ it.price }}</span><button class="btn" disabled="{{ it.disabled }}" onClick="{{ it.buy }}">{{ it.btnLabel }}</button></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px;"><div class="week" aria-hidden="true"><sc-for list="{{ it.days }}" as="d" hint-placeholder-count="7"><span style="background:{{ d.bg }};"><i class="{{ d.icon }}" style="color:{{ d.color }};font-size:15px;"></i></span></sc-for></div><span class="t-small">{{ it.caption }}</span></div>
+            </section>
+          </sc-for>
+        </div>
+        <aside aria-label="Your progress" class="f-stack" style="gap:14px;">
+          <div class="panel pad" style="display:flex;flex-direction:column;gap:8px;"><span class="t-label">Current balance</span><span class="t-num t-coin" style="display:flex;align-items:center;gap:8px;font-size:38px;"><i class="stl" style="width:14px;height:14px;"></i>{{ balance }}</span><span class="t-small">How to earn Stellarites: claim level rewards, finish quests, unlock achievements and invite friends.</span></div>
+          <section class="panel pad" style="display:flex;flex-direction:column;gap:4px;"><div style="display:flex;align-items:baseline;"><h3 style="flex:1;">Inventory</h3><span class="t-label">{{ total }} owned</span></div><span class="t-small" style="padding-bottom:6px;">Consumables currently available on your account.</span>
+            <div class="rows"><sc-for list="{{ items }}" as="it" hint-placeholder-count="2"><div style="display:flex;align-items:center;gap:12px;padding:9px 0;"><span style="flex:1;display:flex;flex-direction:column;"><span style="font-weight:600;">{{ it.short }}</span><span class="t-small">{{ it.role }}</span></span><span class="t-num t-ice" style="font-size:22px;">{{ it.owned }}</span></div></sc-for></div></section>
+        </aside>
+      </div>
+      <style>.f .stl{display:inline-block;width:10px;height:10px;background:var(--lilac);transform:rotate(45deg);border-radius:2px}@media (max-width:760px){.f-split section.panel{grid-template-columns:minmax(0,1fr)!important}}</style>
+    </main>
+    <nav class="f-review" aria-label="Sample student">
+      <span>Sample data. Preview as:</span>
+      <sc-for list="{{ asLinks }}" as="a" hint-placeholder-count="3"><a href="{{ a.href }}" aria-current="{{ a.on }}">{{ a.label }}</a></sc-for>
+    </nav>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;railExpanded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+
+const P = 'Stellar F Dark ', THEME = 'dark';
+const AS = ['new', 'lapsed'].includes(new URLSearchParams(location.search).get('as')) ? new URLSearchParams(location.search).get('as') : 'active';
+const STUDENT = {
+  new: { level: 1, rank: 'Novice', xp: 0, next: 10, today: 0, streak: 0, best: 0, coins: 0, freeze: 0, revive: 0, week: 0, last: 0, q: 0, month: 0, time: '0m' },
+  active: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 180, streak: 23, best: 23, coins: 340, freeze: 1, revive: 0, week: 9, last: 6, q: 42, month: 16, time: '11h 20m' },
+  lapsed: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 0, streak: 0, best: 23, coins: 340, freeze: 0, revive: 1, week: 0, last: 9, q: 0, month: 9, time: '11h 20m' }
+}[AS];
+const asLinks = [['new', 'New student'], ['active', 'Active student'], ['lapsed', 'Missed a week']].map(([k, label]) => ({ label, on: String(k === AS), href: encodeURI(location.pathname.split('/').pop()) + '?as=' + k }));
+const UNIT_DATA = [[1, "Limits and Continuity", "10–15%", 16], [2, "Differentiation: Definition and Basic Derivative Rules", "10–15%", 10], [3, "Differentiation: Composite, Implicit, and Inverse Functions", "9–13%", 6], [4, "Contextual Applications of Differentiation", "10–15%", 7], [5, "Analytical Applications of Differentiation", "15–18%", 12], [6, "Integration and Accumulation of Change", "17–20%", 14], [7, "Differential Equations", "6–12%", 9], [8, "Applications of Integration", "10–15%", 7]];
+const UNITS = UNIT_DATA.map(([n, name, w, total], i) => { const done = AS === 'new' ? 0 : [16, 10, 6, 0, 0, 0, 0, 0][i]; return { label: 'Unit ' + n + ': ' + name, w: w + ' of the exam', count: done + ' of ' + total, pct: Math.round(done / total * 100) + '%' }; });
+const REVIEW = [['1.5 Determining Limits Using Algebraic Properties of Limits', 'Last practiced 5 weeks ago'], ['1.9 Connecting Multiple Representations of Limits', 'You missed 2 of 3 on Tuesday'], ['2.5 Applying the Power Rule', 'Last practiced 3 weeks ago']].map(([title, why]) => ({ title, why }));
+const MINE = [['AP® Calculus AB', 'assets/tn-calc-ab.png', '32 of 81 modules', '40%', '203 days until the exam'], ['AP® Biology', 'assets/tn-bio.png', '12 of 63 modules', '19%', 'Added 2 weeks ago'], ['AP® Microeconomics', 'assets/tn-micro.png', '1 of 36 modules', '3%', 'Added this week']].map(([title, img, meta, pct, note]) => ({ title, img, meta, pct, note }));
+const NEXT = AS === 'lapsed' ? { head: 'Pick up with a review', title: REVIEW[0].title, btn: 'Review this module' } : { head: 'Continue where you left off', title: '4.1 Interpreting the Meaning of the Derivative in Context', btn: 'Continue' };
+class Component extends DCLogic {
+  state = { railOpen: null, railHover: false, pop: null, spent: 0, got: {} };
+  shell(active, crumb) {
+    const s = this.state, p = this.props;
+    const pinned = s.railOpen ?? (p.railExpanded ?? false);
+    const railOpen = pinned || s.railHover;
+    const LINKS = Object.fromEntries(['Home','Courses','Shop','Leaderboard','Nova'].map(n => [n, P + n + '.dc.html' + location.search]));
+    const nav = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']].map(([label, ic]) => { const on = active === label;
+      return { label, badge: label === 'Nova', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic, bg: on ? 'var(--navOn)' : 'transparent', color: on ? 'var(--acD)' : 'var(--mu)', go: () => { if (!on) location.href = encodeURI(LINKS[label]); } }; });
+    return { railOpen, railW: railOpen ? '240px' : '68px', railSlot: pinned ? '240px' : '68px', nav, crumb: crumb || active,
+      labelOp: railOpen ? 1 : 0, labelX: railOpen ? '0px' : '-6px', plusW: railOpen ? '40px' : '0px', searchGap: railOpen ? '8px' : '0px', searchFlex: railOpen ? '1' : 'none', searchW: railOpen ? 'auto' : '100%', searchJust: railOpen ? 'flex-start' : 'center', searchInGap: railOpen ? '10px' : '0px', searchH: railOpen ? '40px' : '42px', searchPad: railOpen ? '0 12px' : '0', labelDisp: railOpen ? 'inline' : 'none',
+      railShadow: railOpen && !pinned ? '12px 0 32px rgba(20,24,40,0.10)' : 'none',
+      railEnter: () => this.setState({ railHover: true }), railLeave: () => this.setState({ railHover: false }),
+      toggleRail: () => this.setState({ railOpen: !pinned }),
+      openSearch: () => window.dispatchEvent(new Event('stellar-search')), openCreate: e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('stellar-create', { detail: { rect: e.currentTarget.getBoundingClientRect() } })); }, anyPop: !!s.pop, closePops: () => this.setState({ pop: null }), balanceChip: String(STUDENT.coins) };
+  }
+
+  renderVals() {
+    const s = this.state, balance = STUDENT.coins - s.spent;
+    const F = { bg: 'var(--mintT)', icon: 'ph-fill ph-fire', color: 'var(--flame)' }, Z = { bg: 'var(--iceT)', icon: 'ph-fill ph-snowflake', color: 'var(--ice)' }, B = { bg: 'var(--mintT)', icon: 'ph-bold ph-arrow-counter-clockwise', color: 'var(--mintD)' };
+    const DEF = [['freeze', 'Cosmic Freeze Ray', 'Freeze rays', 'Streak protection', 'Protect tomorrow when life gets busy. Keeps your streak safe for one missed day.', 100, 'Missed Thursday. Streak kept.', [F, F, F, Z, F, F, F]], ['revive', 'Supercharged Freeze Reviver', 'Revivers', 'Streak recovery', 'Bring a recently broken streak back online and keep your momentum alive.', 200, 'Streak broke Wednesday. Revived.', [F, F, B, F, F, F, F]]];
+    const items = DEF.map(([id, name, short, role, desc, price, caption, days]) => { const ok = balance >= price, base = id === 'freeze' ? STUDENT.freeze : STUDENT.revive;
+      return { name, short, role, desc, price, caption, days, disabled: !ok, owned: base + (s.got[id] || 0), btnLabel: ok ? 'Buy' : 'Need ' + (price - balance) + ' more', buy: () => this.setState({ spent: s.spent + price, got: { ...s.got, [id]: (s.got[id] || 0) + 1 } }) }; });
+    return { ...this.shell('Shop'), theme: THEME, s: STUDENT, asLinks, topPrefix: THEME ? 'Stellar D Dark ' : 'Stellar D ', items, balance, total: items.reduce((n, i) => n + i.owned, 0), showKindle: AS === 'lapsed', practiceHref: encodeURI((THEME ? 'Stellar D Dark ' : 'Stellar D ') + 'Practice Session.dc.html') };
+  }
+}
+</script>
+</body>
+</html>

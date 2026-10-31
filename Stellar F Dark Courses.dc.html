@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stellar Courses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stellar-f.css">
+<style>html,body{margin:0}</style>
+</helmet>
+<div class="f {{ theme }}">
+  <div style="flex:none;width:{{ railSlot }};transition:width 240ms cubic-bezier(.2,.8,.2,1);position:sticky;top:0;height:100vh;z-index:20;">
+  <aside aria-label="Main navigation" onMouseEnter="{{ railEnter }}" onMouseLeave="{{ railLeave }}" style="position:absolute;top:0;left:0;height:100%;background:var(--rail);width:{{ railW }};box-shadow:{{ railShadow }};display:flex;flex-direction:column;gap:4px;padding:16px 12px;box-sizing:border-box;border-right:1px solid var(--ln);transition:width 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;margin-bottom:12px;white-space:nowrap;">
+      <img src="assets/stellar-mark-frost.png" alt="" style="width:36px;height:36px;object-fit:contain;flex:none;">
+      <span style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.05;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;">Stellar</span><span style="font-size:13px;font-weight:600;color:var(--mu);">Learning</span></span>
+      <button onClick="{{ toggleRail }}" title="Pin sidebar" aria-label="Pin sidebar" style="flex:none;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--mu);cursor:pointer;opacity:{{ labelOp }};transition:opacity 180ms;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-sidebar-simple" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:{{ searchGap }};margin-bottom:14px;">
+      <button onClick="{{ openSearch }}" title="Search (⌘K)" style="flex:{{ searchFlex }};width:{{ searchW }};min-width:0;box-sizing:border-box;display:flex;align-items:center;justify-content:{{ searchJust }};gap:{{ searchInGap }};height:{{ searchH }};padding:{{ searchPad }};border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--mu);cursor:pointer;font-size:14px;line-height:1;white-space:nowrap;overflow:hidden;" style-hover="border-color:var(--ln2);"><i class="ph ph-magnifying-glass" style="font-size:19px;line-height:1;flex:none;display:block;"></i><span style="flex:1;text-align:left;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">Search</span><span style="font-size:12px;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">⌘K</span></button>
+      <button onClick="{{ openCreate }}" title="Create" aria-label="Create" style="flex:none;width:{{ plusW }};height:40px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);cursor:pointer;overflow:hidden;transition:width 240ms cubic-bezier(.2,.8,.2,1), opacity 180ms;opacity:{{ labelOp }};" style-hover="background:var(--acH);"><i class="ph-bold ph-plus" style="font-size:17px;"></i></button>
+    </div>
+    <span style="height:20px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mu);white-space:nowrap;opacity:{{ labelOp }};transition:opacity 180ms;">LEARN</span>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5">
+      <button onClick="{{ it.go }}" title="{{ it.label }}" style="display:flex;align-items:center;gap:12px;height:42px;padding:0 11px;border:0;border-radius:12px;cursor:pointer;white-space:nowrap;background:{{ it.bg }};color:{{ it.color }};" style-hover="background:var(--hov);color:var(--ink);">
+        <i class="{{ it.icon }}" style="font-size:21px;flex:none;"></i>
+        <span style="flex:1;text-align:left;font-size:15px;font-weight:600;opacity:{{ labelOp }};transform:translateX({{ labelX }});transition:opacity 180ms, transform 240ms cubic-bezier(.2,.8,.2,1);">{{ it.label }}</span>
+        <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:var(--mu);background:var(--acT);padding:2px 8px;border-radius:999px;opacity:{{ labelOp }};transition:opacity 180ms;">Assistant</span></sc-if>
+      </button>
+    </sc-for>
+    <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--ln);">
+      <button title="Alex" style="display:flex;align-items:center;gap:10px;width:100%;height:50px;padding:0 4px;border:0;border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;text-align:left;" style-hover="background:var(--hov);">
+        <span style="width:36px;height:36px;flex:none;border-radius:50%;background:var(--soft);color:var(--mu);display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;">A</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-size:14px;font-weight:600;">Alex</span><span style="font-size:12px;color:var(--mu);">alex</span></span>
+        <i class="ph ph-caret-up-down" style="color:var(--mu);font-size:15px;opacity:{{ labelOp }};transition:opacity 180ms;"></i>
+      </button>
+    </div>
+  </aside>
+  </div>
+  <div class="f-col">
+    <header class="f-head">
+      <span class="t-label" style="font-size:14px;">{{ crumb }}</span>
+      <div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="{{ topPrefix }}" balance="{{ balanceChip }}" level="{{ s.level }}" days="{{ s.streak }}" hint-size="620px,40px"></dc-import></div>
+    </header>
+    <sc-if value="{{ anyPop }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closePops }}" style="position:fixed;inset:0;z-index:9;"></div></sc-if>
+
+    <main class="f-main">
+      <div class="f-title"><div><h1>{{ pageTitle }}</h1><span class="t-sub">Discover expert-designed courses with interactive lessons and unlimited practice opportunities.</span></div><button class="btn"><i class="ph ph-gear-six"></i>Customize Courses</button></div>
+      <div style="display:grid;grid-template-columns:232px minmax(0,1fr);gap:28px;align-items:start;" class="courses-grid">
+        <aside aria-label="Course sections" style="display:flex;flex-direction:column;gap:16px;min-width:0;">
+          <div class="side-tabs"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" aria-pressed="{{ t.on }}"><i class="{{ t.icon }}"></i>{{ t.label }}</button></sc-for></div>
+          <div style="position:relative;"><button class="btn quiet small" onClick="{{ toggleLegend }}" style="width:100%;" aria-expanded="{{ legendOpen }}">Legend</button>
+            <sc-if value="{{ legendOpen }}" hint-placeholder-val="{{ false }}"><div class="panel pad" style="margin-top:8px;display:flex;flex-direction:column;gap:10px;"><h3>Course status</h3><span class="t-small">A quick read on how complete each course is right now.</span><sc-for list="{{ legend }}" as="st" hint-placeholder-count="5"><div><b style="font-weight:620;">{{ st.name }}</b><div class="t-small">{{ st.desc }}</div></div></sc-for><span class="t-small">Published features are usable across all statuses. Earlier statuses usually mean more missing lessons, rougher practice coverage, or tools still being filled in.</span></div></sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;"><span class="t-label">Pinned</span><h2 style="font-size:18px;">Your Stellar areas</h2><a class="panel pad" href="#" style="display:flex;flex-direction:column;gap:4px;color:var(--ink);margin-top:6px;"><span class="t-label">Organize your learning</span><b style="font-weight:620;">Workspace</b><span class="t-small">Track tasks and files, connect class materials, take notes, and turn your work into Stellar practice.</span></a></div>
+        </aside>
+        <div style="display:flex;flex-direction:column;gap:16px;min-width:0;">
+          <sc-if value="{{ isBrowse }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;"><label class="field" style="flex:1 1 260px;"><i class="ph ph-magnifying-glass"></i><input aria-label="Search courses" placeholder="Search courses, exams, subjects..." value="{{ q }}" onInput="{{ setQ }}"></label>
+              <label class="field" style="flex:none;"><select aria-label="Sort courses" value="{{ sort }}" onChange="{{ setSort }}"><option>Recommended</option><option>A to Z</option><option>Most modules</option></select></label>
+              <button class="btn quiet"><i class="ph ph-sliders-horizontal"></i>Filters</button></div>
+            <div class="chips"><sc-for list="{{ chips }}" as="ch" hint-placeholder-count="5"><button onClick="{{ ch.go }}" aria-pressed="{{ ch.on }}">{{ ch.label }}</button></sc-for></div>
+          </div></sc-if>
+          <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="1">
+            <section style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;"><h2>{{ sec.title }}</h2><span class="t-small" style="flex:1;">{{ sec.note }}</span><span class="t-label">{{ sec.count }}</span></div>
+              <div class="panel rows"><sc-for list="{{ sec.items }}" as="c" hint-placeholder-count="6">
+                <div class="course"><span class="thumb" role="img" aria-label="{{ c.title }}" style="background-image:url('{{ c.img }}');"></span>
+                  <div style="min-width:0;display:flex;flex-direction:column;gap:5px;"><div style="display:flex;align-items:baseline;gap:10px;"><h3 style="min-width:0;">{{ c.title }}</h3><span class="tag {{ c.tagCls }}">{{ c.stLabel }}</span></div><span class="desc">{{ c.desc }}</span>
+                    <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;"><span class="t-small">{{ c.meta }}</span><div class="meter"><span style="width:{{ c.pct }}"></span></div><span class="t-small" style="font-weight:620;">{{ c.pct }}</span></div></div>
+                  <button class="btn quiet small" onClick="{{ c.toggle }}">{{ c.addLabel }}</button></div>
+              </sc-for></div>
+            </section>
+          </sc-for>
+          <sc-if value="{{ noneText }}" hint-placeholder-val="{{ false }}"><div class="panel pad" style="display:flex;flex-direction:column;gap:6px;align-items:flex-start;"><h3>{{ noneTitle }}</h3><span class="t-small">{{ noneText }}</span><sc-if value="{{ noneBtn }}" hint-placeholder-val="{{ false }}"><button class="btn quiet small" onClick="{{ noneGo }}">{{ noneBtn }}</button></sc-if></div></sc-if>
+        </div>
+      </div>
+      <style>@media (max-width:860px){.courses-grid{grid-template-columns:minmax(0,1fr)!important}}</style>
+    </main>
+    <nav class="f-review" aria-label="Sample student">
+      <span>Sample data. Preview as:</span>
+      <sc-for list="{{ asLinks }}" as="a" hint-placeholder-count="3"><a href="{{ a.href }}" aria-current="{{ a.on }}">{{ a.label }}</a></sc-for>
+    </nav>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;railExpanded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+
+const P = 'Stellar F Dark ', THEME = 'dark';
+const AS = ['new', 'lapsed'].includes(new URLSearchParams(location.search).get('as')) ? new URLSearchParams(location.search).get('as') : 'active';
+const STUDENT = {
+  new: { level: 1, rank: 'Novice', xp: 0, next: 10, today: 0, streak: 0, best: 0, coins: 0, freeze: 0, revive: 0, week: 0, last: 0, q: 0, month: 0, time: '0m' },
+  active: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 180, streak: 23, best: 23, coins: 340, freeze: 1, revive: 0, week: 9, last: 6, q: 42, month: 16, time: '11h 20m' },
+  lapsed: { level: 8, rank: 'Analyst', xp: 1240, next: 1700, today: 0, streak: 0, best: 23, coins: 340, freeze: 0, revive: 1, week: 0, last: 9, q: 0, month: 9, time: '11h 20m' }
+}[AS];
+const asLinks = [['new', 'New student'], ['active', 'Active student'], ['lapsed', 'Missed a week']].map(([k, label]) => ({ label, on: String(k === AS), href: encodeURI(location.pathname.split('/').pop()) + '?as=' + k }));
+const UNIT_DATA = [[1, "Limits and Continuity", "10–15%", 16], [2, "Differentiation: Definition and Basic Derivative Rules", "10–15%", 10], [3, "Differentiation: Composite, Implicit, and Inverse Functions", "9–13%", 6], [4, "Contextual Applications of Differentiation", "10–15%", 7], [5, "Analytical Applications of Differentiation", "15–18%", 12], [6, "Integration and Accumulation of Change", "17–20%", 14], [7, "Differential Equations", "6–12%", 9], [8, "Applications of Integration", "10–15%", 7]];
+const UNITS = UNIT_DATA.map(([n, name, w, total], i) => { const done = AS === 'new' ? 0 : [16, 10, 6, 0, 0, 0, 0, 0][i]; return { label: 'Unit ' + n + ': ' + name, w: w + ' of the exam', count: done + ' of ' + total, pct: Math.round(done / total * 100) + '%' }; });
+const REVIEW = [['1.5 Determining Limits Using Algebraic Properties of Limits', 'Last practiced 5 weeks ago'], ['1.9 Connecting Multiple Representations of Limits', 'You missed 2 of 3 on Tuesday'], ['2.5 Applying the Power Rule', 'Last practiced 3 weeks ago']].map(([title, why]) => ({ title, why }));
+const MINE = [['AP® Calculus AB', 'assets/tn-calc-ab.png', '32 of 81 modules', '40%', '203 days until the exam'], ['AP® Biology', 'assets/tn-bio.png', '12 of 63 modules', '19%', 'Added 2 weeks ago'], ['AP® Microeconomics', 'assets/tn-micro.png', '1 of 36 modules', '3%', 'Added this week']].map(([title, img, meta, pct, note]) => ({ title, img, meta, pct, note }));
+const NEXT = AS === 'lapsed' ? { head: 'Pick up with a review', title: REVIEW[0].title, btn: 'Review this module' } : { head: 'Continue where you left off', title: '4.1 Interpreting the Meaning of the Derivative in Context', btn: 'Continue' };
+class Component extends DCLogic {
+  state = { railOpen: null, railHover: false, pop: null, tab: 'browse', q: '', sort: 'Recommended', cat: 'APs', legend: false, added: {} };
+  shell(active, crumb) {
+    const s = this.state, p = this.props;
+    const pinned = s.railOpen ?? (p.railExpanded ?? false);
+    const railOpen = pinned || s.railHover;
+    const LINKS = Object.fromEntries(['Home','Courses','Shop','Leaderboard','Nova'].map(n => [n, P + n + '.dc.html' + location.search]));
+    const nav = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']].map(([label, ic]) => { const on = active === label;
+      return { label, badge: label === 'Nova', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic, bg: on ? 'var(--navOn)' : 'transparent', color: on ? 'var(--acD)' : 'var(--mu)', go: () => { if (!on) location.href = encodeURI(LINKS[label]); } }; });
+    return { railOpen, railW: railOpen ? '240px' : '68px', railSlot: pinned ? '240px' : '68px', nav, crumb: crumb || active,
+      labelOp: railOpen ? 1 : 0, labelX: railOpen ? '0px' : '-6px', plusW: railOpen ? '40px' : '0px', searchGap: railOpen ? '8px' : '0px', searchFlex: railOpen ? '1' : 'none', searchW: railOpen ? 'auto' : '100%', searchJust: railOpen ? 'flex-start' : 'center', searchInGap: railOpen ? '10px' : '0px', searchH: railOpen ? '40px' : '42px', searchPad: railOpen ? '0 12px' : '0', labelDisp: railOpen ? 'inline' : 'none',
+      railShadow: railOpen && !pinned ? '12px 0 32px rgba(20,24,40,0.10)' : 'none',
+      railEnter: () => this.setState({ railHover: true }), railLeave: () => this.setState({ railHover: false }),
+      toggleRail: () => this.setState({ railOpen: !pinned }),
+      openSearch: () => window.dispatchEvent(new Event('stellar-search')), openCreate: e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('stellar-create', { detail: { rect: e.currentTarget.getBoundingClientRect() } })); }, anyPop: !!s.pop, closePops: () => this.setState({ pop: null }), balanceChip: String(STUDENT.coins) };
+  }
+
+  renderVals() {
+    const s = this.state, h = v => this.setState(v);
+    const COURSES = [
+      ['calc', 'AP® Calculus AB', 8, 81, 'Beta', 0, "AP Calculus AB is the first part of AP Calculus, which focuses on students' understanding of calculus concepts.", 'APs', 'math'],
+      ['micro', 'AP® Microeconomics', 6, 36, 'Stable', 0, 'AP Microeconomics is a college-level course that introduces students to the principles of economics.', 'APs', 'flag'],
+      ['macro', 'AP® Macroeconomics', 6, 47, 'Stable', 0, 'AP Macroeconomics is a college-level course that introduces students to the principles that apply to an economic system as a whole.', 'APs', 'flag'],
+      ['phys1', 'AP® Physics 1: Algebra-Based', 8, 45, 'Stable', 0, 'AP Physics 1 is an algebra-based, introductory college-level physics course. Students cultivate their understanding of physics.', 'APs', 'flag'],
+      ['phys2', 'AP® Physics 2: Algebra-Based', 7, 49, 'Stable', 0, 'AP Physics 2 is an algebra-based, introductory college-level physics course. Students cultivate their understanding of physics.', 'APs', 'flag'],
+      ['physc', 'AP® Physics C: Mechanics', 7, 43, 'Stable', 0, 'AP Physics C: Mechanics is a calculus-based, introductory college-level physics course.', 'APs', 'flag'],
+      ['bio', 'AP® Biology', 8, 63, 'Stable', 0, 'AP Biology is an introductory college-level biology course. Students cultivate their understanding of biology.', 'APs', 'flag'],
+      ['csa', 'AP® Computer Science A', 10, 64, 'Stable', 0, 'AP Computer Science A introduces students to computer science through programming.', 'APs', 'flag'],
+      ['csp', 'AP® Computer Science Principles', 6, 36, 'Stable', 0, 'AP Computer Science Principles introduces students to the breadth of the field of computer science.', 'APs', 'flag'],
+      ['ush', 'AP® US History', 9, 86, 'Preview', 0, 'In AP U.S. History, students investigate significant events, individuals, developments, and processes.', 'APs', 'flag'],
+      ['wh', 'AP® World History: Modern', 9, 63, 'Stable', 0, 'In AP World History: Modern, students explore significant events, individuals, developments, and processes.', 'APs', 'flag'],
+    ].map(([key, title, units, modules, status, pct, desc, cat, group]) => { const started = { calc: 32, bio: 12, micro: 1 }, mine = (s.added[key] ?? (AS !== 'new' && key in started)); const done = mine ? (started[key] || 0) : 0;
+      const each = Math.floor(modules / units), list = [...Array(units)].map((_, i) => each + (i < modules % units ? 1 : 0));
+      return { key, title, units, modules, desc, cat, group, mine, stLabel: status, tagCls: status === 'Stable' ? 'ok' : '', img: 'assets/tn-' + (key === 'calc' ? 'calc-ab' : key) + '.png', unitList: list.join(','), done: String(done), pct: Math.round(done / modules * 100) + '%', meta: units + ' units, ' + modules + ' modules', addLabel: mine ? 'Added' : 'Add course', toggle: () => h({ added: { ...s.added, [key]: !mine } }) }; });
+    const q = s.q.trim().toLowerCase();
+    let hits = COURSES.filter(c => c.cat === s.cat && (!q || (c.title + ' ' + c.desc).toLowerCase().includes(q)));
+    if (s.sort === 'A to Z') hits = [...hits].sort((a, b) => a.title.localeCompare(b.title));
+    if (s.sort === 'Most modules') hits = [...hits].sort((a, b) => b.modules - a.modules);
+    const sec = (title, note, items) => ({ title, note, items, count: items.length + (items.length === 1 ? ' course' : ' courses') });
+    const mine = COURSES.filter(c => c.mine);
+    const browse = s.tab === 'browse', my = s.tab === 'mine';
+    const sections = browse ? [sec('Mathematics', '', hits.filter(c => c.group === 'math')), sec('Flagship Courses', 'Our Most Comprehensive and Popular Courses', hits.filter(c => c.group === 'flag'))].filter(x => x.items.length) : my && mine.length ? [sec('My Courses', '', mine)] : [];
+    const ST = [['Building', 'Core features have been developed and available for early testing.'], ['Preview', 'Key tools such as practice and mock exams are available, but lack lesson curriculum.'], ['Beta', 'Curriculum and lesson content are partially available, with ongoing refinements.'], ['Stable', 'The full curriculum is complete, and most tools are fully implemented.'], ['Finished', 'The course is fully polished, with all features, content, and tools complete.']];
+    const none = browse ? (sections.length ? ['', ''] : ['No courses match', 'Try another category or clear the search.']) : my ? (mine.length ? ['', ''] : ["You haven't added a course yet", 'Browse Courses to find your subject. Added courses show up here with your progress.']) : ["You're not in any rooms yet", 'Join your class with the code from your teacher.'];
+    return { ...this.shell('Courses'), theme: THEME, s: STUDENT, asLinks, topPrefix: THEME ? 'Stellar D Dark ' : 'Stellar D ',
+      pageTitle: browse ? 'Browse Courses' : my ? 'My Courses' : 'Rooms', isBrowse: browse, q: s.q, sort: s.sort, setQ: e => h({ q: e.target.value }), setSort: e => h({ sort: e.target.value }),
+      tabs: [['mine', 'My Courses', 'ph ph-books'], ['rooms', 'Rooms', 'ph ph-chalkboard'], ['browse', 'Browse Courses', 'ph ph-book-open']].map(([k, label, icon]) => ({ label, icon, on: String(s.tab === k), go: () => h({ tab: k }) })),
+      chips: ['APs', 'IB', 'SAT', 'Competitions', 'Honors'].map(label => ({ label, on: String(s.cat === label), go: () => h({ cat: label }) })),
+      legendOpen: s.legend, toggleLegend: () => h({ legend: !s.legend }), legend: ST.map(([name, desc]) => ({ name, desc })), sections,
+      noneTitle: none[0], noneText: none[1], noneBtn: my && !mine.length ? 'Browse Courses' : s.tab === 'rooms' ? 'Join with code' : '', noneGo: () => { if (my) h({ tab: 'browse' }); } };
+  }
+}
+</script>
+</body>
+</html>

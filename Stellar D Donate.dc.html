@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/styles.css">
+<script src="_ds/nocturne-8bdd021c-a251-4936-b8da-dc4de67bfe9c/_ds_bundle.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#f5fbff}a{color:#075985;text-decoration:none}a:hover{color:#0c4a6e}button{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #0369a1!important;outline-offset:2px}input::placeholder,textarea::placeholder{color:#8a8f99}@keyframes st-pop{0%{opacity:0;transform:translateY(4px) scale(.7)}50%{opacity:1;transform:translateY(-1px) scale(1.12)}100%{opacity:1;transform:none}}@keyframes st-twinkle{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}@keyframes st-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<div style="--bg:#f5fbff;--chip:#f0f9ff;--chipIc:#0284c7;--cardLn:#e0f2fe;--hdr:#0369a1;--navOn:#cdeafc;--you:#0369a1;--onAc:#ffffff;--ice:#3a9fcc;--iceD:#1d5f80;--iceT:#eef8fc;--sl:#64748b;--slL:#cbd5e1;--lsky:#7dd3fc;--tb0:#f0f9ff;--tb1:#e0f2fe;--tb2:#bae6fd;--tb3:#7dd3fc;--tb4:#38bdf8;--tb5:#0ea5e9;--tb6:#0369a1;--tb7:#075985;--tb8:#0c4a6e;--tb9:#0b3d5c;--tb10:#082f49;--ti0:#0c4a6e;--ti1:#0c4a6e;--ti2:#0c4a6e;--ti3:#0c4a6e;--ti4:#082f49;--ti5:#082f49;--ti6:#ffffff;--ti7:#ffffff;--ti8:#ffffff;--ti9:#ffffff;--ti10:#ffffff;--track:#e2e5ec;--flame:#ea580c;--err:#dc2626;--card:#ffffff;--ink:#1c1f24;--mu:#646a73;--ln:#e8e9ee;--soft:#f4f5f8;--ac:#0369a1;--acD:#075985;--acT:#e0f2fe;--sun:#0ea5e9;--sunD:#075985;--sunT:#e0f2fe;--sky:#0284c7;--skyD:#0369a1;--skyT:#f0f9ff;--lilac:#0891b2;--lilacD:#155e75;--lilacT:#ecfeff;--mint:#0d9488;--mintD:#115e59;--mintT:#f0fdfa;--rail:#eaf5fd;--hov:#e6f1fa;--glass:rgba(20,24,40,0.05);--ln2:#d3d6de;--mu2:#a4a9b2;--acInk:#0c4a6e;--acInk2:#075985;--acH:#075985;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;min-height:100vh;display:flex;">
+  <div style="flex:none;width:{{ railSlot }};transition:width 240ms cubic-bezier(.2,.8,.2,1);position:sticky;top:0;height:100vh;z-index:20;">
+  <aside onMouseEnter="{{ railEnter }}" onMouseLeave="{{ railLeave }}" style="position:absolute;top:0;left:0;height:100%;background:var(--rail);width:{{ railW }};box-shadow:{{ railShadow }};display:flex;flex-direction:column;gap:4px;padding:16px 12px;box-sizing:border-box;border-right:1px solid var(--ln);transition:width 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;margin-bottom:12px;white-space:nowrap;">
+      <img src="assets/stellar-mark-frost.png" alt="" style="width:36px;height:36px;object-fit:contain;flex:none;">
+      <span style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.05;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;">Stellar</span><span style="font-size:13px;font-weight:600;color:var(--acD);">Learning</span></span>
+      <button onClick="{{ toggleRail }}" title="Pin sidebar" aria-label="Pin sidebar" style="flex:none;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--mu);cursor:pointer;opacity:{{ labelOp }};transition:opacity 180ms;" style-hover="background:var(--hov);color:var(--ink);"><i class="ph ph-sidebar-simple" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:{{ searchGap }};margin-bottom:14px;">
+      <button onClick="{{ openSearch }}" title="Search (⌘K)" style="flex:{{ searchFlex }};width:{{ searchW }};min-width:0;box-sizing:border-box;display:flex;align-items:center;justify-content:{{ searchJust }};gap:{{ searchInGap }};height:{{ searchH }};padding:{{ searchPad }};border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--mu);cursor:pointer;font-size:14px;line-height:1;white-space:nowrap;overflow:hidden;" style-hover="border-color:var(--ln2);"><i class="ph ph-magnifying-glass" style="font-size:19px;line-height:1;flex:none;display:block;"></i><span style="flex:1;text-align:left;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">Search</span><span style="font-size:12px;display:{{ labelDisp }};opacity:{{ labelOp }};transition:opacity 180ms;">⌘K</span></button>
+      <button onClick="{{ openCreate }}" title="Create" aria-label="Create" style="flex:none;width:{{ plusW }};height:40px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--ac);color:var(--onAc);cursor:pointer;overflow:hidden;transition:width 240ms cubic-bezier(.2,.8,.2,1), opacity 180ms;opacity:{{ labelOp }};" style-hover="background:var(--acH);"><i class="ph-bold ph-plus" style="font-size:17px;"></i></button>
+    </div>
+    <span style="height:20px;padding:0 11px;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mu);white-space:nowrap;opacity:{{ labelOp }};transition:opacity 180ms;">LEARN</span>
+    <sc-for list="{{ nav }}" as="it" hint-placeholder-count="5">
+      <button onClick="{{ it.go }}" title="{{ it.label }}" style="display:flex;align-items:center;gap:12px;height:42px;padding:0 11px;border:0;border-radius:12px;cursor:pointer;white-space:nowrap;background:{{ it.bg }};color:{{ it.color }};" style-hover="background:var(--hov);color:var(--ink);">
+        <i class="{{ it.icon }}" style="font-size:21px;flex:none;"></i>
+        <span style="flex:1;text-align:left;font-size:15px;font-weight:600;opacity:{{ labelOp }};transform:translateX({{ labelX }});transition:opacity 180ms, transform 240ms cubic-bezier(.2,.8,.2,1);">{{ it.label }}</span>
+        <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:var(--acD);background:var(--acT);padding:2px 8px;border-radius:999px;opacity:{{ labelOp }};transition:opacity 180ms;">Assistant</span></sc-if>
+      </button>
+    </sc-for>
+    <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--ln);">
+      <button title="Alex" style="display:flex;align-items:center;gap:10px;width:100%;height:50px;padding:0 4px;border:0;border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;text-align:left;" style-hover="background:var(--hov);">
+        <span style="width:36px;height:36px;flex:none;border-radius:50%;background:var(--soft);color:var(--mu);display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;">A</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;opacity:{{ labelOp }};transition:opacity 180ms;"><span style="font-size:14px;font-weight:600;">Alex</span><span style="font-size:12px;color:var(--mu);">alex</span></span>
+        <i class="ph ph-caret-up-down" style="color:var(--mu);font-size:15px;opacity:{{ labelOp }};transition:opacity 180ms;"></i>
+      </button>
+    </div>
+  </aside>
+  </div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+    <header style="display:flex;align-items:center;gap:6px;padding:14px clamp(20px,3vw,40px);flex-wrap:wrap;">
+      <span style="font-size:14px;font-weight:600;color:var(--mu);">{{ crumb }}</span>
+      <div style="margin-left:auto;"><dc-import name="StellarTopbar" prefix="Stellar D " balance="{{ balanceChip }}" hint-size="620px,40px"></dc-import></div>
+    </header>
+    <sc-if value="{{ anyPop }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closePops }}" style="position:fixed;inset:0;z-index:9;"></div></sc-if>
+    <main style="width:100%;max-width:1240px;box-sizing:border-box;padding:6px clamp(20px,3vw,40px) 64px;display:flex;flex-direction:column;gap:22px;">
+      <section style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;padding:26px 28px;border-radius:26px;background:var(--acT);">
+        <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:8px;">
+          <span style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--acD);"><i class="ph-fill ph-hand-heart" style="font-size:15px;color:var(--ac);"></i>Support Stellar</span>
+          <h1 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.4vw,36px);font-weight:600;letter-spacing:-0.02em;">Donate</h1>
+          <span style="font-size:15px;line-height:1.5;color:var(--acInk);max-width:620px;text-wrap:pretty;">Stellar is free for every student. Our mission is to make high-quality learning available to anyone, anywhere. Donations keep the servers running and fund new courses. Scientia Potentia Est covers Stellar's operating costs.</span>
+        </div>
+        <nav style="display:flex;gap:2px;padding:4px;border-radius:14px;background:var(--card);">
+          <sc-for list="{{ freqs }}" as="f" hint-placeholder-count="2"><button onClick="{{ f.go }}" style="height:38px;padding:0 18px;border:0;border-radius:10px;background:{{ f.bg }};color:{{ f.color }};font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">{{ f.label }}</button></sc-for>
+        </nav>
+      </section>
+      <div ref="{{ gridRef }}" style="display:grid;grid-template-columns:{{ gridCols }};gap:12px;">
+        <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="5">
+          <div style="grid-column:{{ t.col }};position:relative;display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:20px;min-width:0;background:var(--card);border:{{ t.border }};">
+            <div style="display:flex;align-items:center;gap:8px;min-height:26px;">
+              <span style="display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:12px;background:{{ t.tint }};"><i class="{{ t.icon }}" style="font-size:20px;color:{{ t.color }};"></i></span>
+              <span style="flex:1;"></span>
+              <sc-if value="{{ t.rec }}" hint-placeholder-val="{{ false }}"><span title="Covers Stellar's operating costs" style="display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;border-radius:999px;background:var(--acT);font-size:11px;font-weight:700;color:var(--acD);white-space:nowrap;"><i class="ph-fill ph-star"></i>Recommended</span></sc-if>
+            </div>
+            <span style="display:flex;flex-direction:column;gap:2px;min-height:64px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:600;line-height:1.25;">{{ t.name }}</span><span style="font-size:13px;font-style:italic;color:var(--mu);">{{ t.gloss }}</span></span>
+            <span style="display:flex;align-items:baseline;gap:6px;margin-top:auto;white-space:nowrap;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;">{{ t.price }}</span><span style="font-size:13px;font-weight:600;color:var(--mu);white-space:nowrap;">{{ per }}</span></span>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <button onClick="{{ t.donate }}" style="display:flex;align-items:center;justify-content:center;gap:6px;height:42px;box-sizing:border-box;border:1px solid var(--ac);border-radius:12px;background:{{ t.dBg }};color:{{ t.dInk }};font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="filter:brightness(0.95);"><i class="ph-fill ph-heart"></i>{{ t.donateLabel }}</button>
+              <button onClick="{{ t.ask }}" style="display:flex;align-items:center;justify-content:center;gap:6px;height:42px;border:1px solid var(--ln);border-radius:12px;background:var(--card);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;" style-hover="border-color:var(--ln2);"><i class="{{ t.askIcon }}"></i>{{ t.askLabel }}</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;">
+        <div style="flex:1 1 360px;min-width:0;display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-radius:20px;background:var(--card);border:1px solid var(--ln);">
+          <span style="display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:12px;background:var(--card);"><i class="ph-duotone ph-users" style="font-size:20px;color:var(--chipIc);"></i></span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;"><span style="font-size:15px;font-weight:700;">Ask a parent</span><span style="font-size:13px;line-height:1.5;color:var(--mu);text-wrap:pretty;">No card? Ask Parent creates a link you can send to a parent or guardian. They choose how to pay, and the donation is credited to your account.</span></span>
+        </div>
+        <div style="flex:1 1 360px;min-width:0;display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-radius:20px;border:1px solid var(--ln);background:var(--card);">
+          <span style="display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:12px;background:var(--chip);"><i class="ph-duotone ph-seal-check" style="font-size:20px;color:var(--chipIc);"></i></span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;"><span style="font-size:15px;font-weight:700;">Tax-deductible</span><span style="font-size:13px;line-height:1.5;color:var(--mu);text-wrap:pretty;">Stellar Learning is a 501(c)(3) nonprofit organization, <span style="white-space:nowrap;">EIN 33&#8209;1399385</span>. Donations are tax-deductible to the extent allowed by law.</span></span>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;railExpanded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;balance&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:1000,&quot;step&quot;:50,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { railOpen: null, railHover: false, pop: null, spent: 0, owned: { freeze: 0, revive: 0 }, bump: { freeze: 0, revive: 0 } };
+  shell(active, crumb) {
+    const s = this.state, p = this.props;
+    const pinned = s.railOpen ?? (p.railExpanded ?? false);
+    const railOpen = pinned || s.railHover;
+    const LINKS = {"Home":"Stellar D Home.dc.html","Courses":"Stellar D Courses.dc.html","Shop":"Stellar D Shop.dc.html","Leaderboard":"Stellar D Leaderboard.dc.html","Nova":"Stellar D Nova.dc.html"};
+    const nav = [['Home','house'],['Courses','graduation-cap'],['Shop','storefront'],['Leaderboard','ranking'],['Nova','star-four']].map(([label, ic]) => { const on = active === label;
+      return { label, badge: label === 'Nova', icon: (on ? 'ph-fill ph-' : 'ph ph-') + ic, bg: on ? 'var(--navOn)' : 'transparent', color: on ? 'var(--acD)' : 'var(--mu)', go: () => { if (!on) location.href = encodeURI(LINKS[label]); } }; });
+    return { railOpen, railW: railOpen ? '240px' : '68px', railSlot: pinned ? '240px' : '68px', nav, crumb: crumb || active,
+      labelOp: railOpen ? 1 : 0, labelX: railOpen ? '0px' : '-6px', plusW: railOpen ? '40px' : '0px', searchGap: railOpen ? '8px' : '0px', searchFlex: railOpen ? '1' : 'none', searchW: railOpen ? 'auto' : '100%', searchJust: railOpen ? 'flex-start' : 'center', searchInGap: railOpen ? '10px' : '0px', searchH: railOpen ? '40px' : '42px', searchPad: railOpen ? '0 12px' : '0', labelDisp: railOpen ? 'inline' : 'none',
+      railShadow: railOpen && !pinned ? '12px 0 32px rgba(20,24,40,0.10)' : 'none',
+      railEnter: () => this.setState({ railHover: true }), railLeave: () => this.setState({ railHover: false }),
+      toggleRail: () => this.setState({ railOpen: !pinned }),
+      openSearch: () => window.dispatchEvent(new Event('stellar-search')), openCreate: e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('stellar-create', { detail: { rect: e.currentTarget.getBoundingClientRect() } })); }, anyPop: !!s.pop, closePops: () => this.setState({ pop: null }), balanceChip: '0' };
+  }
+  renderVals() {
+    const s = this.state, freq = s.freq ?? 0, asked = s.asked ?? null, given = s.given ?? null;
+    const T = [['Lux Parva', 'A Small Light', '$1.99', 'ph-duotone ph-lightbulb', 'sun'], ['Aedificamus', 'We Build Up', '$2.99', 'ph-duotone ph-building-office', 'sky'], ['Scientia Potentia Est', 'Knowledge Is Power', '$7.99', 'ph-duotone ph-lightning', 'ac', true], ['Custos Luminis', 'Guardian of the Light', '$14.99', 'ph-duotone ph-shield-star', 'ac'], ['Deus Ex Machina', 'God From the Machine', '$19.99', 'ph-duotone ph-gear-fine', 'mint']];
+    return { ...this.shell('Donate', 'Donate'),
+      freqs: ['Monthly', 'One-Time'].map((label, i) => ({ label, bg: freq === i ? 'var(--ac)' : 'transparent', color: freq === i ? 'var(--onAc)' : 'var(--mu)', go: () => this.setState({ freq: i }) })),
+      per: freq === 0 ? '/ month' : 'once',
+      gridRef: el => { if (el && el !== this.gEl) { this.gEl = el; this.ro && this.ro.disconnect(); this.ro = new ResizeObserver(([e]) => { const w = e.contentRect.width, m = w >= 1000 ? 5 : w >= 560 ? 3 : 1; if (m !== this.state.gm) this.setState({ gm: m }); }); this.ro.observe(el); } },
+      gridCols: (s.gm ?? 5) === 5 ? 'repeat(5,minmax(0,1fr))' : (s.gm === 3 ? 'repeat(6,minmax(0,1fr))' : 'minmax(0,1fr)'),
+      tiers: T.map(([name, gloss, price, icon, c, rec], i) => ({ col: s.gm === 3 ? (i === 3 ? '2 / span 2' : 'span 2') : 'auto', name, gloss, price, icon, rec: !!rec, tint: rec ? 'var(--acT)' : 'var(--chip)', color: rec ? 'var(--ac)' : 'var(--chipIc)', border: rec ? '2px solid var(--ac)' : '1px solid var(--ln)', dBg: rec ? 'var(--ac)' : 'transparent', dInk: rec ? 'var(--onAc)' : 'var(--acD)',
+        donateLabel: given === i ? 'Thank you' : 'Donate', donate: () => this.setState({ given: i }),
+        askLabel: asked === i ? 'Link copied' : 'Ask Parent', askIcon: asked === i ? 'ph-bold ph-check' : 'ph ph-paper-plane-tilt', ask: () => this.setState({ asked: i }) })) };
+  }
+}
+</script>
+</body>
+</html>
