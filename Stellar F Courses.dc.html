@@ -109,6 +109,11 @@ const UNITS = UNIT_DATA.map(([n, name, w, total], i) => { const done = AS === 'n
 const REVIEW = [['1.5 Determining Limits Using Algebraic Properties of Limits', 'Last practiced 5 weeks ago'], ['1.9 Connecting Multiple Representations of Limits', 'You missed 2 of 3 on Tuesday'], ['2.5 Applying the Power Rule', 'Last practiced 3 weeks ago']].map(([title, why]) => ({ title, why }));
 const MINE = [['AP® Calculus AB', 'assets/tn-calc-ab.png', '32 of 81 modules', '40%', '203 days until the exam'], ['AP® Biology', 'assets/tn-bio.png', '12 of 63 modules', '19%', 'Added 2 weeks ago'], ['AP® Microeconomics', 'assets/tn-micro.png', '1 of 36 modules', '3%', 'Added this week']].map(([title, img, meta, pct, note]) => ({ title, img, meta, pct, note }));
 const NEXT = AS === 'lapsed' ? { head: 'Pick up with a review', title: REVIEW[0].title, btn: 'Review this module' } : { head: 'Continue where you left off', title: '4.1 Interpreting the Meaning of the Derivative in Context', btn: 'Continue' };
+const OVERALL = { done: 45, total: 180, pct: '25%', courses: 3 };
+const YOUR = MINE.map((c, i) => ({ ...c, next: ['Next: 4.1 Interpreting the Meaning of the Derivative in Context', 'Next: Unit 2', 'Next: Unit 1'][i] }));
+const NEEDS = [['AP® Calculus AB', '3 modules to review'], ['AP® Biology', '1 module to review']].map(([title, why]) => ({ title, why }));
+const WEEK_XP = AS === 'active' ? [60, 90, 40, 120, 80, 70, 180] : [0, 0, 0, 0, 0, 0, 0];
+const WEEK = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day, i) => ({ day, xp: String(WEEK_XP[i]), h: Math.max(3, WEEK_XP[i] / 180 * 100) + '%' }));
 class Component extends DCLogic {
   state = { railOpen: null, railHover: false, pop: null, tab: 'browse', q: '', sort: 'Recommended', cat: 'APs', legend: false, added: {} };
   shell(active, crumb) {
