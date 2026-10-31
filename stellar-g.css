@@ -202,3 +202,6 @@ st-graph svg { display: block; width: 100%; height: auto; }
 .wk-d small { font-size: 13px; color: var(--mu); }
 .wk-t { width: 100%; height: 96px; display: flex; align-items: flex-end; }
 .wk-t i { display: block; width: 100%; border-radius: 4px 4px 0 0; background: var(--mint); }
+
+/* Keep the page centered on monitors wider than the content. */
+.g-main, .g-head, .g-review { width: 100%; max-width: 1500px; margin-left: auto; margin-right: auto; box-sizing: border-box; }
